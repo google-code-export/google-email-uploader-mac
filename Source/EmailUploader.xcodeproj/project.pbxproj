@@ -1,0 +1,788 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4F1C63C50FABAA9E009B6712 /* MailUploadDoneSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C63C40FABAA9E009B6712 /* MailUploadDoneSound.mp3 */; };
+		4F2133080EDCC3E600C9DC0E /* OutlineViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2133070EDCC3E600C9DC0E /* OutlineViewItem.m */; };
+		4F2133230EDCC56700C9DC0E /* AppleMailItemsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2133220EDCC56700C9DC0E /* AppleMailItemsController.m */; };
+		4F29B8C90ED76F7800657E15 /* GDataEntryMailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29B8C80ED76F7800657E15 /* GDataEntryMailItem.m */; };
+		4F60E33A0FA9386A00DA3D6A /* EmUpUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F60E3390FA9386A00DA3D6A /* EmUpUtilities.m */; };
+		4F72364A0F97DFA000F6EE23 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7236490F97DFA000F6EE23 /* Carbon.framework */; };
+		4FA56ACD0ED64C11001C7ED1 /* EmUpAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56AC90ED64C11001C7ED1 /* EmUpAppController.m */; };
+		4FA56ACE0ED64C11001C7ED1 /* EmUpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56ACA0ED64C11001C7ED1 /* EmUpWindowController.m */; };
+		4FA56AD20ED64C27001C7ED1 /* EmUpWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56AD00ED64C27001C7ED1 /* EmUpWindow.nib */; };
+		4FAC286F0F8693C700BF8EB5 /* MBoxItemsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC286E0F8693C700BF8EB5 /* MBoxItemsController.m */; };
+		4FAC29C10F86C24200BF8EB5 /* EmUpConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC29BF0F86C24200BF8EB5 /* EmUpConstants.m */; };
+		4FB992CE0FB4F1BB00974408 /* GDataOrganizationName.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB992CD0FB4F1BB00974408 /* GDataOrganizationName.m */; };
+		4FE316DA0F82E50800F6BEE2 /* GDataFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3151F0F82E50800F6BEE2 /* GDataFramework.m */; };
+		4FE316DB0F82E50800F6BEE2 /* GDataUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315210F82E50800F6BEE2 /* GDataUtilities.m */; };
+		4FE316DC0F82E50800F6BEE2 /* GDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315250F82E50800F6BEE2 /* GDataObject.m */; };
+		4FE316DD0F82E50800F6BEE2 /* GDataEntryBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315270F82E50800F6BEE2 /* GDataEntryBase.m */; };
+		4FE316DE0F82E50800F6BEE2 /* GDataFeedBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315290F82E50800F6BEE2 /* GDataFeedBase.m */; };
+		4FE316DF0F82E50800F6BEE2 /* GDataQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3152B0F82E50800F6BEE2 /* GDataQuery.m */; };
+		4FE316E00F82E50800F6BEE2 /* GDataServiceBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3152D0F82E50800F6BEE2 /* GDataServiceBase.m */; };
+		4FE316E10F82E50800F6BEE2 /* GDataServiceGoogle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3152F0F82E50800F6BEE2 /* GDataServiceGoogle.m */; };
+		4FE316E20F82E50800F6BEE2 /* GDataBaseElements.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315330F82E50800F6BEE2 /* GDataBaseElements.m */; };
+		4FE316E30F82E50800F6BEE2 /* GDataAtomPubControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315350F82E50800F6BEE2 /* GDataAtomPubControl.m */; };
+		4FE316E40F82E50800F6BEE2 /* GDataLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315370F82E50800F6BEE2 /* GDataLink.m */; };
+		4FE316E50F82E50800F6BEE2 /* GDataPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315390F82E50800F6BEE2 /* GDataPerson.m */; };
+		4FE316E60F82E50800F6BEE2 /* GDataComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3153B0F82E50800F6BEE2 /* GDataComment.m */; };
+		4FE316E70F82E50800F6BEE2 /* GDataEntryLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3153D0F82E50800F6BEE2 /* GDataEntryLink.m */; };
+		4FE316E80F82E50800F6BEE2 /* GDataFeedLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3153F0F82E50800F6BEE2 /* GDataFeedLink.m */; };
+		4FE316E90F82E50800F6BEE2 /* GDataCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315400F82E50800F6BEE2 /* GDataCategory.m */; };
+		4FE316EA0F82E50800F6BEE2 /* GDataDeleted.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315430F82E50800F6BEE2 /* GDataDeleted.m */; };
+		4FE316EB0F82E50800F6BEE2 /* GDataWho.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315440F82E50800F6BEE2 /* GDataWho.m */; };
+		4FE316EC0F82E50800F6BEE2 /* GDataWhere.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315470F82E50800F6BEE2 /* GDataWhere.m */; };
+		4FE316ED0F82E50800F6BEE2 /* GDataWhen.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315490F82E50800F6BEE2 /* GDataWhen.m */; };
+		4FE316EE0F82E50800F6BEE2 /* GDataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3154B0F82E50800F6BEE2 /* GDataGenerator.m */; };
+		4FE316EF0F82E50800F6BEE2 /* GDataMoney.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3154E0F82E50800F6BEE2 /* GDataMoney.m */; };
+		4FE316F00F82E50800F6BEE2 /* GDataTextConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315500F82E50800F6BEE2 /* GDataTextConstruct.m */; };
+		4FE316F10F82E50800F6BEE2 /* GDataValueConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315520F82E50800F6BEE2 /* GDataValueConstruct.m */; };
+		4FE316F20F82E50800F6BEE2 /* GDataExtendedProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315540F82E50800F6BEE2 /* GDataExtendedProperty.m */; };
+		4FE316F30F82E50800F6BEE2 /* GDataEntryContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315560F82E50800F6BEE2 /* GDataEntryContent.m */; };
+		4FE316F40F82E50800F6BEE2 /* GDataEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315580F82E50800F6BEE2 /* GDataEmail.m */; };
+		4FE316F50F82E50800F6BEE2 /* GDataGeoPt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3155A0F82E50800F6BEE2 /* GDataGeoPt.m */; };
+		4FE316F60F82E50800F6BEE2 /* GDataIM.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3155C0F82E50800F6BEE2 /* GDataIM.m */; };
+		4FE316F70F82E50800F6BEE2 /* GDataOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3155E0F82E50800F6BEE2 /* GDataOrganization.m */; };
+		4FE316F80F82E50800F6BEE2 /* GDataPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315600F82E50800F6BEE2 /* GDataPhoneNumber.m */; };
+		4FE316F90F82E50800F6BEE2 /* GDataPostalAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315620F82E50800F6BEE2 /* GDataPostalAddress.m */; };
+		4FE316FA0F82E50800F6BEE2 /* GDataRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315640F82E50800F6BEE2 /* GDataRating.m */; };
+		4FE316FB0F82E50800F6BEE2 /* GDataDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315660F82E50800F6BEE2 /* GDataDateTime.m */; };
+		4FE316FC0F82E50800F6BEE2 /* GDataBatchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315680F82E50800F6BEE2 /* GDataBatchOperation.m */; };
+		4FE316FD0F82E50800F6BEE2 /* GDataBatchID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3156A0F82E50800F6BEE2 /* GDataBatchID.m */; };
+		4FE316FE0F82E50800F6BEE2 /* GDataBatchStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3156C0F82E50800F6BEE2 /* GDataBatchStatus.m */; };
+		4FE316FF0F82E50800F6BEE2 /* GDataBatchInterrupted.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3156E0F82E50800F6BEE2 /* GDataBatchInterrupted.m */; };
+		4FE317000F82E50800F6BEE2 /* GDataHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315710F82E50800F6BEE2 /* GDataHTTPFetcher.m */; };
+		4FE317010F82E50800F6BEE2 /* GDataHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315730F82E50800F6BEE2 /* GDataHTTPFetcherLogging.m */; };
+		4FE317020F82E50800F6BEE2 /* GDataProgressMonitorInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315750F82E50800F6BEE2 /* GDataProgressMonitorInputStream.m */; };
+		4FE317030F82E50800F6BEE2 /* GDataGatherInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315770F82E50800F6BEE2 /* GDataGatherInputStream.m */; };
+		4FE317040F82E50800F6BEE2 /* GDataMIMEDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315790F82E50800F6BEE2 /* GDataMIMEDocument.m */; };
+		4FE317050F82E50800F6BEE2 /* GDataServerError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3157B0F82E50800F6BEE2 /* GDataServerError.m */; };
+		4FE317060F82E50800F6BEE2 /* GDataGeo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3157E0F82E50800F6BEE2 /* GDataGeo.m */; };
+		4FE317070F82E50800F6BEE2 /* GDataNormalPlayTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315810F82E50800F6BEE2 /* GDataNormalPlayTime.m */; };
+		4FE317080F82E50800F6BEE2 /* GDataMediaThumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315830F82E50800F6BEE2 /* GDataMediaThumbnail.m */; };
+		4FE317090F82E50800F6BEE2 /* GDataMediaKeywords.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315850F82E50800F6BEE2 /* GDataMediaKeywords.m */; };
+		4FE3170A0F82E50800F6BEE2 /* GDataMediaGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315870F82E50800F6BEE2 /* GDataMediaGroup.m */; };
+		4FE3170B0F82E50800F6BEE2 /* GDataMediaContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315890F82E50800F6BEE2 /* GDataMediaContent.m */; };
+		4FE3170C0F82E50800F6BEE2 /* GDataMediaCredit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3158B0F82E50800F6BEE2 /* GDataMediaCredit.m */; };
+		4FE3170D0F82E50800F6BEE2 /* GDataMediaCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3158E0F82E50800F6BEE2 /* GDataMediaCategory.m */; };
+		4FE3170E0F82E50800F6BEE2 /* GDataMediaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315900F82E50800F6BEE2 /* GDataMediaPlayer.m */; };
+		4FE3170F0F82E50800F6BEE2 /* GDataMediaRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315920F82E50800F6BEE2 /* GDataMediaRating.m */; };
+		4FE317100F82E50800F6BEE2 /* GDataMediaRestriction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE315940F82E50800F6BEE2 /* GDataMediaRestriction.m */; };
+		4FF4233D0FB0CA0B00C866EB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FF4233B0FB0CA0B00C866EB /* Localizable.strings */; };
+		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4FAB41570BAA193100FBBDC9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4F1C63C40FABAA9E009B6712 /* MailUploadDoneSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MailUploadDoneSound.mp3; sourceTree = "<group>"; };
+		4F2133060EDCC3E600C9DC0E /* OutlineViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineViewItem.h; sourceTree = "<group>"; };
+		4F2133070EDCC3E600C9DC0E /* OutlineViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlineViewItem.m; sourceTree = "<group>"; };
+		4F2133210EDCC56700C9DC0E /* AppleMailItemsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleMailItemsController.h; sourceTree = "<group>"; };
+		4F2133220EDCC56700C9DC0E /* AppleMailItemsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleMailItemsController.m; sourceTree = "<group>"; };
+		4F29B8C80ED76F7800657E15 /* GDataEntryMailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataEntryMailItem.m; sourceTree = "<group>"; };
+		4F29B8CA0ED76F8000657E15 /* GDataEntryMailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataEntryMailItem.h; sourceTree = "<group>"; };
+		4F60E3380FA9386400DA3D6A /* EmUpUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmUpUtilities.h; sourceTree = "<group>"; };
+		4F60E3390FA9386A00DA3D6A /* EmUpUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmUpUtilities.m; sourceTree = "<group>"; };
+		4F7236490F97DFA000F6EE23 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		4FA3BDF10B978D5F001C1943 /* EmailUploader_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = EmailUploader_Prefix.pch; path = BloggerSample_Prefix.pch; sourceTree = "<group>"; };
+		4FA56AC90ED64C11001C7ED1 /* EmUpAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmUpAppController.m; sourceTree = "<group>"; };
+		4FA56ACA0ED64C11001C7ED1 /* EmUpWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmUpWindowController.m; sourceTree = "<group>"; };
+		4FA56ACB0ED64C11001C7ED1 /* EmUpAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmUpAppController.h; sourceTree = "<group>"; };
+		4FA56ACC0ED64C11001C7ED1 /* EmUpWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmUpWindowController.h; sourceTree = "<group>"; };
+		4FA56AD10ED64C27001C7ED1 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/EmUpWindow.nib; sourceTree = "<group>"; };
+		4FAC286E0F8693C700BF8EB5 /* MBoxItemsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBoxItemsController.m; sourceTree = "<group>"; };
+		4FAC28700F8693CE00BF8EB5 /* MBoxItemsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBoxItemsController.h; sourceTree = "<group>"; };
+		4FAC29BF0F86C24200BF8EB5 /* EmUpConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmUpConstants.m; sourceTree = "<group>"; };
+		4FAC29C00F86C24200BF8EB5 /* EmUpConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmUpConstants.h; sourceTree = "<group>"; };
+		4FB992CC0FB4F1B700974408 /* GDataOrganizationName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataOrganizationName.h; path = ../../../../Shared/GData/Source/Elements/GDataOrganizationName.h; sourceTree = SOURCE_ROOT; };
+		4FB992CD0FB4F1BB00974408 /* GDataOrganizationName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataOrganizationName.m; path = ../../../../Shared/GData/Source/Elements/GDataOrganizationName.m; sourceTree = SOURCE_ROOT; };
+		4FE3151C0F82E50800F6BEE2 /* GData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GData.h; path = ../../../../Shared/GData/Source/GData.h; sourceTree = SOURCE_ROOT; };
+		4FE3151D0F82E50800F6BEE2 /* GDataDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataDefines.h; path = ../../../../Shared/GData/Source/GDataDefines.h; sourceTree = SOURCE_ROOT; };
+		4FE3151E0F82E50800F6BEE2 /* GDataFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataFramework.h; path = ../../../../Shared/GData/Source/GDataFramework.h; sourceTree = SOURCE_ROOT; };
+		4FE3151F0F82E50800F6BEE2 /* GDataFramework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataFramework.m; path = ../../../../Shared/GData/Source/GDataFramework.m; sourceTree = SOURCE_ROOT; };
+		4FE315200F82E50800F6BEE2 /* GDataUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataUtilities.h; path = ../../../../Shared/GData/Source/GDataUtilities.h; sourceTree = SOURCE_ROOT; };
+		4FE315210F82E50800F6BEE2 /* GDataUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataUtilities.m; path = ../../../../Shared/GData/Source/GDataUtilities.m; sourceTree = SOURCE_ROOT; };
+		4FE315220F82E50800F6BEE2 /* GDataTargetNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataTargetNamespace.h; path = ../../../../Shared/GData/Source/GDataTargetNamespace.h; sourceTree = SOURCE_ROOT; };
+		4FE315240F82E50800F6BEE2 /* GDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataObject.h; path = ../../../../Shared/GData/Source/BaseClasses/GDataObject.h; sourceTree = SOURCE_ROOT; };
+		4FE315250F82E50800F6BEE2 /* GDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataObject.m; path = ../../../../Shared/GData/Source/BaseClasses/GDataObject.m; sourceTree = SOURCE_ROOT; };
+		4FE315260F82E50800F6BEE2 /* GDataEntryBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataEntryBase.h; path = ../../../../Shared/GData/Source/BaseClasses/GDataEntryBase.h; sourceTree = SOURCE_ROOT; };
+		4FE315270F82E50800F6BEE2 /* GDataEntryBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataEntryBase.m; path = ../../../../Shared/GData/Source/BaseClasses/GDataEntryBase.m; sourceTree = SOURCE_ROOT; };
+		4FE315280F82E50800F6BEE2 /* GDataFeedBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataFeedBase.h; path = ../../../../Shared/GData/Source/BaseClasses/GDataFeedBase.h; sourceTree = SOURCE_ROOT; };
+		4FE315290F82E50800F6BEE2 /* GDataFeedBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataFeedBase.m; path = ../../../../Shared/GData/Source/BaseClasses/GDataFeedBase.m; sourceTree = SOURCE_ROOT; };
+		4FE3152A0F82E50800F6BEE2 /* GDataQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataQuery.h; path = ../../../../Shared/GData/Source/BaseClasses/GDataQuery.h; sourceTree = SOURCE_ROOT; };
+		4FE3152B0F82E50800F6BEE2 /* GDataQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataQuery.m; path = ../../../../Shared/GData/Source/BaseClasses/GDataQuery.m; sourceTree = SOURCE_ROOT; };
+		4FE3152C0F82E50800F6BEE2 /* GDataServiceBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataServiceBase.h; path = ../../../../Shared/GData/Source/BaseClasses/GDataServiceBase.h; sourceTree = SOURCE_ROOT; };
+		4FE3152D0F82E50800F6BEE2 /* GDataServiceBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataServiceBase.m; path = ../../../../Shared/GData/Source/BaseClasses/GDataServiceBase.m; sourceTree = SOURCE_ROOT; };
+		4FE3152E0F82E50800F6BEE2 /* GDataServiceGoogle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataServiceGoogle.h; path = ../../../../Shared/GData/Source/BaseClasses/GDataServiceGoogle.h; sourceTree = SOURCE_ROOT; };
+		4FE3152F0F82E50800F6BEE2 /* GDataServiceGoogle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataServiceGoogle.m; path = ../../../../Shared/GData/Source/BaseClasses/GDataServiceGoogle.m; sourceTree = SOURCE_ROOT; };
+		4FE315310F82E50800F6BEE2 /* GDataElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataElements.h; path = ../../../../Shared/GData/Source/Elements/GDataElements.h; sourceTree = SOURCE_ROOT; };
+		4FE315320F82E50800F6BEE2 /* GDataBaseElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataBaseElements.h; path = ../../../../Shared/GData/Source/Elements/GDataBaseElements.h; sourceTree = SOURCE_ROOT; };
+		4FE315330F82E50800F6BEE2 /* GDataBaseElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataBaseElements.m; path = ../../../../Shared/GData/Source/Elements/GDataBaseElements.m; sourceTree = SOURCE_ROOT; };
+		4FE315340F82E50800F6BEE2 /* GDataAtomPubControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataAtomPubControl.h; path = ../../../../Shared/GData/Source/Elements/GDataAtomPubControl.h; sourceTree = SOURCE_ROOT; };
+		4FE315350F82E50800F6BEE2 /* GDataAtomPubControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataAtomPubControl.m; path = ../../../../Shared/GData/Source/Elements/GDataAtomPubControl.m; sourceTree = SOURCE_ROOT; };
+		4FE315360F82E50800F6BEE2 /* GDataLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataLink.h; path = ../../../../Shared/GData/Source/Elements/GDataLink.h; sourceTree = SOURCE_ROOT; };
+		4FE315370F82E50800F6BEE2 /* GDataLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataLink.m; path = ../../../../Shared/GData/Source/Elements/GDataLink.m; sourceTree = SOURCE_ROOT; };
+		4FE315380F82E50800F6BEE2 /* GDataPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataPerson.h; path = ../../../../Shared/GData/Source/Elements/GDataPerson.h; sourceTree = SOURCE_ROOT; };
+		4FE315390F82E50800F6BEE2 /* GDataPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataPerson.m; path = ../../../../Shared/GData/Source/Elements/GDataPerson.m; sourceTree = SOURCE_ROOT; };
+		4FE3153A0F82E50800F6BEE2 /* GDataComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataComment.h; path = ../../../../Shared/GData/Source/Elements/GDataComment.h; sourceTree = SOURCE_ROOT; };
+		4FE3153B0F82E50800F6BEE2 /* GDataComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataComment.m; path = ../../../../Shared/GData/Source/Elements/GDataComment.m; sourceTree = SOURCE_ROOT; };
+		4FE3153C0F82E50800F6BEE2 /* GDataEntryLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataEntryLink.h; path = ../../../../Shared/GData/Source/Elements/GDataEntryLink.h; sourceTree = SOURCE_ROOT; };
+		4FE3153D0F82E50800F6BEE2 /* GDataEntryLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataEntryLink.m; path = ../../../../Shared/GData/Source/Elements/GDataEntryLink.m; sourceTree = SOURCE_ROOT; };
+		4FE3153E0F82E50800F6BEE2 /* GDataFeedLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataFeedLink.h; path = ../../../../Shared/GData/Source/Elements/GDataFeedLink.h; sourceTree = SOURCE_ROOT; };
+		4FE3153F0F82E50800F6BEE2 /* GDataFeedLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataFeedLink.m; path = ../../../../Shared/GData/Source/Elements/GDataFeedLink.m; sourceTree = SOURCE_ROOT; };
+		4FE315400F82E50800F6BEE2 /* GDataCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataCategory.m; path = ../../../../Shared/GData/Source/Elements/GDataCategory.m; sourceTree = SOURCE_ROOT; };
+		4FE315410F82E50800F6BEE2 /* GDataCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataCategory.h; path = ../../../../Shared/GData/Source/Elements/GDataCategory.h; sourceTree = SOURCE_ROOT; };
+		4FE315420F82E50800F6BEE2 /* GDataDeleted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataDeleted.h; path = ../../../../Shared/GData/Source/Elements/GDataDeleted.h; sourceTree = SOURCE_ROOT; };
+		4FE315430F82E50800F6BEE2 /* GDataDeleted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataDeleted.m; path = ../../../../Shared/GData/Source/Elements/GDataDeleted.m; sourceTree = SOURCE_ROOT; };
+		4FE315440F82E50800F6BEE2 /* GDataWho.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataWho.m; path = ../../../../Shared/GData/Source/Elements/GDataWho.m; sourceTree = SOURCE_ROOT; };
+		4FE315450F82E50800F6BEE2 /* GDataWho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataWho.h; path = ../../../../Shared/GData/Source/Elements/GDataWho.h; sourceTree = SOURCE_ROOT; };
+		4FE315460F82E50800F6BEE2 /* GDataWhere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataWhere.h; path = ../../../../Shared/GData/Source/Elements/GDataWhere.h; sourceTree = SOURCE_ROOT; };
+		4FE315470F82E50800F6BEE2 /* GDataWhere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataWhere.m; path = ../../../../Shared/GData/Source/Elements/GDataWhere.m; sourceTree = SOURCE_ROOT; };
+		4FE315480F82E50800F6BEE2 /* GDataWhen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataWhen.h; path = ../../../../Shared/GData/Source/Elements/GDataWhen.h; sourceTree = SOURCE_ROOT; };
+		4FE315490F82E50800F6BEE2 /* GDataWhen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataWhen.m; path = ../../../../Shared/GData/Source/Elements/GDataWhen.m; sourceTree = SOURCE_ROOT; };
+		4FE3154A0F82E50800F6BEE2 /* GDataWhere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataWhere.h; path = ../../../../Shared/GData/Source/Elements/GDataWhere.h; sourceTree = SOURCE_ROOT; };
+		4FE3154B0F82E50800F6BEE2 /* GDataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataGenerator.m; path = ../../../../Shared/GData/Source/Elements/GDataGenerator.m; sourceTree = SOURCE_ROOT; };
+		4FE3154C0F82E50800F6BEE2 /* GDataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataGenerator.h; path = ../../../../Shared/GData/Source/Elements/GDataGenerator.h; sourceTree = SOURCE_ROOT; };
+		4FE3154D0F82E50800F6BEE2 /* GDataMoney.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMoney.h; path = ../../../../Shared/GData/Source/Elements/GDataMoney.h; sourceTree = SOURCE_ROOT; };
+		4FE3154E0F82E50800F6BEE2 /* GDataMoney.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMoney.m; path = ../../../../Shared/GData/Source/Elements/GDataMoney.m; sourceTree = SOURCE_ROOT; };
+		4FE3154F0F82E50800F6BEE2 /* GDataTextConstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataTextConstruct.h; path = ../../../../Shared/GData/Source/Elements/GDataTextConstruct.h; sourceTree = SOURCE_ROOT; };
+		4FE315500F82E50800F6BEE2 /* GDataTextConstruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataTextConstruct.m; path = ../../../../Shared/GData/Source/Elements/GDataTextConstruct.m; sourceTree = SOURCE_ROOT; };
+		4FE315510F82E50800F6BEE2 /* GDataValueConstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataValueConstruct.h; path = ../../../../Shared/GData/Source/Elements/GDataValueConstruct.h; sourceTree = SOURCE_ROOT; };
+		4FE315520F82E50800F6BEE2 /* GDataValueConstruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataValueConstruct.m; path = ../../../../Shared/GData/Source/Elements/GDataValueConstruct.m; sourceTree = SOURCE_ROOT; };
+		4FE315530F82E50800F6BEE2 /* GDataExtendedProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataExtendedProperty.h; path = ../../../../Shared/GData/Source/Elements/GDataExtendedProperty.h; sourceTree = SOURCE_ROOT; };
+		4FE315540F82E50800F6BEE2 /* GDataExtendedProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataExtendedProperty.m; path = ../../../../Shared/GData/Source/Elements/GDataExtendedProperty.m; sourceTree = SOURCE_ROOT; };
+		4FE315550F82E50800F6BEE2 /* GDataEntryContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataEntryContent.h; path = ../../../../Shared/GData/Source/Elements/GDataEntryContent.h; sourceTree = SOURCE_ROOT; };
+		4FE315560F82E50800F6BEE2 /* GDataEntryContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataEntryContent.m; path = ../../../../Shared/GData/Source/Elements/GDataEntryContent.m; sourceTree = SOURCE_ROOT; };
+		4FE315570F82E50800F6BEE2 /* GDataEmail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataEmail.h; path = ../../../../Shared/GData/Source/Elements/GDataEmail.h; sourceTree = SOURCE_ROOT; };
+		4FE315580F82E50800F6BEE2 /* GDataEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataEmail.m; path = ../../../../Shared/GData/Source/Elements/GDataEmail.m; sourceTree = SOURCE_ROOT; };
+		4FE315590F82E50800F6BEE2 /* GDataGeoPt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataGeoPt.h; path = ../../../../Shared/GData/Source/Elements/GDataGeoPt.h; sourceTree = SOURCE_ROOT; };
+		4FE3155A0F82E50800F6BEE2 /* GDataGeoPt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataGeoPt.m; path = ../../../../Shared/GData/Source/Elements/GDataGeoPt.m; sourceTree = SOURCE_ROOT; };
+		4FE3155B0F82E50800F6BEE2 /* GDataIM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataIM.h; path = ../../../../Shared/GData/Source/Elements/GDataIM.h; sourceTree = SOURCE_ROOT; };
+		4FE3155C0F82E50800F6BEE2 /* GDataIM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataIM.m; path = ../../../../Shared/GData/Source/Elements/GDataIM.m; sourceTree = SOURCE_ROOT; };
+		4FE3155D0F82E50800F6BEE2 /* GDataOrganization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataOrganization.h; path = ../../../../Shared/GData/Source/Elements/GDataOrganization.h; sourceTree = SOURCE_ROOT; };
+		4FE3155E0F82E50800F6BEE2 /* GDataOrganization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataOrganization.m; path = ../../../../Shared/GData/Source/Elements/GDataOrganization.m; sourceTree = SOURCE_ROOT; };
+		4FE3155F0F82E50800F6BEE2 /* GDataPhoneNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataPhoneNumber.h; path = ../../../../Shared/GData/Source/Elements/GDataPhoneNumber.h; sourceTree = SOURCE_ROOT; };
+		4FE315600F82E50800F6BEE2 /* GDataPhoneNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataPhoneNumber.m; path = ../../../../Shared/GData/Source/Elements/GDataPhoneNumber.m; sourceTree = SOURCE_ROOT; };
+		4FE315610F82E50800F6BEE2 /* GDataPostalAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataPostalAddress.h; path = ../../../../Shared/GData/Source/Elements/GDataPostalAddress.h; sourceTree = SOURCE_ROOT; };
+		4FE315620F82E50800F6BEE2 /* GDataPostalAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataPostalAddress.m; path = ../../../../Shared/GData/Source/Elements/GDataPostalAddress.m; sourceTree = SOURCE_ROOT; };
+		4FE315630F82E50800F6BEE2 /* GDataRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataRating.h; path = ../../../../Shared/GData/Source/Elements/GDataRating.h; sourceTree = SOURCE_ROOT; };
+		4FE315640F82E50800F6BEE2 /* GDataRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataRating.m; path = ../../../../Shared/GData/Source/Elements/GDataRating.m; sourceTree = SOURCE_ROOT; };
+		4FE315650F82E50800F6BEE2 /* GDataDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataDateTime.h; path = ../../../../Shared/GData/Source/Elements/GDataDateTime.h; sourceTree = SOURCE_ROOT; };
+		4FE315660F82E50800F6BEE2 /* GDataDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataDateTime.m; path = ../../../../Shared/GData/Source/Elements/GDataDateTime.m; sourceTree = SOURCE_ROOT; };
+		4FE315670F82E50800F6BEE2 /* GDataBatchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataBatchOperation.h; path = ../../../../Shared/GData/Source/Elements/GDataBatchOperation.h; sourceTree = SOURCE_ROOT; };
+		4FE315680F82E50800F6BEE2 /* GDataBatchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataBatchOperation.m; path = ../../../../Shared/GData/Source/Elements/GDataBatchOperation.m; sourceTree = SOURCE_ROOT; };
+		4FE315690F82E50800F6BEE2 /* GDataBatchID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataBatchID.h; path = ../../../../Shared/GData/Source/Elements/GDataBatchID.h; sourceTree = SOURCE_ROOT; };
+		4FE3156A0F82E50800F6BEE2 /* GDataBatchID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataBatchID.m; path = ../../../../Shared/GData/Source/Elements/GDataBatchID.m; sourceTree = SOURCE_ROOT; };
+		4FE3156B0F82E50800F6BEE2 /* GDataBatchStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataBatchStatus.h; path = ../../../../Shared/GData/Source/Elements/GDataBatchStatus.h; sourceTree = SOURCE_ROOT; };
+		4FE3156C0F82E50800F6BEE2 /* GDataBatchStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataBatchStatus.m; path = ../../../../Shared/GData/Source/Elements/GDataBatchStatus.m; sourceTree = SOURCE_ROOT; };
+		4FE3156D0F82E50800F6BEE2 /* GDataBatchInterrupted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataBatchInterrupted.h; path = ../../../../Shared/GData/Source/Elements/GDataBatchInterrupted.h; sourceTree = SOURCE_ROOT; };
+		4FE3156E0F82E50800F6BEE2 /* GDataBatchInterrupted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataBatchInterrupted.m; path = ../../../../Shared/GData/Source/Elements/GDataBatchInterrupted.m; sourceTree = SOURCE_ROOT; };
+		4FE315700F82E50800F6BEE2 /* GDataHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataHTTPFetcher.h; path = ../../../../Shared/GData/Source/Networking/GDataHTTPFetcher.h; sourceTree = SOURCE_ROOT; };
+		4FE315710F82E50800F6BEE2 /* GDataHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataHTTPFetcher.m; path = ../../../../Shared/GData/Source/Networking/GDataHTTPFetcher.m; sourceTree = SOURCE_ROOT; };
+		4FE315720F82E50800F6BEE2 /* GDataHTTPFetcherLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataHTTPFetcherLogging.h; path = ../../../../Shared/GData/Source/Networking/GDataHTTPFetcherLogging.h; sourceTree = SOURCE_ROOT; };
+		4FE315730F82E50800F6BEE2 /* GDataHTTPFetcherLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataHTTPFetcherLogging.m; path = ../../../../Shared/GData/Source/Networking/GDataHTTPFetcherLogging.m; sourceTree = SOURCE_ROOT; };
+		4FE315740F82E50800F6BEE2 /* GDataProgressMonitorInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataProgressMonitorInputStream.h; path = ../../../../Shared/GData/Source/Networking/GDataProgressMonitorInputStream.h; sourceTree = SOURCE_ROOT; };
+		4FE315750F82E50800F6BEE2 /* GDataProgressMonitorInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataProgressMonitorInputStream.m; path = ../../../../Shared/GData/Source/Networking/GDataProgressMonitorInputStream.m; sourceTree = SOURCE_ROOT; };
+		4FE315760F82E50800F6BEE2 /* GDataGatherInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataGatherInputStream.h; path = ../../../../Shared/GData/Source/Networking/GDataGatherInputStream.h; sourceTree = SOURCE_ROOT; };
+		4FE315770F82E50800F6BEE2 /* GDataGatherInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataGatherInputStream.m; path = ../../../../Shared/GData/Source/Networking/GDataGatherInputStream.m; sourceTree = SOURCE_ROOT; };
+		4FE315780F82E50800F6BEE2 /* GDataMIMEDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMIMEDocument.h; path = ../../../../Shared/GData/Source/Networking/GDataMIMEDocument.h; sourceTree = SOURCE_ROOT; };
+		4FE315790F82E50800F6BEE2 /* GDataMIMEDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMIMEDocument.m; path = ../../../../Shared/GData/Source/Networking/GDataMIMEDocument.m; sourceTree = SOURCE_ROOT; };
+		4FE3157A0F82E50800F6BEE2 /* GDataServerError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataServerError.h; path = ../../../../Shared/GData/Source/Networking/GDataServerError.h; sourceTree = SOURCE_ROOT; };
+		4FE3157B0F82E50800F6BEE2 /* GDataServerError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataServerError.m; path = ../../../../Shared/GData/Source/Networking/GDataServerError.m; sourceTree = SOURCE_ROOT; };
+		4FE3157D0F82E50800F6BEE2 /* GDataGeo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataGeo.h; path = ../../../../Shared/GData/Source/Geo/GDataGeo.h; sourceTree = SOURCE_ROOT; };
+		4FE3157E0F82E50800F6BEE2 /* GDataGeo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataGeo.m; path = ../../../../Shared/GData/Source/Geo/GDataGeo.m; sourceTree = SOURCE_ROOT; };
+		4FE315800F82E50800F6BEE2 /* GDataMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMedia.h; path = ../../../../Shared/GData/Source/Media/GDataMedia.h; sourceTree = SOURCE_ROOT; };
+		4FE315810F82E50800F6BEE2 /* GDataNormalPlayTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataNormalPlayTime.m; path = ../../../../Shared/GData/Source/Media/GDataNormalPlayTime.m; sourceTree = SOURCE_ROOT; };
+		4FE315820F82E50800F6BEE2 /* GDataNormalPlayTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataNormalPlayTime.h; path = ../../../../Shared/GData/Source/Media/GDataNormalPlayTime.h; sourceTree = SOURCE_ROOT; };
+		4FE315830F82E50800F6BEE2 /* GDataMediaThumbnail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMediaThumbnail.m; path = ../../../../Shared/GData/Source/Media/GDataMediaThumbnail.m; sourceTree = SOURCE_ROOT; };
+		4FE315840F82E50800F6BEE2 /* GDataMediaThumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMediaThumbnail.h; path = ../../../../Shared/GData/Source/Media/GDataMediaThumbnail.h; sourceTree = SOURCE_ROOT; };
+		4FE315850F82E50800F6BEE2 /* GDataMediaKeywords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMediaKeywords.m; path = ../../../../Shared/GData/Source/Media/GDataMediaKeywords.m; sourceTree = SOURCE_ROOT; };
+		4FE315860F82E50800F6BEE2 /* GDataMediaKeywords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMediaKeywords.h; path = ../../../../Shared/GData/Source/Media/GDataMediaKeywords.h; sourceTree = SOURCE_ROOT; };
+		4FE315870F82E50800F6BEE2 /* GDataMediaGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMediaGroup.m; path = ../../../../Shared/GData/Source/Media/GDataMediaGroup.m; sourceTree = SOURCE_ROOT; };
+		4FE315880F82E50800F6BEE2 /* GDataMediaGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMediaGroup.h; path = ../../../../Shared/GData/Source/Media/GDataMediaGroup.h; sourceTree = SOURCE_ROOT; };
+		4FE315890F82E50800F6BEE2 /* GDataMediaContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMediaContent.m; path = ../../../../Shared/GData/Source/Media/GDataMediaContent.m; sourceTree = SOURCE_ROOT; };
+		4FE3158A0F82E50800F6BEE2 /* GDataMediaContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMediaContent.h; path = ../../../../Shared/GData/Source/Media/GDataMediaContent.h; sourceTree = SOURCE_ROOT; };
+		4FE3158B0F82E50800F6BEE2 /* GDataMediaCredit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMediaCredit.m; path = ../../../../Shared/GData/Source/Media/GDataMediaCredit.m; sourceTree = SOURCE_ROOT; };
+		4FE3158C0F82E50800F6BEE2 /* GDataMediaCredit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMediaCredit.h; path = ../../../../Shared/GData/Source/Media/GDataMediaCredit.h; sourceTree = SOURCE_ROOT; };
+		4FE3158D0F82E50800F6BEE2 /* GDataMediaCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMediaCategory.h; path = ../../../../Shared/GData/Source/Media/GDataMediaCategory.h; sourceTree = SOURCE_ROOT; };
+		4FE3158E0F82E50800F6BEE2 /* GDataMediaCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMediaCategory.m; path = ../../../../Shared/GData/Source/Media/GDataMediaCategory.m; sourceTree = SOURCE_ROOT; };
+		4FE3158F0F82E50800F6BEE2 /* GDataMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMediaPlayer.h; path = ../../../../Shared/GData/Source/Media/GDataMediaPlayer.h; sourceTree = SOURCE_ROOT; };
+		4FE315900F82E50800F6BEE2 /* GDataMediaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMediaPlayer.m; path = ../../../../Shared/GData/Source/Media/GDataMediaPlayer.m; sourceTree = SOURCE_ROOT; };
+		4FE315910F82E50800F6BEE2 /* GDataMediaRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMediaRating.h; path = ../../../../Shared/GData/Source/Media/GDataMediaRating.h; sourceTree = SOURCE_ROOT; };
+		4FE315920F82E50800F6BEE2 /* GDataMediaRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMediaRating.m; path = ../../../../Shared/GData/Source/Media/GDataMediaRating.m; sourceTree = SOURCE_ROOT; };
+		4FE315930F82E50800F6BEE2 /* GDataMediaRestriction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMediaRestriction.h; path = ../../../../Shared/GData/Source/Media/GDataMediaRestriction.h; sourceTree = SOURCE_ROOT; };
+		4FE315940F82E50800F6BEE2 /* GDataMediaRestriction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMediaRestriction.m; path = ../../../../Shared/GData/Source/Media/GDataMediaRestriction.m; sourceTree = SOURCE_ROOT; };
+		4FF4233C0FB0CA0B00C866EB /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* Google Email Uploader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Google Email Uploader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				4F72364A0F97DFA000F6EE23 /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4FE3150E0F82E50800F6BEE2 /* GData Sources */,
+				4FA56ACC0ED64C11001C7ED1 /* EmUpWindowController.h */,
+				4FA56ACA0ED64C11001C7ED1 /* EmUpWindowController.m */,
+				4F2133060EDCC3E600C9DC0E /* OutlineViewItem.h */,
+				4F2133070EDCC3E600C9DC0E /* OutlineViewItem.m */,
+				4F2133210EDCC56700C9DC0E /* AppleMailItemsController.h */,
+				4F2133220EDCC56700C9DC0E /* AppleMailItemsController.m */,
+				4FAC28700F8693CE00BF8EB5 /* MBoxItemsController.h */,
+				4FAC286E0F8693C700BF8EB5 /* MBoxItemsController.m */,
+				4F29B8CA0ED76F8000657E15 /* GDataEntryMailItem.h */,
+				4F29B8C80ED76F7800657E15 /* GDataEntryMailItem.m */,
+				4FA56ACB0ED64C11001C7ED1 /* EmUpAppController.h */,
+				4FA56AC90ED64C11001C7ED1 /* EmUpAppController.m */,
+				4F60E3380FA9386400DA3D6A /* EmUpUtilities.h */,
+				4F60E3390FA9386A00DA3D6A /* EmUpUtilities.m */,
+				4FAC29C00F86C24200BF8EB5 /* EmUpConstants.h */,
+				4FAC29BF0F86C24200BF8EB5 /* EmUpConstants.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4F7236490F97DFA000F6EE23 /* Carbon.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* Google Email Uploader.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CalendarSample */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CalendarSample;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4FA3BDF10B978D5F001C1943 /* EmailUploader_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4F1C63C40FABAA9E009B6712 /* MailUploadDoneSound.mp3 */,
+				4FA56AD00ED64C27001C7ED1 /* EmUpWindow.nib */,
+				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				4FF4233B0FB0CA0B00C866EB /* Localizable.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4FE3150E0F82E50800F6BEE2 /* GData Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4FE3151B0F82E50800F6BEE2 /* Common */,
+			);
+			name = "GData Sources";
+			sourceTree = "<group>";
+		};
+		4FE3151B0F82E50800F6BEE2 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4FE3157F0F82E50800F6BEE2 /* Media (for Photos and YouTube) */,
+				4FE3157C0F82E50800F6BEE2 /* Geo */,
+				4FE3156F0F82E50800F6BEE2 /* Networking */,
+				4FE315300F82E50800F6BEE2 /* Elements */,
+				4FE315230F82E50800F6BEE2 /* BaseClasses */,
+				4FE3151C0F82E50800F6BEE2 /* GData.h */,
+				4FE3151D0F82E50800F6BEE2 /* GDataDefines.h */,
+				4FE3151E0F82E50800F6BEE2 /* GDataFramework.h */,
+				4FE3151F0F82E50800F6BEE2 /* GDataFramework.m */,
+				4FE315200F82E50800F6BEE2 /* GDataUtilities.h */,
+				4FE315210F82E50800F6BEE2 /* GDataUtilities.m */,
+				4FE315220F82E50800F6BEE2 /* GDataTargetNamespace.h */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		4FE315230F82E50800F6BEE2 /* BaseClasses */ = {
+			isa = PBXGroup;
+			children = (
+				4FE315240F82E50800F6BEE2 /* GDataObject.h */,
+				4FE315250F82E50800F6BEE2 /* GDataObject.m */,
+				4FE315260F82E50800F6BEE2 /* GDataEntryBase.h */,
+				4FE315270F82E50800F6BEE2 /* GDataEntryBase.m */,
+				4FE315280F82E50800F6BEE2 /* GDataFeedBase.h */,
+				4FE315290F82E50800F6BEE2 /* GDataFeedBase.m */,
+				4FE3152A0F82E50800F6BEE2 /* GDataQuery.h */,
+				4FE3152B0F82E50800F6BEE2 /* GDataQuery.m */,
+				4FE3152C0F82E50800F6BEE2 /* GDataServiceBase.h */,
+				4FE3152D0F82E50800F6BEE2 /* GDataServiceBase.m */,
+				4FE3152E0F82E50800F6BEE2 /* GDataServiceGoogle.h */,
+				4FE3152F0F82E50800F6BEE2 /* GDataServiceGoogle.m */,
+			);
+			name = BaseClasses;
+			sourceTree = "<group>";
+		};
+		4FE315300F82E50800F6BEE2 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				4FE315310F82E50800F6BEE2 /* GDataElements.h */,
+				4FE315320F82E50800F6BEE2 /* GDataBaseElements.h */,
+				4FE315330F82E50800F6BEE2 /* GDataBaseElements.m */,
+				4FE315340F82E50800F6BEE2 /* GDataAtomPubControl.h */,
+				4FE315350F82E50800F6BEE2 /* GDataAtomPubControl.m */,
+				4FE315360F82E50800F6BEE2 /* GDataLink.h */,
+				4FE315370F82E50800F6BEE2 /* GDataLink.m */,
+				4FE315380F82E50800F6BEE2 /* GDataPerson.h */,
+				4FE315390F82E50800F6BEE2 /* GDataPerson.m */,
+				4FE3153A0F82E50800F6BEE2 /* GDataComment.h */,
+				4FE3153B0F82E50800F6BEE2 /* GDataComment.m */,
+				4FE3153C0F82E50800F6BEE2 /* GDataEntryLink.h */,
+				4FE3153D0F82E50800F6BEE2 /* GDataEntryLink.m */,
+				4FE3153E0F82E50800F6BEE2 /* GDataFeedLink.h */,
+				4FE3153F0F82E50800F6BEE2 /* GDataFeedLink.m */,
+				4FE315400F82E50800F6BEE2 /* GDataCategory.m */,
+				4FE315410F82E50800F6BEE2 /* GDataCategory.h */,
+				4FE315420F82E50800F6BEE2 /* GDataDeleted.h */,
+				4FE315430F82E50800F6BEE2 /* GDataDeleted.m */,
+				4FE315440F82E50800F6BEE2 /* GDataWho.m */,
+				4FE315450F82E50800F6BEE2 /* GDataWho.h */,
+				4FE315460F82E50800F6BEE2 /* GDataWhere.h */,
+				4FE315470F82E50800F6BEE2 /* GDataWhere.m */,
+				4FE315480F82E50800F6BEE2 /* GDataWhen.h */,
+				4FE315490F82E50800F6BEE2 /* GDataWhen.m */,
+				4FE3154A0F82E50800F6BEE2 /* GDataWhere.h */,
+				4FE3154B0F82E50800F6BEE2 /* GDataGenerator.m */,
+				4FE3154C0F82E50800F6BEE2 /* GDataGenerator.h */,
+				4FE3154D0F82E50800F6BEE2 /* GDataMoney.h */,
+				4FE3154E0F82E50800F6BEE2 /* GDataMoney.m */,
+				4FE3154F0F82E50800F6BEE2 /* GDataTextConstruct.h */,
+				4FE315500F82E50800F6BEE2 /* GDataTextConstruct.m */,
+				4FE315510F82E50800F6BEE2 /* GDataValueConstruct.h */,
+				4FE315520F82E50800F6BEE2 /* GDataValueConstruct.m */,
+				4FE315530F82E50800F6BEE2 /* GDataExtendedProperty.h */,
+				4FE315540F82E50800F6BEE2 /* GDataExtendedProperty.m */,
+				4FE315550F82E50800F6BEE2 /* GDataEntryContent.h */,
+				4FE315560F82E50800F6BEE2 /* GDataEntryContent.m */,
+				4FE315570F82E50800F6BEE2 /* GDataEmail.h */,
+				4FE315580F82E50800F6BEE2 /* GDataEmail.m */,
+				4FE315590F82E50800F6BEE2 /* GDataGeoPt.h */,
+				4FE3155A0F82E50800F6BEE2 /* GDataGeoPt.m */,
+				4FE3155B0F82E50800F6BEE2 /* GDataIM.h */,
+				4FE3155C0F82E50800F6BEE2 /* GDataIM.m */,
+				4FE3155D0F82E50800F6BEE2 /* GDataOrganization.h */,
+				4FE3155E0F82E50800F6BEE2 /* GDataOrganization.m */,
+				4FB992CC0FB4F1B700974408 /* GDataOrganizationName.h */,
+				4FB992CD0FB4F1BB00974408 /* GDataOrganizationName.m */,
+				4FE3155F0F82E50800F6BEE2 /* GDataPhoneNumber.h */,
+				4FE315600F82E50800F6BEE2 /* GDataPhoneNumber.m */,
+				4FE315610F82E50800F6BEE2 /* GDataPostalAddress.h */,
+				4FE315620F82E50800F6BEE2 /* GDataPostalAddress.m */,
+				4FE315630F82E50800F6BEE2 /* GDataRating.h */,
+				4FE315640F82E50800F6BEE2 /* GDataRating.m */,
+				4FE315650F82E50800F6BEE2 /* GDataDateTime.h */,
+				4FE315660F82E50800F6BEE2 /* GDataDateTime.m */,
+				4FE315670F82E50800F6BEE2 /* GDataBatchOperation.h */,
+				4FE315680F82E50800F6BEE2 /* GDataBatchOperation.m */,
+				4FE315690F82E50800F6BEE2 /* GDataBatchID.h */,
+				4FE3156A0F82E50800F6BEE2 /* GDataBatchID.m */,
+				4FE3156B0F82E50800F6BEE2 /* GDataBatchStatus.h */,
+				4FE3156C0F82E50800F6BEE2 /* GDataBatchStatus.m */,
+				4FE3156D0F82E50800F6BEE2 /* GDataBatchInterrupted.h */,
+				4FE3156E0F82E50800F6BEE2 /* GDataBatchInterrupted.m */,
+			);
+			name = Elements;
+			sourceTree = "<group>";
+		};
+		4FE3156F0F82E50800F6BEE2 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				4FE315700F82E50800F6BEE2 /* GDataHTTPFetcher.h */,
+				4FE315710F82E50800F6BEE2 /* GDataHTTPFetcher.m */,
+				4FE315720F82E50800F6BEE2 /* GDataHTTPFetcherLogging.h */,
+				4FE315730F82E50800F6BEE2 /* GDataHTTPFetcherLogging.m */,
+				4FE315740F82E50800F6BEE2 /* GDataProgressMonitorInputStream.h */,
+				4FE315750F82E50800F6BEE2 /* GDataProgressMonitorInputStream.m */,
+				4FE315760F82E50800F6BEE2 /* GDataGatherInputStream.h */,
+				4FE315770F82E50800F6BEE2 /* GDataGatherInputStream.m */,
+				4FE315780F82E50800F6BEE2 /* GDataMIMEDocument.h */,
+				4FE315790F82E50800F6BEE2 /* GDataMIMEDocument.m */,
+				4FE3157A0F82E50800F6BEE2 /* GDataServerError.h */,
+				4FE3157B0F82E50800F6BEE2 /* GDataServerError.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		4FE3157C0F82E50800F6BEE2 /* Geo */ = {
+			isa = PBXGroup;
+			children = (
+				4FE3157D0F82E50800F6BEE2 /* GDataGeo.h */,
+				4FE3157E0F82E50800F6BEE2 /* GDataGeo.m */,
+			);
+			name = Geo;
+			sourceTree = "<group>";
+		};
+		4FE3157F0F82E50800F6BEE2 /* Media (for Photos and YouTube) */ = {
+			isa = PBXGroup;
+			children = (
+				4FE315800F82E50800F6BEE2 /* GDataMedia.h */,
+				4FE315810F82E50800F6BEE2 /* GDataNormalPlayTime.m */,
+				4FE315820F82E50800F6BEE2 /* GDataNormalPlayTime.h */,
+				4FE315830F82E50800F6BEE2 /* GDataMediaThumbnail.m */,
+				4FE315840F82E50800F6BEE2 /* GDataMediaThumbnail.h */,
+				4FE315850F82E50800F6BEE2 /* GDataMediaKeywords.m */,
+				4FE315860F82E50800F6BEE2 /* GDataMediaKeywords.h */,
+				4FE315870F82E50800F6BEE2 /* GDataMediaGroup.m */,
+				4FE315880F82E50800F6BEE2 /* GDataMediaGroup.h */,
+				4FE315890F82E50800F6BEE2 /* GDataMediaContent.m */,
+				4FE3158A0F82E50800F6BEE2 /* GDataMediaContent.h */,
+				4FE3158B0F82E50800F6BEE2 /* GDataMediaCredit.m */,
+				4FE3158C0F82E50800F6BEE2 /* GDataMediaCredit.h */,
+				4FE3158D0F82E50800F6BEE2 /* GDataMediaCategory.h */,
+				4FE3158E0F82E50800F6BEE2 /* GDataMediaCategory.m */,
+				4FE3158F0F82E50800F6BEE2 /* GDataMediaPlayer.h */,
+				4FE315900F82E50800F6BEE2 /* GDataMediaPlayer.m */,
+				4FE315910F82E50800F6BEE2 /* GDataMediaRating.h */,
+				4FE315920F82E50800F6BEE2 /* GDataMediaRating.m */,
+				4FE315930F82E50800F6BEE2 /* GDataMediaRestriction.h */,
+				4FE315940F82E50800F6BEE2 /* GDataMediaRestriction.m */,
+			);
+			name = "Media (for Photos and YouTube)";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* EmailUploader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "EmailUploader" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+				4FAB41570BAA193100FBBDC9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EmailUploader;
+			productInstallPath = "$(HOME)/Applications";
+			productName = CalendarSample;
+			productReference = 8D1107320486CEB800E47090 /* Google Email Uploader.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EmailUploader" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CalendarSample */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* EmailUploader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				4FA56AD20ED64C27001C7ED1 /* EmUpWindow.nib in Resources */,
+				4F1C63C50FABAA9E009B6712 /* MailUploadDoneSound.mp3 in Resources */,
+				4FF4233D0FB0CA0B00C866EB /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				4FA56ACD0ED64C11001C7ED1 /* EmUpAppController.m in Sources */,
+				4FA56ACE0ED64C11001C7ED1 /* EmUpWindowController.m in Sources */,
+				4F29B8C90ED76F7800657E15 /* GDataEntryMailItem.m in Sources */,
+				4F2133080EDCC3E600C9DC0E /* OutlineViewItem.m in Sources */,
+				4F2133230EDCC56700C9DC0E /* AppleMailItemsController.m in Sources */,
+				4FE316DA0F82E50800F6BEE2 /* GDataFramework.m in Sources */,
+				4FE316DB0F82E50800F6BEE2 /* GDataUtilities.m in Sources */,
+				4FE316DC0F82E50800F6BEE2 /* GDataObject.m in Sources */,
+				4FE316DD0F82E50800F6BEE2 /* GDataEntryBase.m in Sources */,
+				4FE316DE0F82E50800F6BEE2 /* GDataFeedBase.m in Sources */,
+				4FE316DF0F82E50800F6BEE2 /* GDataQuery.m in Sources */,
+				4FE316E00F82E50800F6BEE2 /* GDataServiceBase.m in Sources */,
+				4FE316E10F82E50800F6BEE2 /* GDataServiceGoogle.m in Sources */,
+				4FE316E20F82E50800F6BEE2 /* GDataBaseElements.m in Sources */,
+				4FE316E30F82E50800F6BEE2 /* GDataAtomPubControl.m in Sources */,
+				4FE316E40F82E50800F6BEE2 /* GDataLink.m in Sources */,
+				4FE316E50F82E50800F6BEE2 /* GDataPerson.m in Sources */,
+				4FE316E60F82E50800F6BEE2 /* GDataComment.m in Sources */,
+				4FE316E70F82E50800F6BEE2 /* GDataEntryLink.m in Sources */,
+				4FE316E80F82E50800F6BEE2 /* GDataFeedLink.m in Sources */,
+				4FE316E90F82E50800F6BEE2 /* GDataCategory.m in Sources */,
+				4FE316EA0F82E50800F6BEE2 /* GDataDeleted.m in Sources */,
+				4FE316EB0F82E50800F6BEE2 /* GDataWho.m in Sources */,
+				4FE316EC0F82E50800F6BEE2 /* GDataWhere.m in Sources */,
+				4FE316ED0F82E50800F6BEE2 /* GDataWhen.m in Sources */,
+				4FE316EE0F82E50800F6BEE2 /* GDataGenerator.m in Sources */,
+				4FE316EF0F82E50800F6BEE2 /* GDataMoney.m in Sources */,
+				4FE316F00F82E50800F6BEE2 /* GDataTextConstruct.m in Sources */,
+				4FE316F10F82E50800F6BEE2 /* GDataValueConstruct.m in Sources */,
+				4FE316F20F82E50800F6BEE2 /* GDataExtendedProperty.m in Sources */,
+				4FE316F30F82E50800F6BEE2 /* GDataEntryContent.m in Sources */,
+				4FE316F40F82E50800F6BEE2 /* GDataEmail.m in Sources */,
+				4FE316F50F82E50800F6BEE2 /* GDataGeoPt.m in Sources */,
+				4FE316F60F82E50800F6BEE2 /* GDataIM.m in Sources */,
+				4FE316F70F82E50800F6BEE2 /* GDataOrganization.m in Sources */,
+				4FE316F80F82E50800F6BEE2 /* GDataPhoneNumber.m in Sources */,
+				4FE316F90F82E50800F6BEE2 /* GDataPostalAddress.m in Sources */,
+				4FE316FA0F82E50800F6BEE2 /* GDataRating.m in Sources */,
+				4FE316FB0F82E50800F6BEE2 /* GDataDateTime.m in Sources */,
+				4FE316FC0F82E50800F6BEE2 /* GDataBatchOperation.m in Sources */,
+				4FE316FD0F82E50800F6BEE2 /* GDataBatchID.m in Sources */,
+				4FE316FE0F82E50800F6BEE2 /* GDataBatchStatus.m in Sources */,
+				4FE316FF0F82E50800F6BEE2 /* GDataBatchInterrupted.m in Sources */,
+				4FE317000F82E50800F6BEE2 /* GDataHTTPFetcher.m in Sources */,
+				4FE317010F82E50800F6BEE2 /* GDataHTTPFetcherLogging.m in Sources */,
+				4FE317020F82E50800F6BEE2 /* GDataProgressMonitorInputStream.m in Sources */,
+				4FE317030F82E50800F6BEE2 /* GDataGatherInputStream.m in Sources */,
+				4FE317040F82E50800F6BEE2 /* GDataMIMEDocument.m in Sources */,
+				4FE317050F82E50800F6BEE2 /* GDataServerError.m in Sources */,
+				4FE317060F82E50800F6BEE2 /* GDataGeo.m in Sources */,
+				4FE317070F82E50800F6BEE2 /* GDataNormalPlayTime.m in Sources */,
+				4FE317080F82E50800F6BEE2 /* GDataMediaThumbnail.m in Sources */,
+				4FE317090F82E50800F6BEE2 /* GDataMediaKeywords.m in Sources */,
+				4FE3170A0F82E50800F6BEE2 /* GDataMediaGroup.m in Sources */,
+				4FE3170B0F82E50800F6BEE2 /* GDataMediaContent.m in Sources */,
+				4FE3170C0F82E50800F6BEE2 /* GDataMediaCredit.m in Sources */,
+				4FE3170D0F82E50800F6BEE2 /* GDataMediaCategory.m in Sources */,
+				4FE3170E0F82E50800F6BEE2 /* GDataMediaPlayer.m in Sources */,
+				4FE3170F0F82E50800F6BEE2 /* GDataMediaRating.m in Sources */,
+				4FE317100F82E50800F6BEE2 /* GDataMediaRestriction.m in Sources */,
+				4FAC286F0F8693C700BF8EB5 /* MBoxItemsController.m in Sources */,
+				4FAC29C10F86C24200BF8EB5 /* EmUpConstants.m in Sources */,
+				4F60E33A0FA9386A00DA3D6A /* EmUpUtilities.m in Sources */,
+				4FB992CE0FB4F1BB00974408 /* GDataOrganizationName.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B97319FDCFA39411CA2CEA /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+		4FA56AD00ED64C27001C7ED1 /* EmUpWindow.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4FA56AD10ED64C27001C7ED1 /* English */,
+			);
+			name = EmUpWindow.nib;
+			sourceTree = "<group>";
+		};
+		4FF4233B0FB0CA0B00C866EB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4FF4233C0FB0CA0B00C866EB /* English */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "-lcrypto";
+				PRODUCT_NAME = "Google Email Uploader";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../Source/build/$(CONFIGURATION)/";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "-lcrypto";
+				PRODUCT_NAME = "Google Email Uploader";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Werror",
+				);
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Werror",
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "EmailUploader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EmailUploader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
