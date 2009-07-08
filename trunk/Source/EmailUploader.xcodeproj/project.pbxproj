@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -60,15 +60,15 @@
 		4F396DF61002C39500DC1324 /* GDataMIMEDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D921002C39500DC1324 /* GDataMIMEDocument.m */; };
 		4F396DF71002C39500DC1324 /* GDataServerError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D941002C39500DC1324 /* GDataServerError.m */; };
 		4F396E021002C39500DC1324 /* GDataGeo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396DAD1002C39500DC1324 /* GDataGeo.m */; };
+		4F396E5E10053EB900DC1324 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F396E5C10053EB900DC1324 /* MainMenu.xib */; };
+		4F396E6210053EDC00DC1324 /* EmUpWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F396E6010053EDC00DC1324 /* EmUpWindow.xib */; };
 		4F60E33A0FA9386A00DA3D6A /* EmUpUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F60E3390FA9386A00DA3D6A /* EmUpUtilities.m */; };
 		4F72364A0F97DFA000F6EE23 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7236490F97DFA000F6EE23 /* Carbon.framework */; };
 		4FA56ACD0ED64C11001C7ED1 /* EmUpAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56AC90ED64C11001C7ED1 /* EmUpAppController.m */; };
 		4FA56ACE0ED64C11001C7ED1 /* EmUpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56ACA0ED64C11001C7ED1 /* EmUpWindowController.m */; };
-		4FA56AD20ED64C27001C7ED1 /* EmUpWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56AD00ED64C27001C7ED1 /* EmUpWindow.nib */; };
 		4FAC286F0F8693C700BF8EB5 /* MBoxItemsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC286E0F8693C700BF8EB5 /* MBoxItemsController.m */; };
 		4FAC29C10F86C24200BF8EB5 /* EmUpConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC29BF0F86C24200BF8EB5 /* EmUpConstants.m */; };
 		4FF4233D0FB0CA0B00C866EB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FF4233B0FB0CA0B00C866EB /* Localizable.strings */; };
-		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -91,7 +91,6 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4F1C63C40FABAA9E009B6712 /* MailUploadDoneSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MailUploadDoneSound.mp3; sourceTree = "<group>"; };
@@ -204,6 +203,8 @@
 		4F396D941002C39500DC1324 /* GDataServerError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataServerError.m; path = externals/GData/Source/Networking/GDataServerError.m; sourceTree = "<group>"; };
 		4F396DAC1002C39500DC1324 /* GDataGeo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataGeo.h; path = externals/GData/Source/Geo/GDataGeo.h; sourceTree = "<group>"; };
 		4F396DAD1002C39500DC1324 /* GDataGeo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataGeo.m; path = externals/GData/Source/Geo/GDataGeo.m; sourceTree = "<group>"; };
+		4F396E5D10053EB900DC1324 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		4F396E6110053EDC00DC1324 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/EmUpWindow.xib; sourceTree = "<group>"; };
 		4F60E3380FA9386400DA3D6A /* EmUpUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmUpUtilities.h; sourceTree = "<group>"; };
 		4F60E3390FA9386A00DA3D6A /* EmUpUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmUpUtilities.m; sourceTree = "<group>"; };
 		4F7236490F97DFA000F6EE23 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -212,7 +213,6 @@
 		4FA56ACA0ED64C11001C7ED1 /* EmUpWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmUpWindowController.m; sourceTree = "<group>"; };
 		4FA56ACB0ED64C11001C7ED1 /* EmUpAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmUpAppController.h; sourceTree = "<group>"; };
 		4FA56ACC0ED64C11001C7ED1 /* EmUpWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmUpWindowController.h; sourceTree = "<group>"; };
-		4FA56AD10ED64C27001C7ED1 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/EmUpWindow.nib; sourceTree = "<group>"; };
 		4FAC286E0F8693C700BF8EB5 /* MBoxItemsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBoxItemsController.m; sourceTree = "<group>"; };
 		4FAC28700F8693CE00BF8EB5 /* MBoxItemsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBoxItemsController.h; sourceTree = "<group>"; };
 		4FAC29BF0F86C24200BF8EB5 /* EmUpConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmUpConstants.m; sourceTree = "<group>"; };
@@ -310,9 +310,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4F396E6010053EDC00DC1324 /* EmUpWindow.xib */,
+				4F396E5C10053EB900DC1324 /* MainMenu.xib */,
 				4F1C63C40FABAA9E009B6712 /* MailUploadDoneSound.mp3 */,
-				4FA56AD00ED64C27001C7ED1 /* EmUpWindow.nib */,
-				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				4FF4233B0FB0CA0B00C866EB /* Localizable.strings */,
@@ -507,7 +507,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EmailUploader" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CalendarSample */;
 			projectDirPath = "";
@@ -523,11 +523,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
-				4FA56AD20ED64C27001C7ED1 /* EmUpWindow.nib in Resources */,
 				4F1C63C50FABAA9E009B6712 /* MailUploadDoneSound.mp3 in Resources */,
 				4FF4233D0FB0CA0B00C866EB /* Localizable.strings in Resources */,
+				4F396E5E10053EB900DC1324 /* MainMenu.xib in Resources */,
+				4F396E6210053EDC00DC1324 /* EmUpWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,20 +610,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
+		4F396E5C10053EB900DC1324 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				29B97319FDCFA39411CA2CEA /* English */,
+				4F396E5D10053EB900DC1324 /* English */,
 			);
-			name = MainMenu.nib;
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
-		4FA56AD00ED64C27001C7ED1 /* EmUpWindow.nib */ = {
+		4F396E6010053EDC00DC1324 /* EmUpWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4FA56AD10ED64C27001C7ED1 /* English */,
+				4F396E6110053EDC00DC1324 /* English */,
 			);
-			name = EmUpWindow.nib;
+			name = EmUpWindow.xib;
 			sourceTree = "<group>";
 		};
 		4FF4233B0FB0CA0B00C866EB /* Localizable.strings */ = {
@@ -685,7 +685,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx10.4;
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Werror",
@@ -701,7 +701,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx10.4;
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Werror",
