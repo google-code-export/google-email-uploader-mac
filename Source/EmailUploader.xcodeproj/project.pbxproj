@@ -10,6 +10,7 @@
 		4F1C63C50FABAA9E009B6712 /* MailUploadDoneSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C63C40FABAA9E009B6712 /* MailUploadDoneSound.mp3 */; };
 		4F2133080EDCC3E600C9DC0E /* OutlineViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2133070EDCC3E600C9DC0E /* OutlineViewItem.m */; };
 		4F2133230EDCC56700C9DC0E /* AppleMailItemsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2133220EDCC56700C9DC0E /* AppleMailItemsController.m */; };
+		4F220A3D1006B3B20095751A /* truckmail.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4F220A3C1006B3B20095751A /* truckmail.icns */; };
 		4F29B8C90ED76F7800657E15 /* GDataEntryMailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29B8C80ED76F7800657E15 /* GDataEntryMailItem.m */; };
 		4F396DC81002C39500DC1324 /* GDataFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D301002C39500DC1324 /* GDataFramework.m */; };
 		4F396DC91002C39500DC1324 /* GDataUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D321002C39500DC1324 /* GDataUtilities.m */; };
@@ -98,6 +99,7 @@
 		4F2133070EDCC3E600C9DC0E /* OutlineViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlineViewItem.m; sourceTree = "<group>"; };
 		4F2133210EDCC56700C9DC0E /* AppleMailItemsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleMailItemsController.h; sourceTree = "<group>"; };
 		4F2133220EDCC56700C9DC0E /* AppleMailItemsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleMailItemsController.m; sourceTree = "<group>"; };
+		4F220A3C1006B3B20095751A /* truckmail.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = truckmail.icns; sourceTree = "<group>"; };
 		4F29B8C80ED76F7800657E15 /* GDataEntryMailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataEntryMailItem.m; sourceTree = "<group>"; };
 		4F29B8CA0ED76F8000657E15 /* GDataEntryMailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataEntryMailItem.h; sourceTree = "<group>"; };
 		4F396D2D1002C39500DC1324 /* GData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GData.h; path = externals/GData/Source/GData.h; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				4F396E6010053EDC00DC1324 /* EmUpWindow.xib */,
 				4F396E5C10053EB900DC1324 /* MainMenu.xib */,
 				4F1C63C40FABAA9E009B6712 /* MailUploadDoneSound.mp3 */,
+				4F220A3C1006B3B20095751A /* truckmail.icns */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				4FF4233B0FB0CA0B00C866EB /* Localizable.strings */,
@@ -528,6 +531,7 @@
 				4FF4233D0FB0CA0B00C866EB /* Localizable.strings in Resources */,
 				4F396E5E10053EB900DC1324 /* MainMenu.xib in Resources */,
 				4F396E6210053EDC00DC1324 /* EmUpWindow.xib in Resources */,
+				4F220A3D1006B3B20095751A /* truckmail.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
