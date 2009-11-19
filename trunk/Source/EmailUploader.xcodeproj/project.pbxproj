@@ -69,6 +69,7 @@
 		4FA56ACE0ED64C11001C7ED1 /* EmUpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56ACA0ED64C11001C7ED1 /* EmUpWindowController.m */; };
 		4FAC286F0F8693C700BF8EB5 /* MBoxItemsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC286E0F8693C700BF8EB5 /* MBoxItemsController.m */; };
 		4FAC29C10F86C24200BF8EB5 /* EmUpConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC29BF0F86C24200BF8EB5 /* EmUpConstants.m */; };
+		4FC560F010B33B0700B1DCCE /* GDataAuthenticationFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC560EE10B33B0700B1DCCE /* GDataAuthenticationFetcher.m */; };
 		4FF4233D0FB0CA0B00C866EB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FF4233B0FB0CA0B00C866EB /* Localizable.strings */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -219,6 +220,8 @@
 		4FAC28700F8693CE00BF8EB5 /* MBoxItemsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBoxItemsController.h; sourceTree = "<group>"; };
 		4FAC29BF0F86C24200BF8EB5 /* EmUpConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmUpConstants.m; sourceTree = "<group>"; };
 		4FAC29C00F86C24200BF8EB5 /* EmUpConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmUpConstants.h; sourceTree = "<group>"; };
+		4FC560EE10B33B0700B1DCCE /* GDataAuthenticationFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataAuthenticationFetcher.m; path = externals/GData/Source/Networking/GDataAuthenticationFetcher.m; sourceTree = "<group>"; };
+		4FC560EF10B33B0700B1DCCE /* GDataAuthenticationFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataAuthenticationFetcher.h; path = externals/GData/Source/Networking/GDataAuthenticationFetcher.h; sourceTree = "<group>"; };
 		4FF4233C0FB0CA0B00C866EB /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Google Email Uploader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Google Email Uploader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -449,6 +452,8 @@
 		4F396D881002C39500DC1324 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				4FC560EE10B33B0700B1DCCE /* GDataAuthenticationFetcher.m */,
+				4FC560EF10B33B0700B1DCCE /* GDataAuthenticationFetcher.h */,
 				4F396D891002C39500DC1324 /* GDataHTTPFetcher.h */,
 				4F396D8A1002C39500DC1324 /* GDataHTTPFetcher.m */,
 				4F396D8B1002C39500DC1324 /* GDataHTTPFetcherLogging.h */,
@@ -600,6 +605,7 @@
 				4F396DF61002C39500DC1324 /* GDataMIMEDocument.m in Sources */,
 				4F396DF71002C39500DC1324 /* GDataServerError.m in Sources */,
 				4F396E021002C39500DC1324 /* GDataGeo.m in Sources */,
+				4FC560F010B33B0700B1DCCE /* GDataAuthenticationFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,7 +657,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = "Google Email Uploader";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -674,7 +679,6 @@
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = "Google Email Uploader";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -688,6 +692,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DGDATA_REQUIRE_SERVICE_INCLUDES=1";
 				PREBINDING = NO;
 				SDKROOT = macosx10.4;
 				WARNING_CFLAGS = (
@@ -704,6 +709,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DGDATA_REQUIRE_SERVICE_INCLUDES=1";
 				PREBINDING = NO;
 				SDKROOT = macosx10.4;
 				WARNING_CFLAGS = (

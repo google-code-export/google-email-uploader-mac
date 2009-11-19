@@ -47,8 +47,7 @@
 "UploadingMailboxTemplate" = "Uploading %@";
 "StatusSeparator" = "-------------------------------------------";
 "StatusDuplicateIDTemplate" = "Already uploaded message with this ID\n   previously found in file %@";
-"StatusFailedUploadOne" = "Message did not upload\n   %@";
-"StatusFailedUploadMany" = "Messages did not upload\n   %@";
+"StatusFailedUpload" = "Message did not upload\n   %@";
 "StatusIndentedMessageID" = "   %@";
 "StatusIndentedMessageByteRange" = "   bytes %u..%u";
 "StatusDelayingTemplate" = "   Delaying upload per server request (%d seconds)";
@@ -69,8 +68,8 @@
 "MessageDisplayIDTemplate" = "%@ (at message %d)";
 
 /* Skipped message menu items */
-"FilenameIDTemplate" = "%@ %@";
-"FilenameByteRangeTemplate" = "%@ (bytes %u..%u)";
+"FilenameIDTemplate" = "%C %@ %@";
+"FilenameByteRangeTemplate" = "%C %@ (bytes %u..%u)";
 
 /* Select additional mailbox sheet */
 "SelectButton" = "Select";

@@ -55,15 +55,6 @@ _EXTERN NSString* kGDataMailItemIsUnread   _INITIALIZE_AS(@"IS_UNREAD");
 + (NSString *)extensionElementLocalName;
 @end
 
-@interface GDataMailItemRFC822Msg : GDataValueElementConstruct <GDataExtension>
-+ (NSString *)extensionElementURI;
-+ (NSString *)extensionElementPrefix;
-+ (NSString *)extensionElementLocalName;
-
-- (void)setIsEncodedBase64:(BOOL)flag;
-- (BOOL)isEncodedBase64;
-@end
-
 @interface GDataMailItemSpamSetting : GDataBoolValueConstruct <GDataExtension>
 + (NSString *)extensionElementURI;
 + (NSString *)extensionElementPrefix;
@@ -79,9 +70,6 @@ _EXTERN NSString* kGDataMailItemIsUnread   _INITIALIZE_AS(@"IS_UNREAD");
 + (GDataEntryMailItem *)mailItemWithRFC822String:(NSString *)str;
 
 // extensions
-- (GDataMailItemRFC822Msg *)RFC822Msg;
-- (void)setRFC822Msg:(GDataMailItemRFC822Msg *)obj;
-
 - (BOOL)shouldFilterSpam;
 - (void)setShouldFilterSpam:(BOOL)flag;
 
@@ -94,7 +82,5 @@ _EXTERN NSString* kGDataMailItemIsUnread   _INITIALIZE_AS(@"IS_UNREAD");
 - (void)setMailItemProperties:(NSArray *)arr;
 - (void)addMailItemProperty:(GDataMailItemProperty *)obj;
 - (void)addMailItemPropertyWithString:(NSString *)str;
-
-+ (NSString *)stringWithBase64ForData:(NSData *)data;
 
 @end

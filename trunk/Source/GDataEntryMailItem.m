@@ -17,7 +17,6 @@
 //  GDataEntryMailItem.m
 //
 
-// we use openssl's base64 implementation below in StringWithBase64ForData()
 #include <openssl/sha.h>
 #include <openssl/evp.h>
 #include <openssl/bio.h>
@@ -49,29 +48,6 @@ static NSString* const kEncodingAttr = @"encoding";
 }
 @end
 
-@implementation GDataMailItemRFC822Msg
-+ (NSString *)extensionElementURI       { return kGDataNamespaceGoogleApps; }
-+ (NSString *)extensionElementPrefix    { return kGDataNamespaceGoogleAppsPrefix; }
-+ (NSString *)extensionElementLocalName { return @"rfc822Msg"; }
-
-- (void)addParseDeclarations {
-  [super addParseDeclarations];
-  
-  // add the encoding attribtue
-  [self addLocalAttributeDeclarations:[NSArray arrayWithObject:kEncodingAttr]];
-}
-
-- (void)setIsEncodedBase64:(BOOL)flag {
-  NSString *str = (flag ? @"base64" : nil);
-  [self setStringValue:str forAttribute:kEncodingAttr];
-}
-
-- (BOOL)isEncodedBase64 {
-  NSString *str = [self stringValueForAttribute:kEncodingAttr];
-  return [str isEqual:@"base64"];
-}
-@end
-
 @implementation GDataMailItemSpamSetting
 + (NSString *)extensionElementURI       { return kGDataNamespaceGoogleApps; }
 + (NSString *)extensionElementPrefix    { return kGDataNamespaceGoogleAppsPrefix; }
@@ -94,25 +70,21 @@ static NSString* const kEncodingAttr = @"encoding";
 + (GDataEntryMailItem *)mailItem {
   GDataEntryMailItem *obj;
   obj = [[[GDataEntryMailItem alloc] init] autorelease];
-  
-//  [obj setNamespaces:[GDataEntryMailItem appsNamespaces]];
-  
+
+  [obj setNamespaces:[GDataEntryMailItem appsNamespaces]];
+
   return obj;
 }
 
 + (GDataEntryMailItem *)mailItemWithRFC822String:(NSString *)str {
-  
-  GDataEntryMailItem *obj = [self mailItem];
+
+  GDataEntryMailItem *entry = [self mailItem];
 
   NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-  NSString *base64 = [self stringWithBase64ForData:data];
 
-  GDataMailItemRFC822Msg *rfc822msg = [GDataMailItemRFC822Msg valueWithString:base64];
-  [rfc822msg setIsEncodedBase64:YES];
-  
-  [obj setRFC822Msg:rfc822msg];
-  
-  return obj;
+  [entry setUploadData:data];
+  [entry setUploadMIMEType:@"message/rfc822"];
+  return entry;
 }
 
 #pragma mark -
@@ -133,34 +105,26 @@ static NSString* const kEncodingAttr = @"encoding";
                                    childClasses:
    [GDataMailItemProperty class],
    [GDataMailItemLabel class],
-   [GDataMailItemRFC822Msg class],
    [GDataMailItemSpamSetting class],
    nil];
 }
 
 - (NSMutableArray *)itemsForDescription {
   
-  GDataMailItemRFC822Msg *msg = [self RFC822Msg];
-  NSString *msgStr;
-  if ([msg isEncodedBase64]) {
-    // avoid descriptions with long unreadable base-64:
-    //
-    // show the first 10 chars of base-64 encoded messages
-    NSString *value = [msg stringValue];
-    unsigned int fragmentLen = MIN(10, [value length]);
-    msgStr = [NSString stringWithFormat:@"base64:%@...",
-                        [value substringWithRange:NSMakeRange(0, fragmentLen)]];
-  } else {
-    msgStr = [msg description];
+  NSData *uploadData = [self uploadData];
+  NSString *msgStr = [[[NSString alloc] initWithData:uploadData
+                                            encoding:NSUTF8StringEncoding] autorelease];
+  if (msgStr == nil) {
+   msgStr = @"<Unknown upload data>"; 
   }
-  
+
   NSArray *labels = [self valueForKeyPath:@"mailItemLabels.stringValue"];
   NSString *labelStr = [labels componentsJoinedByString:@","];
   
   struct GDataDescriptionRecord descRecs[] = {
     { @"properties", @"mailItemProperties", kGDataDescValueLabeled     },
     { @"labels",     labelStr,              kGDataDescValueIsKeyPath   },
-    { @"rfc822Msg",  msgStr,                kGDataDescValueIsKeyPath   },
+    { @"msg",        msgStr,                kGDataDescValueIsKeyPath   },
     { @"filterSpam", @"shouldFilterSpam",   kGDataDescBooleanPresent   },
     { nil, nil, 0 }
   };
@@ -171,17 +135,6 @@ static NSString* const kEncodingAttr = @"encoding";
 }
 
 #pragma mark -
-
-- (GDataMailItemRFC822Msg *)RFC822Msg {
-  GDataMailItemRFC822Msg *obj;
-  obj = [self objectForExtensionClass:[GDataMailItemRFC822Msg class]];
-
-  return obj;
-}
-
-- (void)setRFC822Msg:(GDataMailItemRFC822Msg *)obj {
-  [self setObject:obj forExtensionClass:[GDataMailItemRFC822Msg class]];
-}
 
 - (NSArray *)mailItemLabels {
   return [self objectsForExtensionClass:[GDataMailItemLabel class]];
@@ -226,31 +179,5 @@ static NSString* const kEncodingAttr = @"encoding";
   GDataMailItemSpamSetting *obj = [GDataMailItemSpamSetting valueWithBool:flag];
   [self setObject:obj forExtensionClass:[GDataMailItemSpamSetting class]];
 }
-
-#pragma mark -
-
-+ (NSString *)stringWithBase64ForData:(NSData *)data {
-  
-  BIO *membio, *base64;
-  BUF_MEM *buff;
-  
-  base64 = BIO_new(BIO_f_base64());
-  membio = BIO_new(BIO_s_mem());
-  BIO_set_flags(base64, BIO_FLAGS_BASE64_NO_NL);
-  
-  base64 = BIO_push(base64, membio);
-  
-  BIO_write(base64, [data bytes], [data length]);
-  BIO_flush(base64);
-  BIO_get_mem_ptr(base64, &buff);
-  
-  NSString *result = [[[NSString alloc] initWithBytes:buff->data
-                                               length:buff->length 
-                                             encoding:NSUTF8StringEncoding] autorelease];  
-  BIO_free_all(base64);
-  
-  return result;
-}
-
 @end
 

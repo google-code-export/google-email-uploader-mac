@@ -76,7 +76,7 @@
 
   NSMutableDictionary *messageIDsUploaded_; // maps ID to file path
   
-  NSDate *lastBatchDate_; // date last batch was uploaded
+  NSDate *lastUploadDate_; // time last message was uploadded
 
   // app user interface state
   BOOL isLoadingMailboxes_;
@@ -89,7 +89,7 @@
   // we get a 503 status from the server
   BOOL isSlowUploadMode_;
 
-  GDataServiceTicket *uploadTicket_;
+  NSMutableArray *uploadTickets_;
   
   BOOL shouldSimulateUploads_;
 }
