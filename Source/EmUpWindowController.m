@@ -33,8 +33,8 @@ NSString *const kTabViewItemSkipped = @"Skipped";
 - (void)updateUI;
 - (NSString *)displayTimeForSeconds:(unsigned int)seconds;
 
-// "backing off" happens when we get a status 503 on the batch feed or
-// any entry in it; delays happen normally to keep our upload throttled to
+// "backing off" happens when we get a status 503 on an entry;
+// delays happen normally to keep our upload throttled to
 // 1 message per second (in slow upload mode)
 - (void)uploadNow;
 - (void)uploadMoreMessages;
@@ -42,11 +42,10 @@ NSString *const kTabViewItemSkipped = @"Skipped";
 - (void)uploadMoreMessagesAfterDelay:(NSTimeInterval)delay;
 - (void)cancelUploadMoreMessagesAfterDelay;
 
-- (void)uploadBatchFeed:(GDataFeedBase *)batchFeed;
+- (void)uploadEntry:(GDataEntryMailItem *)entry;
 
 // report one or many failues
 - (void)handleFailedMessageForProperties:(NSDictionary *)propertyDicts;
-- (void)handleFailedMessagesForProperties:(NSArray *)propertyDicts;
 
 - (NSString *)messageDisplayIDFromProperties:(NSDictionary *)properties;
 
@@ -61,8 +60,8 @@ NSString *const kTabViewItemSkipped = @"Skipped";
 - (unsigned int)countSelectedMessages;
 
 // setters and getters for refcounted ivars
-- (GDataServiceTicket *)uploadTicket;
-- (void)setUploadTicket:(GDataServiceTicket *)feed;
+- (NSMutableArray *)uploadTickets;
+- (void)setUploadTickets:(NSMutableArray *)array;
 
 - (void)reportProgress:(NSString *)reportStr;
 - (void)reportProgressWithTimestamp:(NSString *)reportStr;
@@ -70,7 +69,7 @@ NSString *const kTabViewItemSkipped = @"Skipped";
 - (NSString *)currentUploadingMailboxName;
 - (void)setCurrentUploadingMailboxName:(NSString *)str;
 
-- (void)setLastBatchDate:(NSDate *)date;
+- (void)setLastUploadDate:(NSDate *)date;
 
 @end
 
@@ -92,6 +91,7 @@ static EmUpWindowController* gEmUpWindowController = nil;
   if (self != nil) {
     entriesToRetry_ = [[NSMutableArray alloc] init];
     messageIDsUploaded_ = [[NSMutableDictionary alloc] init];
+    uploadTickets_ = [[NSMutableArray alloc] init];
   }
   return self;
 }
@@ -155,8 +155,8 @@ static EmUpWindowController* gEmUpWindowController = nil;
   [currentUploadingMailboxName_ release];
   [entriesToRetry_ release];
   [messageIDsUploaded_ release];
-  [lastBatchDate_ release];
-  [uploadTicket_ release];
+  [lastUploadDate_ release];
+  [uploadTickets_ release];
   [super dealloc];
 }
 
@@ -260,21 +260,23 @@ static EmUpWindowController* gEmUpWindowController = nil;
   [outlineViewTitle_ setStringValue:outlineTitle];
   [outlineViewTitle_ setHidden:isLoadingMailboxes_];
 
-  // display the time estimate, assuming 10 seconds per 50 messages in
+  // display the time estimate, assuming 1 second per 5 messages in
   // fast upload mode, with up to 500 messages uploaded in fast mode,
-  // and 10 seconds per 10 messages in slow upload mode
-
-  const unsigned int kSecondsPerFastUpload = 10;
+  // and 1 second per 1 message in slow upload mode
+  //
+  // The upload rate is a somewhat pessimistic wild guess, but trying to
+  // measure and extrapolate based on uploads so far would be hard
+  // (dealing with pauses and so forth), and for any substantial uploads
+  // the slow upload rate will dominate the total anyway.
 
   unsigned int fastMsgs = MIN(numberOfSelectedMessages, kFastModeMaxMessages);
   unsigned int fastMsgsRemaining = isSlowUploadMode_ ? 0 : (fastMsgs - messagesUploadedCount_);
 
-  unsigned int fastSeconds = fastMsgsRemaining * kSecondsPerFastUpload / kFastBatchCount;
+  unsigned int fastSeconds = (unsigned int) ((NSTimeInterval)fastMsgsRemaining * kFastUploadInterval);
 
   unsigned int slowMsgs = MAX(numberOfSelectedMessages - fastMsgs, 0);
   unsigned int slowMsgsRemaining = !isSlowUploadMode_ ?
     slowMsgs : MAX((slowMsgs - (messagesUploadedCount_ - fastMsgs)), 0);
-  // 1 second per slow message
 
   unsigned int totalSeconds = fastSeconds + slowMsgsRemaining;
   NSString *estTimeStr = [self displayTimeForSeconds:totalSeconds];
@@ -684,8 +686,7 @@ static EmUpWindowController* gEmUpWindowController = nil;
     // switch the tab view to show the progress report
     [tabView_ selectTabViewItemWithIdentifier:kTabViewItemProgress];
 
-    // immediately display the progress info before we start to build the first
-    // batch to upload
+    // immediately display the progress info before we start to upload
     [self updateUI];
     [messagesTransferredField_ display];
   }
@@ -700,105 +701,98 @@ static EmUpWindowController* gEmUpWindowController = nil;
   // purge any pending upload invocation
   [self cancelUploadMoreMessagesAfterDelay];
 
-  [uploadTicket_ cancelTicket];
-  [self setUploadTicket:nil];
+  [uploadTickets_ makeObjectsPerformSelector:@selector(cancelTicket)];
+  [uploadTickets_ removeAllObjects];
 
   [self updateUI];
 }
 
-// uploadMoreMessages is called repeatedly to upload the next batch.  During
+- (void)uploadingCompleted {
+  // "Messages transferred: %u/%u  Skipped: %u"
+  NSString *template = NSLocalizedString(@"UploadingEndCountTemplate", nil);
+  NSString *countStr = [NSString stringWithFormat:template,
+                        messagesUploadedCount_, [self countSelectedMessages],
+                        messagesSkippedCount_];
+  [self reportProgress:countStr];
+  
+  template = NSLocalizedString(@"UploadingFinished", nil);
+  [self reportProgressWithTimestamp:template];
+  
+  template = NSLocalizedString(@"StatusSeparator", nil);
+  [self reportProgress:template];
+
+  [self stopUploading];
+  
+  NSSound *theSound = [NSSound soundNamed:@"MailUploadDoneSound.mp3"];
+  [theSound play];  
+}
+
+// uploadMoreMessages is called repeatedly to upload another message.  During
 // slow upload mode, this will rate-limit itself and re-invoke itself
 // recursively when needed to achieve the slow upload rate.
 - (void)uploadMoreMessages {
 
+  int maxTickets = isSlowUploadMode_ ? kSlowUploadMaxTickets : kFastUploadMaxTickets;
+  if ([uploadTickets_ count] >= maxTickets) {
+    // wait for some tickets to complete before uploading more
+    return;
+  }
+  
+  // in slow upload mode, wait a period after the last upload
   if (isSlowUploadMode_) {
+    if (lastUploadDate_ != nil) {
 
-    // slow upload mode
-    if (lastBatchDate_ != nil) {
+      NSTimeInterval secsSinceLastUpload = - [lastUploadDate_ timeIntervalSinceNow];
 
-      NSTimeInterval secsSinceLastBatch = - [lastBatchDate_ timeIntervalSinceNow];
-
-      // our slow batch rate is one batch item per second, conveniently
-      NSTimeInterval timeBetweenBatches = (NSTimeInterval)kSlowBatchCount;
-
-      if (secsSinceLastBatch < timeBetweenBatches) {
-        NSTimeInterval newDelay = (timeBetweenBatches - secsSinceLastBatch);
+      if (secsSinceLastUpload < kSlowUploadInterval) {
+        NSTimeInterval newDelay = (kSlowUploadInterval - secsSinceLastUpload);
+        
         [self uploadMoreMessagesAfterDelay:newDelay];
         return;
       }
     }
   }
-
+  
   if (isPaused_) return;
 
-  // make a batch feed, then add messages from the retry queue to the batch
-  // feed, and messages from the current controller, up to 2 meg.  The API
-  // allows uploads up to 32 MB, but we'd rather uploads succeed rather than
-  // timeout
-  GDataFeedBase *batchFeed = [[[GDataFeedBase alloc] init] autorelease];
-  [batchFeed setNamespaces:[GDataEntryMailItem appsNamespaces]];
-
-  // keep track of the total batch size, though we'll not likely get anywhere
-  // near the 32 MB limit of the API
-  unsigned long long batchSize = 0;
-
+  // get a message to upload from the retry queue or from the current controller
   NSString *template;
-
-  // loop to add an entry to the batch feed, either from the retry queue or
-  // from an outline item controller. We'll stop looking when the batch
-  // reaches a maximum size or when we run out of entries to add.
+  
+  // loop to upload an entry, either from the retry queue or from an outline
+  // item controller. We'll stop looking when we've found an
+  // entry to add or run out of entries to add
   while (1) {
-
+    
     unsigned int numberOfPendingRetries = [entriesToRetry_ count];
-
-    if (numberOfPendingRetries == 0) {
-
-      if (currentUploadingControllerIndex_ >= [itemsControllers_ count]) {
-        // no more controllers left to get upload items from
-
-        if ([[batchFeed entries] count] > 0) {
-          // upload the accumulated batch now, even if it's small
-          [self uploadBatchFeed:batchFeed];
-          break;
-        } else {
-          // "Messages transferred: %u/%u  Skipped: %u"
-          template = NSLocalizedString(@"UploadingEndCountTemplate", nil);
-          NSString *countStr = [NSString stringWithFormat:template,
-                           messagesUploadedCount_, [self countSelectedMessages],
-                           messagesSkippedCount_];
-          [self reportProgress:countStr];
-
-          template = NSLocalizedString(@"UploadingFinished", nil);
-          [self reportProgressWithTimestamp:template];
-
-          template = NSLocalizedString(@"StatusSeparator", nil);
-          [self reportProgress:template];
-          [self stopUploading];
-
-          NSSound *theSound = [NSSound soundNamed:@"MailUploadDoneSound.mp3"];
-          [theSound play];
-          break;
-        }
+    
+    if (numberOfPendingRetries == 0
+        && currentUploadingControllerIndex_ >= [itemsControllers_ count]) {
+      // no more controllers left to get upload items from
+      
+      if ([uploadTickets_ count] == 0) {
+        // we're done uploading
+        [self uploadingCompleted];
       }
+      break;
     }
-
+    
     GDataEntryMailItem *entryToUpload = nil;
-
+    
     // add an entry from the retry queue
     if (numberOfPendingRetries > 0) {
-
+      
       // get the entry from the retry queue
       entryToUpload = [[[entriesToRetry_ objectAtIndex:0] retain] autorelease];
       [entriesToRetry_ removeObjectAtIndex:0];
-
+      
     } else {
-
+      
       // get an entry from the current upload item controller
       id<MailItemController> controller = [itemsControllers_ objectAtIndex:currentUploadingControllerIndex_];
-
+      
       entryToUpload = [self nextEntryFromController:controller];
       if (entryToUpload == nil) {
-
+        
         // move to the next controller
         ++currentUploadingControllerIndex_;
         continue;
@@ -814,59 +808,46 @@ static EmUpWindowController* gEmUpWindowController = nil;
                                 mailboxName]];
           [self setCurrentUploadingMailboxName:mailboxName];
         }
-
+        
         // see if we've uploaded one with this message ID before; if so,
         // report and skip it
         NSString *messageID = [entryToUpload propertyForKey:kEmUpMessageIDKey];
         if ([messageID length] > 0) {
-
+          
           NSString *previousMsgLoc = [messageIDsUploaded_ objectForKey:messageID];
           if (previousMsgLoc != nil) {
-
+            
             // "Already uploaded message with this ID\n   previously found in file %@"
             template = NSLocalizedString(@"StatusDuplicateIDTemplate", nil);
             NSString *dupMsg = [NSString stringWithFormat:template,
                                 previousMsgLoc];
             [entryToUpload setProperty:dupMsg
                                 forKey:kEmUpMessageErrorStringKey];
-
+            [entryToUpload setProperty:kEmUpMessageErrorTypeDuplicate
+                                forKey:kEmUpMessageErrorType];
+            
             NSDictionary *propertyDict = [entryToUpload properties];
             [self handleFailedMessageForProperties:propertyDict];
-
+            
             continue;
           }
-
+          
           // add this to our set of uploaded message IDs
           NSString *path = [entryToUpload propertyForKey:kEmUpMessagePathKey];
           [messageIDsUploaded_ setObject:path forKey:messageID];
         }
       }
     }
-
-    NSString *xmlStr = [[entryToUpload XMLElement] XMLString];
-    unsigned long long messageSize = [xmlStr length];
-
-    batchSize += messageSize;
-    [batchFeed addEntry:entryToUpload];
-
-    unsigned int batchMaxCount = (isSlowUploadMode_ ? kSlowBatchCount : kFastBatchCount);
-
-    if (batchSize < 512 * 1024
-        && [[batchFeed entries] count] < batchMaxCount) {
-      // continue adding to this batch since it's under 512K and under
-      // 50 or 10 entries
-      //
-      // What triggers 503s?
-      //
-      // http://groups.google.com/group/google-apps-apis/browse_thread/thread/3b191cc9dbefe937
-
-    } else {
-      // upload the batch now, and break out of the loop
-      [self uploadBatchFeed:batchFeed];
+    
+    // upload the entry now
+    [self uploadEntry:entryToUpload];
+    
+    if (isSlowUploadMode_ || ([uploadTickets_ count] >= maxTickets)) {
       break;
     }
   }
 }
+
 
 // nextEntryFromController returns the next upload mail entry from the specified
 // controller, with additional properties and labels added to match user's
@@ -878,12 +859,6 @@ static EmUpWindowController* gEmUpWindowController = nil;
     // no more mail entries available from this controller
     return nil;
   }
-
-  // add a unique GData batch ID to the message being uploaded so we can search
-  // for it in the original feed if this entry fails
-  static unsigned int batchCnt = 0;
-  NSString *batchIDStr = [NSString stringWithFormat:@"batch_%u", ++batchCnt];
-  [newEntry setBatchIDWithString:batchIDStr];
 
   // add a label with the mailbox name, if checked by the user
   if ([maiboxNamesAsLabelsCheckbox_ state] == NSOnState) {
@@ -922,208 +897,130 @@ static EmUpWindowController* gEmUpWindowController = nil;
   return newEntry;
 }
 
-- (void)uploadBatchFeed:(GDataFeedBase *)batchFeed {
+- (void)uploadEntry:(GDataEntryMailItem *)entry {
 
-  [self setLastBatchDate:[NSDate date]];
+  [self setLastUploadDate:[NSDate date]];
 
   if (shouldSimulateUploads_) {
     // invoke the callback in a second
-    [self performSelector:@selector(simulateUploadBatchFeed:)
-               withObject:batchFeed
+    [self performSelector:@selector(simulateUploadEntry:)
+               withObject:entry
                afterDelay:1.0];
   } else {
 
     GDataServiceGoogle *service = [self service];
 
-    NSString *urlString = @"https://apps-apis.google.com/a/feeds/migration/2.0/default/mail/batch";
+    NSString *urlString = @"https://apps-apis.google.com/a/feeds/migration/2.0/default/mail";
 
     GDataServiceTicket *ticket;
-    ticket = [service fetchFeedWithBatchFeed:batchFeed
-                             forBatchFeedURL:[NSURL URLWithString:urlString]
-                                    delegate:self
-                           didFinishSelector:@selector(batchTicket:finishedWithFeed:error:)];
-    [self setUploadTicket:ticket];
-
+    ticket = [service fetchEntryByInsertingEntry:entry
+                                      forFeedURL:[NSURL URLWithString:urlString]
+                                        delegate:self
+                               didFinishSelector:@selector(uploadTicket:finishedWithEntry:error:)];
+    [uploadTickets_ addObject:ticket];
   }
 }
 
-- (void)simulateUploadBatchFeed:(GDataFeedBase *)batchFeed {
+- (void)simulateUploadEntry:(GDataEntryMailItem *)entry {
 
-  // make a fake results feed
-  GDataFeedBase *resultFeed = [[[GDataFeedBase alloc] init] autorelease];
-  GDataEntryMailItem *mailEntry;
-
-  GDATA_FOREACH(mailEntry, [batchFeed entries]) {
-
-    // copy the actual entry, and add a status element
-    GDataEntryBase *resultEntry = [[mailEntry copy] autorelease];
-
-    [resultEntry setBatchStatus:[GDataBatchStatus batchStatusWithCode:201
-                                                               reason:@"Created"]];
-    [resultFeed addEntry:resultEntry];
-  }
-
-  [GDataServiceBase invokeCallback:@selector(batchTicket:finishedWithFeed:error:)
+  // make a fake results entry
+  //
+  // pass the actual entry
+  [GDataServiceBase invokeCallback:@selector(uploadTicket:finishedWithEntry:error:)
                             target:self
                             ticket:nil
-                            object:resultFeed
+                            object:entry
                              error:nil];
 }
 
-// this "success" callback is called even if entries of the batch
-// failed to upload
-- (void)batchTicket:(GDataServiceTicket *)ticket
-   finishedWithFeed:(GDataFeedBase *)resultsFeed {
-
-  BOOL shouldBackOff = NO;
-
-  // step through each "result entry", which contain the status for
-  // for the message entries of the uploaded batch
-  //
-  // Entries which had status 503 need to be retried, and will immediately
-  // put us into slow upload mode
-  GDataEntryBase *resultEntry;
-  GDATA_FOREACH(resultEntry, [resultsFeed entries]) {
-
-    GDataBatchStatus *status = [resultEntry batchStatus];
-    int code = [[status code] intValue];
-    if (code >= 200 && code <= 299) {
-
-      // success for this entry
-      messagesUploadedCount_++;
-
-      if (messagesUploadedCount_ > kFastModeMaxMessages) {
-        // we've uploaded 500 messages; change to slow upload mode
-        isSlowUploadMode_ = YES;
-      }
-    } else {
-
-      // failure for this entry
-      NSString *batchIDStr = [[resultEntry batchID] stringValue];
-
-      GDataFeedBase *postedFeed = [ticket postedObject];
-      GDataEntryMailItem *uploadedEntry;
-      uploadedEntry = [GDataUtilities firstObjectFromArray:[postedFeed entries]
-                                                 withValue:batchIDStr
-                                                forKeyPath:@"batchID.stringValue"];
-      if (code == 503) {
-        // retry this entry later
-        //
-        // search the upload batch for the entry with this resultEntry's batchID
-
-        if (uploadedEntry) {
-          // copy the entry so that the copy in the array doesn't already have a
-          // feed as its parent
-          [entriesToRetry_ addObject:[[uploadedEntry copy] autorelease]];
-        } else {
-          NSLog(@"Could not find posted entry with batch ID for 503 result entry %@",
-                resultEntry);
-          messagesSkippedCount_++;
-        }
-
-        shouldBackOff = YES;
-
-      } else {
-
-        // not a 503 status code, so this entry flat-out failed
-        NSString *serverErrMsg = [[resultEntry content] stringValue];
-
-        [uploadedEntry setProperty:serverErrMsg
-                            forKey:kEmUpMessageErrorStringKey];
-
-        NSDictionary *propertyDict = [uploadedEntry properties];
-        [self handleFailedMessageForProperties:propertyDict];
-      }
-    }
+- (void)uploadTicket:(GDataServiceTicket *)ticket
+   finishedWithEntry:(GDataEntryMailItem *)entry
+               error:(NSError *)error {
+  
+  GDataEntryMailItem *postedEntry = [ticket postedObject];
+  if (ticket) {
+    [uploadTickets_ removeObjectIdenticalTo:ticket];
   }
+  
+  if (error == nil) {
+    // success for this entry
+    messagesUploadedCount_++;
 
-  [self updateUI];
-  [self setUploadTicket:nil];
+    if (messagesUploadedCount_ > kFastModeMaxMessages) {
+      // we've uploaded 500 messages; change to slow upload mode
+      isSlowUploadMode_ = YES;
+    }
 
-  if (shouldBackOff) {
-    isSlowUploadMode_ = YES;
-    [self uploadMoreMessagesAfterBackingOff];
-  } else {
-    // reset the backoff counter, since there were no 503 statuses this time
+    [self updateUI];
+
+    // reset the backoff counter, since there was no 503 status this time
     backoffCounter_ = 0;
     [self uploadMoreMessages];
-  }
-}
-
-// the batch was rejected entirely
-- (void)batchTicket:(GDataServiceTicket *)ticket
-    failedWithError:(NSError *)error {
-
-  GDataFeedBase *postedFeed = [ticket postedObject];
-  NSArray *postedEntries = [postedFeed entries];
-
-  BOOL shouldKeepUploading = NO;
-  BOOL shouldBackOff = NO;
-
-  if ([error code] == 503) {
-    // presumably all entries of the batch will be retried
-    NSArray *entries = [GDataUtilities arrayWithCopiesOfObjectsInArray:postedEntries];
-    [entriesToRetry_ addObjectsFromArray:entries];
-
-    shouldKeepUploading = YES;
-    shouldBackOff = YES;
-    isSlowUploadMode_ = YES;
-
-  } else if ([error code] == 403) {
-    // forbidden -- probably bad username/password
-    NSString *errorTitle = NSLocalizedString(@"ErrorTitle", nil); // "Error"
-    NSString *errorMsg = NSLocalizedString(@"InvalidUserErr", nil); // "Username or password not accepted"
-
-    NSBeginAlertSheet(errorTitle, nil, nil, nil,
-                      [self window], self,
-                      @selector(authFailedSheetDidEnd:returnCode:contextInfo:),
-                      nil, nil, errorMsg);
-
-    NSString *statusMsg = NSLocalizedString(@"UploadingStopped", nil);
-    NSString *statusSeparator = NSLocalizedString(@"StatusSeparator", nil);
-    [self reportProgressWithTimestamp:statusMsg];
-    [self reportProgress:statusSeparator];
 
   } else {
-    // this batch flat-out failed and we won't retry any of its entries
-    // (or should we? it could lead to an infinite loop of errors)
-    NSString *serverErrMsg = [error localizedDescription];
+    // failure for this entry
 
-    // shove the error message into every entry's properties
-    [postedEntries setValue:serverErrMsg
-                 forKeyPath:@"properties.kEmUpMessageErrorStringKey"];
+    BOOL shouldKeepUploading = NO;
+    BOOL shouldBackOff = NO;
 
-    // report the failure en masse
-    NSArray *propertyDicts = [postedEntries valueForKey:@"properties"];
-    [self handleFailedMessagesForProperties:propertyDicts];
+    int statusCode = [error code];
 
-    shouldKeepUploading = YES;
-  }
+    if (statusCode == 503) {
+      // retry this entry later
+      [entriesToRetry_ addObject:postedEntry];
 
-  [self setUploadTicket:nil];
+      shouldKeepUploading = YES;
+      shouldBackOff = YES;
+      isSlowUploadMode_ = YES;
 
-  [self updateUI];
+    } else if (statusCode == 403) {
+      // forbidden -- probably bad username/password
+      NSString *errorTitle = NSLocalizedString(@"ErrorTitle", nil); // "Error"
+      NSString *errorMsg = NSLocalizedString(@"InvalidUserErr", nil); // "Username or password not accepted"
 
-  if (shouldKeepUploading) {
-    if (shouldBackOff) {
-      [self uploadMoreMessagesAfterBackingOff];
+      NSBeginAlertSheet(errorTitle, nil, nil, nil,
+                        [self window], self,
+                        @selector(authFailedSheetDidEnd:returnCode:contextInfo:),
+                        nil, nil, errorMsg);
+
+      NSString *statusMsg = NSLocalizedString(@"UploadingStopped", nil);
+      NSString *statusSeparator = NSLocalizedString(@"StatusSeparator", nil);
+      [self reportProgressWithTimestamp:statusMsg];
+      [self reportProgress:statusSeparator];
+
     } else {
-      // reset the backoff counter
-      backoffCounter_ = 0;
-      [self uploadMoreMessages];
-    }
-  } else {
-    [self stopUploading];
-  }
-}
+      // this entry flat-out failed and we won't retry it
+      // (or should we? it could lead to an infinite loop of errors)
+      NSString *serverErrMsg = [error localizedDescription];
 
-- (void)batchTicket:(GDataServiceTicket *)ticket
-   finishedWithFeed:(GDataFeedBase *)feed
-              error:(NSError *)error {
-  if (error == nil) {
-    [self batchTicket:ticket finishedWithFeed:feed];
-  } else {
-    [self batchTicket:ticket failedWithError:error];
+      // shove the error message into the entry's properties
+      [postedEntry setProperty:serverErrMsg
+                        forKey:kEmUpMessageErrorStringKey];
+
+      [postedEntry setProperty:kEmUpMessageErrorTypeServer
+                        forKey:kEmUpMessageErrorType];
+
+      // report the failure
+      NSDictionary *properties = [postedEntry properties];
+      [self handleFailedMessageForProperties:properties];
+
+      shouldKeepUploading = YES;
+    }
+
+    [self updateUI];
+
+    if (!shouldKeepUploading) {
+      [self stopUploading];
+    } else {
+      if (shouldBackOff) {
+        [self uploadMoreMessagesAfterBackingOff];
+      } else {
+        // reset the backoff counter
+        backoffCounter_ = 0;
+        [self uploadMoreMessages];
+      }
+    }
+
   }
 }
 
@@ -1143,17 +1040,29 @@ static EmUpWindowController* gEmUpWindowController = nil;
   NSString *messageID = [propertyDict objectForKey:kEmUpMessageIDKey];
   NSString *title = mailboxName;
 
+  UniChar symbol;
+  NSString *messageType = [propertyDict objectForKey:kEmUpMessageErrorType];
+  if ([messageType isEqual:kEmUpMessageErrorTypeDuplicate]) {
+    // duplicate
+    symbol = 0x260D; // opposition symbol
+  } else {
+    // server errors
+    symbol = 0x2639; // frown
+  }
+  
   NSString *template;
   if (messageID != nil) {
     // the menu item title is the file name and the message's ID
-    template = NSLocalizedString(@"FilenameIDTemplate", nil); // "%@ %@"
-    title = [NSString stringWithFormat:@"%@ %@", mailboxName, messageID];
+    template = NSLocalizedString(@"FilenameIDTemplate", nil); // "%C %@ %@"
+    title = [NSString stringWithFormat:template,
+             symbol, mailboxName, messageID];
   } else {
     NSRange range = [[propertyDict objectForKey:kEmUpMessageRangeKey] rangeValue];
     if (range.length > 0) {
       // the menu item title is the file name and the message's byte range
-      template = NSLocalizedString(@"FilenameByteRangeTemplate", nil); // "%@ (bytes %u..%u)"
-      title = [NSString stringWithFormat:template, mailboxName,
+      template = NSLocalizedString(@"FilenameByteRangeTemplate", nil); // "%C %@ (bytes %u..%u)"
+      title = [NSString stringWithFormat:template, 
+               symbol, mailboxName,
                range.location, (range.location + range.length - 1)];
     }
   }
@@ -1197,33 +1106,13 @@ static EmUpWindowController* gEmUpWindowController = nil;
   return result;
 }
 
-- (void)rememberSkippedMessageWithProperties:(NSDictionary *)propertyDict {
-  messagesSkippedCount_++;
-
-  [self addSkippedMessagesPopupItemForProperties:propertyDict];
-}
-
-
 // report failed messages to the user, and increment the count of messages
 // skipped
-
-- (void)handleFailedMessageForProperties:(NSDictionary *)propertyDicts {
-  // wrap the dictionary in an array
-  if (propertyDicts) {
-    NSArray *array = [NSArray arrayWithObject:propertyDicts];
-
-    [self handleFailedMessagesForProperties:array];
-  }
-}
-
-- (void)handleFailedMessagesForProperties:(NSArray *)propertyDicts {
-  NSString *format = ([propertyDicts count] == 1 ?
-    // "Message did not upload\n   %@"
-    NSLocalizedString(@"StatusFailedUploadOne", nil)
-    : NSLocalizedString(@"StatusFailedUploadMany", nil));
+- (void)handleFailedMessageForProperties:(NSDictionary *)propertyDict {
+  NSString *format = NSLocalizedString(@"StatusFailedUpload", nil);
   
-  // report the reason only once, even when multiple messages have failed
-  NSString *reason = [[propertyDicts lastObject] objectForKey:kEmUpMessageErrorStringKey];
+  // report the reason
+  NSString *reason = [propertyDict objectForKey:kEmUpMessageErrorStringKey];
 
   NSString *errMsg = [NSString stringWithFormat:format, reason];
   [self reportProgress:errMsg];
@@ -1231,37 +1120,35 @@ static EmUpWindowController* gEmUpWindowController = nil;
   // "   %@"
   NSString *indentTemplate = NSLocalizedString(@"StatusIndentedMessageID", nil);
   
-  NSDictionary *propertyDict;
-  GDATA_FOREACH(propertyDict, propertyDicts) {
-
-    NSString *path = [propertyDict objectForKey:kEmUpMessagePathKey];
-    NSAssert1(path != nil, @"invalid properties: %@", propertyDict);
-
-    NSString *messageDisplayID = [self messageDisplayIDFromProperties:propertyDict];
-    NSString *reportStr = [NSString stringWithFormat:indentTemplate,
-                           messageDisplayID];
-    [self reportProgress:reportStr];
-
-    // report message ID so the user can find the message in the file
-    NSString *messageID = [propertyDict objectForKey:kEmUpMessageIDKey];
-    if ([messageID length] > 0) {
-      NSString *idReportStr = [NSString stringWithFormat:indentTemplate,
-                               messageID];
-      [self reportProgress:idReportStr];
-    } else {
-      // can't get the message ID, so report the byte range instead
-      NSRange range = [[propertyDict objectForKey:kEmUpMessageRangeKey] rangeValue];
-      if (range.length > 0) {
-        // "   bytes %u..%u"
-        NSString *template = NSLocalizedString(@"StatusIndentedMessageByteRange", nil);
-        NSString *rangeStr = [NSString stringWithFormat:template,
-                          range.location, (range.location + range.length - 1)];
-        [self reportProgress:rangeStr];
-      }
+  NSString *path = [propertyDict objectForKey:kEmUpMessagePathKey];
+  NSAssert1(path != nil, @"invalid properties: %@", propertyDict);
+  
+  NSString *messageDisplayID = [self messageDisplayIDFromProperties:propertyDict];
+  NSString *reportStr = [NSString stringWithFormat:indentTemplate,
+                         messageDisplayID];
+  [self reportProgress:reportStr];
+  
+  // report message ID so the user can find the message in the file
+  NSString *messageID = [propertyDict objectForKey:kEmUpMessageIDKey];
+  if ([messageID length] > 0) {
+    NSString *idReportStr = [NSString stringWithFormat:indentTemplate,
+                             messageID];
+    [self reportProgress:idReportStr];
+  } else {
+    // can't get the message ID, so report the byte range instead
+    NSRange range = [[propertyDict objectForKey:kEmUpMessageRangeKey] rangeValue];
+    if (range.length > 0) {
+      // "   bytes %u..%u"
+      NSString *template = NSLocalizedString(@"StatusIndentedMessageByteRange", nil);
+      NSString *rangeStr = [NSString stringWithFormat:template,
+                            range.location, (range.location + range.length - 1)];
+      [self reportProgress:rangeStr];
     }
-
-    [self rememberSkippedMessageWithProperties:propertyDict];
   }
+  
+  messagesSkippedCount_++;
+  
+  [self addSkippedMessagesPopupItemForProperties:propertyDict];
 }
 
 - (void)uploadMoreMessagesAfterBackingOff {
@@ -1548,13 +1435,13 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 #pragma mark Setters and Getters -- just to avoid leaks internally
 
-- (GDataServiceTicket *)uploadTicket {
-  return uploadTicket_;
+- (NSMutableArray *)uploadTickets {
+  return uploadTickets_;
 }
 
-- (void)setUploadTicket:(GDataServiceTicket *)feed {
-  [uploadTicket_ autorelease];
-  uploadTicket_ = [feed retain];
+- (void)setUploadTickets:(NSMutableArray *)array {
+  [uploadTickets_ autorelease];
+  uploadTickets_ = [array retain];
 }
 
 - (NSString *)currentUploadingMailboxName {
@@ -1566,9 +1453,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
   currentUploadingMailboxName_ = [str copy];
 }
 
-- (void)setLastBatchDate:(NSDate *)date {
-  [lastBatchDate_ release];
-  lastBatchDate_ = [date retain];
+- (void)setLastUploadDate:(NSDate *)date {
+  [lastUploadDate_ release];
+  lastUploadDate_ = [date retain];
 }
 
 - (void)setSimulateUploads:(BOOL)flag {

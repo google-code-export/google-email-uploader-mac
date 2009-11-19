@@ -29,11 +29,25 @@
 // no messages over 31 megs, per the API
 _EXTERN const unsigned int kMaxMesssageSize _INITIALIZE_AS(1024 * 1024 * 31);
 
-// we upload up to 10 messages at a time in slow mode, 50 in fast mode
-_EXTERN const unsigned int kSlowBatchCount   _INITIALIZE_AS(10);
-_EXTERN const unsigned int kFastBatchCount   _INITIALIZE_AS(50);
+// uploading starts in fast mode, then changes to slow mode
+//
+// fast mode: up to 10 tickets pending at a time, roughly 5 per second
+//
+// slow mode: one ticket pending at a time, limited to 1 per second
+//
+// the mode changes from fast to slow after 500 fast messages, or when we
+// get a 503 status telling us to back off
 
-// we can upload up to 500 messages in fast most
+// 1 message per second in slow mode, estimate 5 per second in fast mode
+_EXTERN const NSTimeInterval kSlowUploadInterval   _INITIALIZE_AS(1);
+_EXTERN const NSTimeInterval kFastUploadInterval   _INITIALIZE_AS(0.2);
+
+// we'll have one 1 fetch pending at a time in slow mode, at most 10 at a time
+// in fast mode
+_EXTERN const unsigned int kSlowUploadMaxTickets   _INITIALIZE_AS(1);
+_EXTERN const unsigned int kFastUploadMaxTickets   _INITIALIZE_AS(10);
+
+// we can upload up to 500 messages in fast mode
 _EXTERN const unsigned int kFastModeMaxMessages _INITIALIZE_AS(500);
 
 //
@@ -71,4 +85,9 @@ _EXTERN NSString *const kEmUpMessagePathKey  _INITIALIZE_AS(@"kEmUpMessagePathKe
 
 // error string
 _EXTERN NSString *const kEmUpMessageErrorStringKey  _INITIALIZE_AS(@"kEmUpMessageErrorStringKey");
+
+// type of error
+_EXTERN NSString *const kEmUpMessageErrorType  _INITIALIZE_AS(@"kEmUpMessageErrorType");
+_EXTERN NSString *const kEmUpMessageErrorTypeDuplicate  _INITIALIZE_AS(@"duplicate");
+_EXTERN NSString *const kEmUpMessageErrorTypeServer     _INITIALIZE_AS(@"server");
 
