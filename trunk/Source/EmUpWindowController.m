@@ -301,6 +301,8 @@ static EmUpWindowController* gEmUpWindowController = nil;
                     numberOfSkippedMenuItems];
   }
   [skippedTabItem setLabel:skippedTitle];
+  [skippedMessagePopup_ setEnabled:(numberOfSkippedMenuItems > 0)];
+  [showSkippedMessageFileButton_ setEnabled:(numberOfSkippedMenuItems > 0)];
 }
 
 - (NSString *)displayTimeForSeconds:(unsigned int)seconds {
