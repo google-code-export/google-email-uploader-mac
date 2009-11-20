@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.03">
 	<data>
 		<int key="IBDocument.SystemTarget">1040</int>
-		<string key="IBDocument.SystemVersion">9J61</string>
+		<string key="IBDocument.SystemVersion">9L30</string>
 		<string key="IBDocument.InterfaceBuilderVersion">677</string>
-		<string key="IBDocument.AppKitVersion">949.46</string>
+		<string key="IBDocument.AppKitVersion">949.54</string>
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="732"/>
+			<integer value="726"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -487,7 +487,7 @@
 																			<int key="NSPeriodicDelay">200</int>
 																			<int key="NSPeriodicInterval">25</int>
 																		</object>
-																		<int key="NSResizingMask">3</int>
+																		<int key="NSResizingMask">1</int>
 																		<bool key="NSIsResizeable">YES</bool>
 																		<bool key="NSIsEditable">YES</bool>
 																		<reference key="NSTableView" ref="330232"/>
@@ -1367,6 +1367,14 @@
 					</object>
 					<int key="connectionID">879</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">showSkippedMessageFileButton_</string>
+						<reference key="source" ref="723236780"/>
+						<reference key="destination" ref="713770004"/>
+					</object>
+					<int key="connectionID">914</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -2192,8 +2200,8 @@
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
-					<string>{{0, 481}, {775, 642}}</string>
-					<string>{{0, 481}, {775, 642}}</string>
+					<string>{{63, 257}, {775, 642}}</string>
+					<string>{{63, 257}, {775, 642}}</string>
 					<reference ref="5"/>
 					<reference ref="5"/>
 					<string>{776, 595}</string>
@@ -2286,7 +2294,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">913</int>
+			<int key="maxID">914</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2331,6 +2339,7 @@
 							<string>progressIndicator_</string>
 							<string>progressReportTextView_</string>
 							<string>putAllMailInInboxCheckbox_</string>
+							<string>showSkippedMessageFileButton_</string>
 							<string>skippedMessageErrorField_</string>
 							<string>skippedMessagePathField_</string>
 							<string>skippedMessagePopup_</string>
@@ -2357,6 +2366,7 @@
 							<string>NSButton</string>
 							<string>NSProgressIndicator</string>
 							<string>NSTextView</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>

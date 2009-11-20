@@ -33,6 +33,7 @@
   
   IBOutlet NSTextView *skippedMessageTextView_;
   IBOutlet NSPopUpButton *skippedMessagePopup_;
+  IBOutlet NSButton *showSkippedMessageFileButton_;
   IBOutlet NSTextField *skippedMessagePathField_;
   IBOutlet NSTextField *skippedMessageErrorField_;
 
