@@ -53,6 +53,10 @@
     str = [str stringByAppendingFormat:@" (%u child items)", [children_ count]];
   }
 
+  if (numberOfMessages_ > 0) {
+    str = [str stringByAppendingFormat:@" (%u msgs)", numberOfMessages_];
+  }
+  
   return str;
 }
 
@@ -148,14 +152,15 @@
 }
 
 - (unsigned int)recursiveNumberOfMessages {
-
+  unsigned int numberOfOwnMessages = [self numberOfMessages];
   if ([children_ count] == 0) {
     // we have no children
-    return [self numberOfMessages];
+    return numberOfOwnMessages;
   }
 
   NSNumber *sum = [children_ valueForKeyPath:@"@sum.recursiveNumberOfMessages"];
-  return [sum unsignedIntValue];
+  unsigned int totalMessages = [sum unsignedIntValue] + numberOfOwnMessages;
+  return totalMessages;
 }
 
 - (unsigned int)recursiveNumberOfCheckedMessages {
@@ -165,14 +170,16 @@
     return 0;
   }
 
+  unsigned int numberOfOwnMessages = [self numberOfMessages];
   if ([children_ count] == 0) {
-    // we have no children, so we may contain messages ourself
-    return [self numberOfMessages];
+    // we have no children; we may contain messages ourself
+    return numberOfOwnMessages;
   }
 
   // add up the checked messages in the children
   NSNumber *sum = [children_ valueForKeyPath:@"@sum.recursiveNumberOfCheckedMessages"];
-  return [sum unsignedIntValue];
+  unsigned int totalMessages = [sum unsignedIntValue] + numberOfOwnMessages;
+  return totalMessages;
 }
 
 @end
