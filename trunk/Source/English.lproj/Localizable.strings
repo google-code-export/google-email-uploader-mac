@@ -84,5 +84,4 @@
 
 /* Error messages */
 "ErrorTitle" = "Error";
-"GmailAcctErr" = "Uploading to Gmail accounts is not currently supported";
 "InvalidUserErr" = "Username or password not accepted";

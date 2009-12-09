@@ -103,6 +103,7 @@
 - (IBAction)stopClicked:(id)sender;
 - (IBAction)pauseClicked:(id)sender;
 - (IBAction)showSkippedMessageFileClicked:(id)sender;
+- (IBAction)reloadMailboxesClicked:(id)sender;
 
 // addMailboxes is sent by menu items with a tag of 0 (Apple), 1 (Eudora),
 // or 2 (Thunderbird.) 

@@ -547,6 +547,21 @@ static EmUpWindowController* gEmUpWindowController = nil;
   [self endingLoadingMailboxes];
 }
 
+- (void)displayAuthFailureSheetForError:(NSError *)error {
+  NSString *errorTitle = NSLocalizedString(@"ErrorTitle", nil); // "Error"
+  NSString *errorMsg;
+  if ([error code] == kGDataBadAuthentication) {
+    errorMsg = NSLocalizedString(@"InvalidUserErr", nil); // "Username or password not accepted"
+  } else {
+    errorMsg = [error localizedDescription];
+  }
+
+  NSBeginAlertSheet(errorTitle, nil, nil, nil,
+                    [self window], self,
+                    @selector(authFailedSheetDidEnd:returnCode:contextInfo:),
+                    nil, nil, errorMsg);
+}
+
 #pragma mark IBActions
 
 - (IBAction)uploadClicked:(id)sender {
@@ -563,20 +578,18 @@ static EmUpWindowController* gEmUpWindowController = nil;
   // text before the field is disabled, as disabling causes changes to be
   // discarded if the text field is active
   [[self window] makeFirstResponder:nil];
-  
-  NSString *lowercaseName = [username lowercaseString];
-  if ([lowercaseName hasSuffix:@"gmail.com"]
-      || [lowercaseName hasSuffix:@"@googlemail.com"]) {
 
-    // "Uploading to Gmail accounts is not supported"
-    NSString *errorMsg = NSLocalizedString(@"GmailAcctErr", nil);
-    NSString *errorTitle = NSLocalizedString(@"ErrorTitle", nil); // "Error"
+  GDataServiceGoogle *service = [self service];
+  [service authenticateWithDelegate:self
+            didAuthenticateSelector:@selector(ticket:authenticatedWithError:)];
+}
 
-    NSBeginAlertSheet(errorTitle, nil, nil, nil,
-                      [self window], self, NULL,
-                      nil, nil, errorMsg);
+- (void)ticket:(GDataServiceTicket *)ticket authenticatedWithError:(NSError *)error {
+  // if the authentication succeeded, start uploading
+  if (error == nil) {
+    [self uploadNow]; 
   } else {
-    [self uploadNow];
+    [self displayAuthFailureSheetForError:error];
   }
 }
 
@@ -658,6 +671,19 @@ static EmUpWindowController* gEmUpWindowController = nil;
     [[NSWorkspace sharedWorkspace] selectFile:filePath
                      inFileViewerRootedAtPath:nil];
   }
+}
+
+- (IBAction)reloadMailboxesClicked:(id)sender {
+  if (isUploading_) {
+    NSBeep();
+    return;
+  }
+
+  [itemsControllers_ release];
+  itemsControllers_ = nil;
+
+  [outlineView_ reloadData];
+  [self loadMailboxesForApplication];
 }
 
 #pragma mark -
@@ -953,8 +979,6 @@ static EmUpWindowController* gEmUpWindowController = nil;
       isSlowUploadMode_ = YES;
     }
 
-    [self updateUI];
-
     // reset the backoff counter, since there was no 503 status this time
     backoffCounter_ = 0;
     [self uploadMoreMessages];
@@ -975,21 +999,14 @@ static EmUpWindowController* gEmUpWindowController = nil;
       shouldBackOff = YES;
       isSlowUploadMode_ = YES;
 
-    } else if (statusCode == 403) {
+    } else if (statusCode == kGDataBadAuthentication) {
       // forbidden -- probably bad username/password
-      NSString *errorTitle = NSLocalizedString(@"ErrorTitle", nil); // "Error"
-      NSString *errorMsg = NSLocalizedString(@"InvalidUserErr", nil); // "Username or password not accepted"
-
-      NSBeginAlertSheet(errorTitle, nil, nil, nil,
-                        [self window], self,
-                        @selector(authFailedSheetDidEnd:returnCode:contextInfo:),
-                        nil, nil, errorMsg);
-
+      [self displayAuthFailureSheetForError:error];
+      
       NSString *statusMsg = NSLocalizedString(@"UploadingStopped", nil);
       NSString *statusSeparator = NSLocalizedString(@"StatusSeparator", nil);
       [self reportProgressWithTimestamp:statusMsg];
-      [self reportProgress:statusSeparator];
-
+      [self reportProgress:statusSeparator];  
     } else {
       // this entry flat-out failed and we won't retry it
       // (or should we? it could lead to an infinite loop of errors)
@@ -1009,8 +1026,6 @@ static EmUpWindowController* gEmUpWindowController = nil;
       shouldKeepUploading = YES;
     }
 
-    [self updateUI];
-
     if (!shouldKeepUploading) {
       [self stopUploading];
     } else {
@@ -1022,7 +1037,15 @@ static EmUpWindowController* gEmUpWindowController = nil;
         [self uploadMoreMessages];
       }
     }
+  }
 
+  // update UI at most twice per second (it will be updated elsewhere
+  // when uploading pauses or stops)
+  static UInt32 sLastUpdateTicks = 0;
+  UInt32 ticksNow = TickCount();
+  if (ticksNow - sLastUpdateTicks > 30) {
+    sLastUpdateTicks = ticksNow;
+    [self updateUI];
   }
 }
 
@@ -1283,7 +1306,6 @@ static EmUpWindowController* gEmUpWindowController = nil;
   if (service == nil) {
     service = [[GDataServiceGoogle alloc] init];
 
-    [service setUserAgent:@"Google-MacMailUploader-1.0"];
     [service setServiceID:@"apps"];
   }
 
@@ -1422,8 +1444,17 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 #pragma mark UI delegate methods
 
 - (void)controlTextDidChange:(NSNotification *)note {
-  // enable the upload button when a username and password are entered
-  [self updateUI];
+  // enable or disable the upload button when a username and password are
+  // entered or deleted
+  BOOL hasEmail = ([[usernameField_ stringValue] length] > 0);
+  BOOL hasPassword = ([[passwordField_ stringValue] length] > 0);
+  BOOL hasEmailAndPassword = hasEmail && hasPassword;
+
+  BOOL isUploadEnabled = [uploadButton_ isEnabled];
+  
+  if ((isUploadEnabled != hasEmailAndPassword) && !isLoadingMailboxes_) {
+    [self updateUI];
+  }
 }
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {

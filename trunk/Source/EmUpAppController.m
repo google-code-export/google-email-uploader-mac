@@ -39,6 +39,11 @@
   [windowController addMailboxes:sender];
 }
 
+- (IBAction)reloadMailboxes:(id)sender {
+  EmUpWindowController* windowController = [EmUpWindowController sharedEmUpWindowController];
+  [windowController reloadMailboxesClicked:sender];
+}
+
 - (IBAction)loggingCheckboxClicked:(id)sender {
   // toggle the menu item's checkmark
   [loggingMenuItem_ setState:![loggingMenuItem_ state]];
