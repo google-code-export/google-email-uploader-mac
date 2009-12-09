@@ -122,25 +122,29 @@
 
 - (NSCellStateValue)state {
   // if there are no children, the state depends only on its own state
-  if ([children_ count] == 0) {
+  unsigned int numberOfChildItems = [children_ count];
+  if (numberOfChildItems == 0) {
     return cellState_;
   }
 
-  // there are children; examine their states
-  int minVal = [[children_ valueForKeyPath:@"@min.state"] intValue];
+  BOOL foundOn = NO;
+  BOOL foundOff = NO;
 
-  // if any are mixed state children (-1) then return mixed
-  if (minVal < 0) return NSMixedState;
+  // we're using an index rather than GDATA_FOREACH to avoid creating
+  // an autoreleased object each time this is run
+  for (int idx = 0; idx < numberOfChildItems; idx++) {
+    OutlineViewItem *item = [children_ objectAtIndex:idx];
+    int state = [item state];
 
-  // if all children are on (1), then return on
-  if (minVal > 0) return NSOnState;
+    // if any are mixed state children (-1) then return mixed
+    if (state == NSMixedState) return NSMixedState;
 
-  // if all are off (0) then return off
-  int maxVal = [[children_ valueForKeyPath:@"@max.state"] intValue];
-  if (maxVal == 0) return NSOffState;
+    if (state == NSOnState) foundOn = YES;
+    else foundOff = YES;
 
-  // some are on, some are off
-  return NSMixedState;
+    if (foundOn && foundOff) return NSMixedState;
+  }
+  return (foundOn ? NSOnState : NSOffState);
 }
 
 - (void)setNumberOfMessages:(unsigned int)val {
@@ -153,13 +157,19 @@
 
 - (unsigned int)recursiveNumberOfMessages {
   unsigned int numberOfOwnMessages = [self numberOfMessages];
-  if ([children_ count] == 0) {
+  unsigned int numberOfChildItems = [children_ count];
+
+  if (numberOfChildItems == 0) {
     // we have no children
     return numberOfOwnMessages;
   }
 
-  NSNumber *sum = [children_ valueForKeyPath:@"@sum.recursiveNumberOfMessages"];
-  unsigned int totalMessages = [sum unsignedIntValue] + numberOfOwnMessages;
+  unsigned int sum = 0;
+  for (int idx = 0; idx < numberOfChildItems; idx++) {
+    OutlineViewItem *item = [children_ objectAtIndex:idx];
+    sum += [item recursiveNumberOfMessages];
+  }    
+  unsigned int totalMessages = sum + numberOfOwnMessages;
   return totalMessages;
 }
 
@@ -171,14 +181,21 @@
   }
 
   unsigned int numberOfOwnMessages = [self numberOfMessages];
-  if ([children_ count] == 0) {
+  unsigned int numberOfChildItems = [children_ count];
+
+  if (numberOfChildItems == 0) {
     // we have no children; we may contain messages ourself
     return numberOfOwnMessages;
   }
 
   // add up the checked messages in the children
-  NSNumber *sum = [children_ valueForKeyPath:@"@sum.recursiveNumberOfCheckedMessages"];
-  unsigned int totalMessages = [sum unsignedIntValue] + numberOfOwnMessages;
+  unsigned int sum = 0;
+  for (int idx = 0; idx < numberOfChildItems; idx++) {
+    OutlineViewItem *item = [children_ objectAtIndex:idx];
+    sum += [item recursiveNumberOfCheckedMessages];
+  }
+
+  unsigned int totalMessages = sum + numberOfOwnMessages;
   return totalMessages;
 }
 

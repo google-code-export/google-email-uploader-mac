@@ -27,6 +27,8 @@
 
 - (IBAction)addMailboxes:(id)sender;
 
+- (IBAction)reloadMailboxes:(id)sender;
+
 - (IBAction)loggingCheckboxClicked:(id)sender;
 
 - (IBAction)simulateUploadsClicked:(id)sender;
