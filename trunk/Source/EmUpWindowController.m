@@ -579,6 +579,28 @@ static EmUpWindowController* gEmUpWindowController = nil;
   // discarded if the text field is active
   [[self window] makeFirstResponder:nil];
 
+  // unless the option key is down, require an "@" in the username and
+  // exclude gmail.com accounts
+  UInt32 currentModifiers = GetCurrentKeyModifiers();
+  BOOL isOptionKeyDown = ((currentModifiers & optionKey) != 0);
+
+  if (!isOptionKeyDown) {
+    NSString *lowercaseName = [username lowercaseString];
+    BOOL hasAtSign = ([username rangeOfString:@"@"].location != NSNotFound);
+    if (!hasAtSign
+        || [lowercaseName hasSuffix:@"@gmail.com"]
+        || [lowercaseName hasSuffix:@"@googlemail.com"]) {
+
+      // "Uploading to Gmail accounts is not supported"
+      NSString *errorMsg = NSLocalizedString(@"GmailAcctErr", nil);
+      NSString *errorTitle = NSLocalizedString(@"ErrorTitle", nil); // "Error"
+
+      NSBeginAlertSheet(errorTitle, nil, nil, nil,
+                        [self window], self, NULL,
+                        nil, nil, errorMsg);
+      return;
+    }
+  }
   GDataServiceGoogle *service = [self service];
   [service authenticateWithDelegate:self
             didAuthenticateSelector:@selector(ticket:authenticatedWithError:)];
