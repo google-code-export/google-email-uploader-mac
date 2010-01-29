@@ -1,0 +1,88 @@
+﻿/* Copyright (c) 2009 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Default additional label suggestion of today's date */
+"UploadDateTemplate" = "Uploaded %@";
+
+/* Mailbox loading notification message */
+"LoadingTemplate" = "Loading %@";
+
+/* Mail uploading UI */
+"MessagesSelectedTemplate" = "Messages selected: %u";
+"MessagesTransferredTemplate" = "Messages transferred: %u/%u (%u to retry, %u skipped)";
+"SelectMailboxes" = "Select mailboxes to upload";
+"TimeRemainingTemplate" = "Estimated time remaining: %@";
+"TimeToUploadTemplate" = "Estimated time to upload: %@";
+
+/* Time remaining */
+"TimeRemainingUnderAMinute" = "Under a minute";
+"TimeRemainingAboutAMinute" = "About a minute";
+
+/* Skipped Messages tab label */
+"SkippedMessages" = "Skipped Messages";
+"SkippedMessagesNum" = "Skipped Messages (%d)";
+"TimeRemainingMinutes" = "%um";
+"TimeRemainingHoursMins" = "%uh %um";
+
+/* Uploading status */
+"UploadingStarted" = "Uploading started";
+"UploadingStopped" = "Uploading stopped";
+"UploadingEndCountTemplate" = "Messages transferred: %u/%u  Skipped: %u";
+"UploadingPaused" = "Uploading paused";
+"UploadingResumed" = "Uploading resumed";
+"UploadingFinished" = "Uploading finished";
+"UploadingSimulated" = "(Simulating uploads)";
+"UploadingMailboxTemplate" = "Uploading %@";
+"StatusSeparator" = "-------------------------------------------";
+"StatusDuplicateIDTemplate" = "Already uploaded message with this ID\n   previously found in file %@";
+"StatusFailedUpload" = "Message did not upload\n   %@";
+"StatusIndentedMessageID" = "   %@";
+"StatusIndentedMessageByteRange" = "   bytes %u..%u";
+"StatusDelayingTemplate" = "   Delaying upload per server request (%d seconds)";
+
+/* Outline view strings */
+"AppleMail" = "Apple Mail";
+"Eudora" = "Eudora";
+"ThunderbirdTemplate" = "Thunderbird - %@";
+
+"AppleMailPathTemplate" = "Apple Mail - %@";
+"MBoxPathTemplate" = "MBox - %@";
+"MaildirPathTemplate" = "Maildir - %@";
+
+"MailboxPartiallySelectedTemplate" = "%@ (%u of %u)";
+"MailboxFullySelectedTemplate" = "%@ (%u)";
+
+/* Message display identifier - path & index */
+"MessageDisplayIDTemplate" = "%@ (at message %d)";
+
+/* Skipped message menu items */
+"FilenameIDTemplate" = "%C %@ %@";
+"FilenameByteRangeTemplate" = "%C %@ (bytes %u..%u)";
+
+/* Select additional mailbox sheet */
+"SelectButton" = "Select";
+"SelectTitle" = "Select Mail Directory";
+
+/* Quit now sheet */
+"QuitNowTitle" = "Quit now?";
+"QuitNowMsg" = "Uploading progress will be lost.";
+"QuitButton" = "Quit";
+"DontQuitButton" = "Don't Quit";
+
+
+/* Error messages */
+"ErrorTitle" = "Error";
+"GmailAcctErr" = "Uploading to gmail.com and googlemail.com accounts is not currently supported";
+"InvalidUserErr" = "Username or password not accepted";
