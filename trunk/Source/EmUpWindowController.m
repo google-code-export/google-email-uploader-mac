@@ -552,6 +552,24 @@ static EmUpWindowController* gEmUpWindowController = nil;
   NSString *errorMsg;
   if ([error code] == kGDataBadAuthentication) {
     errorMsg = NSLocalizedString(@"InvalidUserErr", nil); // "Username or password not accepted"
+    
+    // the Email Migration API lumps a variety of problems under 
+    // "bad authentication"
+    //
+    // check if the server has an error message other than simply "bad password"
+    NSString *serverErrStr = [[error userInfo] objectForKey:kGDataServerErrorStringKey];
+    if ([serverErrStr length] > 0 
+        && ![serverErrStr isEqual:@"BadAuthentication"]) {
+      // if it's html, turn it into a plain string
+      if ([serverErrStr rangeOfString:@"<HTML>"].location != NSNotFound) {
+        NSData *data = [serverErrStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSAttributedString *attrStr = [[[NSAttributedString alloc] initWithHTML:data
+                                                             documentAttributes:nil] autorelease];
+        serverErrStr = [attrStr string];
+      }
+      // append the server reason to our generic password not accepted message
+      errorMsg = [errorMsg stringByAppendingFormat:@"\n\n%@", serverErrStr];
+    }
   } else {
     errorMsg = [error localizedDescription];
   }

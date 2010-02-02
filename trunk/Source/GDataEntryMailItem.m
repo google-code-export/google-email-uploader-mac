@@ -17,14 +17,6 @@
 //  GDataEntryMailItem.m
 //
 
-#include <openssl/sha.h>
-#include <openssl/evp.h>
-#include <openssl/bio.h>
-#include <openssl/buffer.h>
-#include <openssl/pem.h>
-#include <openssl/evp.h>
-#include <openssl/err.h>
-
 #define GDATAMAILITEM_DEFINE_GLOBALS 1
 
 #import "GDataEntryMailItem.h"
