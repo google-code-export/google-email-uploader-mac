@@ -76,7 +76,11 @@
 "SelectButton" = "Select";
 "SelectTitle" = "Select Mail Directory";
 "SelectRGETitle" = "Select rge file";
+
+/* Entourage RGE import */
 "RGEImportFailed" = "Entourage Import Failed";
+"RGEImportDescription" = "Imported";
+"RGEImportBusy" = "Importing Entourage mail; please wait";
 
 /* Quit now sheet */
 "QuitNowTitle" = "Quit now?";

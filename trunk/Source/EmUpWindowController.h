@@ -111,6 +111,7 @@
 
 // import will use Apple script to ask Entourage to create an RGE archive
 - (IBAction)importRGEArchiveFromEntourage:(id)sender;
+- (void)deleteImportedEntourageArchive;
 
 - (void)setSimulateUploads:(BOOL)flag;
 
