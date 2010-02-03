@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="106"/>
+			<integer value="258"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -174,6 +174,26 @@
 							</object>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSMenuItem" id="845597197">
+									<reference key="NSMenu" ref="847096813"/>
+									<string key="NSTitle">Import from Entourage...</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="807714090"/>
+									<reference key="NSMixedImage" ref="164488794"/>
+									<int key="NSTag">3</int>
+								</object>
+								<object class="NSMenuItem" id="287248884">
+									<reference key="NSMenu" ref="847096813"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="807714090"/>
+									<reference key="NSMixedImage" ref="164488794"/>
+								</object>
 								<object class="NSMenuItem" id="1019983341">
 									<reference key="NSMenu" ref="847096813"/>
 									<string key="NSTitle">Add Folder of Apple Mail Mailboxes...</string>
@@ -199,6 +219,15 @@
 									<reference key="NSOnImage" ref="807714090"/>
 									<reference key="NSMixedImage" ref="164488794"/>
 									<int key="NSTag">2</int>
+								</object>
+								<object class="NSMenuItem" id="944334678">
+									<reference key="NSMenu" ref="847096813"/>
+									<string key="NSTitle">Add Entourage rge Archive...</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="807714090"/>
+									<reference key="NSMixedImage" ref="164488794"/>
+									<int key="NSTag">3</int>
 								</object>
 								<object class="NSMenuItem" id="1044500049">
 									<reference key="NSMenu" ref="847096813"/>
@@ -774,6 +803,22 @@
 					</object>
 					<int key="connectionID">253</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addMailboxes:</string>
+						<reference key="source" ref="627321379"/>
+						<reference key="destination" ref="944334678"/>
+					</object>
+					<int key="connectionID">257</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">importFromEntourage:</string>
+						<reference key="source" ref="627321379"/>
+						<reference key="destination" ref="845597197"/>
+					</object>
+					<int key="connectionID">261</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -959,6 +1004,9 @@
 							<reference ref="1019983341"/>
 							<reference ref="766866386"/>
 							<reference ref="760871239"/>
+							<reference ref="944334678"/>
+							<reference ref="845597197"/>
+							<reference ref="287248884"/>
 						</object>
 						<reference key="parent" ref="527355386"/>
 					</object>
@@ -1158,6 +1206,21 @@
 						<reference key="object" ref="346057962"/>
 						<reference key="parent" ref="865734583"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">256</int>
+						<reference key="object" ref="944334678"/>
+						<reference key="parent" ref="847096813"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">258</int>
+						<reference key="object" ref="845597197"/>
+						<reference key="parent" ref="847096813"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">259</int>
+						<reference key="object" ref="287248884"/>
+						<reference key="parent" ref="847096813"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1250,6 +1313,12 @@
 					<string>247.IBPluginDependency</string>
 					<string>247.ImportedFromIB2</string>
 					<string>252.IBPluginDependency</string>
+					<string>256.IBPluginDependency</string>
+					<string>256.ImportedFromIB2</string>
+					<string>258.IBPluginDependency</string>
+					<string>258.ImportedFromIB2</string>
+					<string>259.IBPluginDependency</string>
+					<string>259.ImportedFromIB2</string>
 					<string>29.IBEditorWindowLastContentRect</string>
 					<string>29.IBPluginDependency</string>
 					<string>29.ImportedFromIB2</string>
@@ -1363,6 +1432,12 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="5"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="5"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="5"/>
 					<string>{{0, 1125}, {358, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
@@ -1380,7 +1455,7 @@
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
-					<string>{{140, 1012}, {345, 113}}</string>
+					<string>{{140, 962}, {345, 163}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1409,7 +1484,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">253</int>
+			<int key="maxID">261</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1422,12 +1497,14 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addMailboxes:</string>
+							<string>importFromEntourage:</string>
 							<string>loggingCheckboxClicked:</string>
 							<string>reloadMailboxes:</string>
 							<string>simulateUploadsClicked:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

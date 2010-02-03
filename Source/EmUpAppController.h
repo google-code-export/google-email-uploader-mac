@@ -25,6 +25,8 @@
   IBOutlet NSMenuItem *simulateUploadsMenuItem_;
 }
 
+- (IBAction)importFromEntourage:(id)sender;
+
 - (IBAction)addMailboxes:(id)sender;
 
 - (IBAction)reloadMailboxes:(id)sender;
