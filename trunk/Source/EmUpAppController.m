@@ -34,6 +34,11 @@
   return YES;
 }
 
+- (IBAction)importFromEntourage:(id)sender {
+  EmUpWindowController* windowController = [EmUpWindowController sharedEmUpWindowController];
+  [windowController importRGEArchiveFromEntourage:sender];
+}
+
 - (IBAction)addMailboxes:(id)sender {
   EmUpWindowController* windowController = [EmUpWindowController sharedEmUpWindowController];
   [windowController addMailboxes:sender];

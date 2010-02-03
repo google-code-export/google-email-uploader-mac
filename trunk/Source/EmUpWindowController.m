@@ -33,6 +33,8 @@ NSString *const kTabViewItemSkipped = @"Skipped";
 - (void)updateUI;
 - (NSString *)displayTimeForSeconds:(unsigned int)seconds;
 
+- (void)addMailboxesAtPath:(NSString *)path typeTag:(int)tag;
+
 // "backing off" happens when we get a status 503 on an entry;
 // delays happen normally to keep our upload throttled to
 // 1 message per second (in slow upload mode)
@@ -458,22 +460,75 @@ static EmUpWindowController* gEmUpWindowController = nil;
   [self endingLoadingMailboxes];
 }
 
-// addMailboxes is sent by menu items with a tag of 0 (Apple) or 1 (mbox)
-- (IBAction)addMailboxes:(id)sender {
+enum {
+  // kinds of mail folders
+  kAppleMailTag = 0,
+  kMBoxTag = 1,         // mbox files
+  kMaildirTag = 2,      // Maildir directories and dot subdirectories
+  kEntourageRGETag = 3
+};
 
+- (IBAction)importRGEArchiveFromEntourage:(id)sender {
+  // if we previously exported the rge archive, remove it and make a fresh
+  // export
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  if ([fileManager fileExistsAtPath:@"/tmp/EntourageArchive.rge"]) {
+    [fileManager removeFileAtPath:@"/tmp/EntourageArchive.rge"
+                          handler:nil];
+  }
+
+  // execute a script to create an export archive package in /tmp, and report
+  // any errors
+  NSString *str = @"tell application \"Microsoft Entourage\" "
+    "to export archive to \"/tmp/EntourageArchive.rge\" "
+    "item types (mail items)";
+
+  NSAppleScript *script = [[[NSAppleScript alloc] initWithSource:str] autorelease];
+  NSDictionary *errorDict = nil;
+  [script executeAndReturnError:&errorDict];
+
+  if (errorDict) {
+    NSString *title = NSLocalizedString(@"RGEImportFailed", nil);
+    NSString *msg = [errorDict objectForKey:NSAppleScriptErrorMessage];
+    NSBeginAlertSheet(title, nil, nil, nil,
+                      [self window], self, NULL,
+                      nil, nil, msg);
+    return;
+  }
+
+  // add the exported directory's Mail folder as the folder containing mbox
+  // files
+  NSString *path = @"/tmp/EntourageArchive.rge/Mail";
+  [self addMailboxesAtPath:path
+                   typeTag:kEntourageRGETag];
+}
+
+// addMailboxes is sent by menu items with a tag for the kind of mailbox to add
+- (IBAction)addMailboxes:(id)sender {
   if (isUploading_) return;
 
   int tag = [sender tag];
 
   NSOpenPanel *panel = [NSOpenPanel openPanel];
-
-  [panel setCanChooseDirectories:YES];
-  [panel setCanChooseFiles:NO];
   [panel setPrompt:NSLocalizedString(@"SelectButton", nil)]; // "Select"
-  [panel setMessage:NSLocalizedString(@"SelectTitle", nil)]; // "Select Mail Directory"
+
+  NSArray *types = nil;
+  if (tag == kEntourageRGETag) {
+    // select "files" with extension rge, though it's really a package directory
+    [panel setCanChooseDirectories:NO];
+    [panel setCanChooseFiles:YES];
+    [panel setMessage:NSLocalizedString(@"SelectRGETitle", nil)]; // "Select rge file"
+    types = [NSArray arrayWithObject:@"rge"];
+  } else {
+    // select any folder
+    [panel setCanChooseDirectories:YES];
+    [panel setCanChooseFiles:NO];
+    [panel setMessage:NSLocalizedString(@"SelectTitle", nil)]; // "Select Mail Directory"
+  }
 
   [panel beginSheetForDirectory:nil
                            file:nil
+                          types:types
                  modalForWindow:[self window]
                   modalDelegate:self
                  didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
@@ -484,16 +539,22 @@ static EmUpWindowController* gEmUpWindowController = nil;
 
   if (returnCode != NSOKButton) return;
 
-  enum {
-    // kinds of mail folders
-    kAppleMailTag = 0,
-    kMBoxTag = 1,         // mbox files
-    kMaildirTag = 2       // Maildir directories and dot subdirectories
-  };
-
   int tag = (int)contextInfo;
 
   NSString *path = [panel filename];
+  
+  if (tag == kEntourageRGETag) {
+    // look in the Mail subdirectory of the Entourage archive; from there,
+    // it's all mbox directories
+    path = [path stringByAppendingPathComponent:@"Mail"]; 
+  }
+
+  [self addMailboxesAtPath:path
+                   typeTag:tag];
+}
+
+- (void)addMailboxesAtPath:(NSString *)path typeTag:(int)tag {
+
   NSString *shortPath = [path stringByAbbreviatingWithTildeInPath];
   NSString *longPath = [path stringByStandardizingPath];
 
@@ -515,8 +576,14 @@ static EmUpWindowController* gEmUpWindowController = nil;
       break;
     }
 
+    case kEntourageRGETag:
     case kMBoxTag: {
-      template = NSLocalizedString(@"MBoxPathTemplate", nil); // "MBox - %@"
+      if (tag == kMBoxTag) {
+        template = NSLocalizedString(@"MBoxPathTemplate", nil); // "MBox - %@"
+      } else {
+        // "Entourage - %@"
+        template = NSLocalizedString(@"EntouragePathTemplate", nil);
+      }
       NSString *macRootName = [NSString stringWithFormat:template, shortPath];
       MBoxItemsController *mbox;
       mbox = [[[MBoxItemsController alloc] initWithMailFolderPath:longPath

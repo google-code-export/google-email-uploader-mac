@@ -106,8 +106,11 @@
 - (IBAction)reloadMailboxesClicked:(id)sender;
 
 // addMailboxes is sent by menu items with a tag of 0 (Apple), 1 (Eudora),
-// or 2 (Thunderbird.) 
+// 2 (Thunderbird), or 3 (Entourage RGE)
 - (IBAction)addMailboxes:(id)sender;
+
+// import will use Apple script to ask Entourage to create an RGE archive
+- (IBAction)importRGEArchiveFromEntourage:(id)sender;
 
 - (void)setSimulateUploads:(BOOL)flag;
 

@@ -60,6 +60,7 @@
 "AppleMailPathTemplate" = "Apple Mail - %@";
 "MBoxPathTemplate" = "MBox - %@";
 "MaildirPathTemplate" = "Maildir - %@";
+"EntouragePathTemplate" = "Entourage - %@";
 
 "MailboxPartiallySelectedTemplate" = "%@ (%u of %u)";
 "MailboxFullySelectedTemplate" = "%@ (%u)";
@@ -74,6 +75,8 @@
 /* Select additional mailbox sheet */
 "SelectButton" = "Select";
 "SelectTitle" = "Select Mail Directory";
+"SelectRGETitle" = "Select rge file";
+"RGEImportFailed" = "Entourage Import Failed";
 
 /* Quit now sheet */
 "QuitNowTitle" = "Quit now?";
