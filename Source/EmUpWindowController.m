@@ -33,8 +33,10 @@ NSString *const kTabViewItemSkipped = @"Skipped";
 - (void)updateUI;
 - (NSString *)displayTimeForSeconds:(unsigned int)seconds;
 
-- (void)addMailboxesAtPath:(NSString *)path typeTag:(int)tag;
-
+- (void)addMailboxesAtPath:(NSString *)path
+               displayPath:(NSString *)displayPath
+                   typeTag:(int)tag;
+  
 // "backing off" happens when we get a status 503 on an entry;
 // delays happen normally to keep our upload throttled to
 // 1 message per second (in slow upload mode)
@@ -468,24 +470,51 @@ enum {
   kEntourageRGETag = 3
 };
 
+- (NSString *)entourageArchiveImportPath {
+  NSString *tempPath = NSTemporaryDirectory();
+  NSString *const archiveName = @"EntourageArchive.rge";
+  NSString *archivePath = [tempPath stringByAppendingPathComponent:archiveName];
+  return archivePath;
+}
+
+- (void)deleteImportedEntourageArchive {
+  NSString *archivePath = [self entourageArchiveImportPath];
+
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  [fileManager removeFileAtPath:archivePath
+                        handler:nil];
+}
+
 - (IBAction)importRGEArchiveFromEntourage:(id)sender {
+
+  NSString *archivePath = [self entourageArchiveImportPath];
+
   // if we previously exported the rge archive, remove it and make a fresh
   // export
-  NSFileManager *fileManager = [NSFileManager defaultManager];
-  if ([fileManager fileExistsAtPath:@"/tmp/EntourageArchive.rge"]) {
-    [fileManager removeFileAtPath:@"/tmp/EntourageArchive.rge"
-                          handler:nil];
-  }
+  [self deleteImportedEntourageArchive];
 
   // execute a script to create an export archive package in /tmp, and report
   // any errors
-  NSString *str = @"tell application \"Microsoft Entourage\" "
-    "to export archive to \"/tmp/EntourageArchive.rge\" "
-    "item types (mail items)";
+  NSString *template = @"tell application \"Microsoft Entourage\" "
+    "to export archive to \"%@\" item types (mail items)";
+  NSString *scriptStr = [NSString stringWithFormat:template, archivePath];
 
-  NSAppleScript *script = [[[NSAppleScript alloc] initWithSource:str] autorelease];
+  // since the import AppleScript is synchronous and non-cancellable,
+  // we'll switch the UI to the "loading mailboxes" state and force
+  // a message indicating the app is busy
+
+  [self beginningLoadingMailboxes];
+
+  // "Importing Entourage mail; please wait"
+  NSString *busyStr = NSLocalizedString(@"RGEImportBusy", nil);
+  [messagesTransferredField_ setStringValue:busyStr];
+  [messagesTransferredField_ display];
+
+  NSAppleScript *script = [[[NSAppleScript alloc] initWithSource:scriptStr] autorelease];
   NSDictionary *errorDict = nil;
   [script executeAndReturnError:&errorDict];
+
+  [self endingLoadingMailboxes];
 
   if (errorDict) {
     NSString *title = NSLocalizedString(@"RGEImportFailed", nil);
@@ -498,8 +527,12 @@ enum {
 
   // add the exported directory's Mail folder as the folder containing mbox
   // files
-  NSString *path = @"/tmp/EntourageArchive.rge/Mail";
-  [self addMailboxesAtPath:path
+  NSString *mailPath = [archivePath stringByAppendingPathComponent:@"Mail"];
+
+  NSString *locationInfo = NSLocalizedString(@"RGEImportDescription", nil); // "imported
+
+  [self addMailboxesAtPath:mailPath
+               displayPath:locationInfo
                    typeTag:kEntourageRGETag];
 }
 
@@ -548,15 +581,18 @@ enum {
     // it's all mbox directories
     path = [path stringByAppendingPathComponent:@"Mail"]; 
   }
+  
+  NSString *shortPath = [path stringByAbbreviatingWithTildeInPath];
+  NSString *longPath = [path stringByStandardizingPath];
 
-  [self addMailboxesAtPath:path
+  [self addMailboxesAtPath:longPath
+               displayPath:shortPath
                    typeTag:tag];
 }
 
-- (void)addMailboxesAtPath:(NSString *)path typeTag:(int)tag {
-
-  NSString *shortPath = [path stringByAbbreviatingWithTildeInPath];
-  NSString *longPath = [path stringByStandardizingPath];
+- (void)addMailboxesAtPath:(NSString *)path
+               displayPath:(NSString *)displayPath
+                   typeTag:(int)tag {
 
   [self beginningLoadingMailboxes];
 
@@ -566,10 +602,10 @@ enum {
 
     case kAppleMailTag: {
       template = NSLocalizedString(@"AppleMailPathTemplate", nil); // "Apple Mail - %@"
-      NSString *appleRootName = [NSString stringWithFormat:template, shortPath];
+      NSString *appleRootName = [NSString stringWithFormat:template, displayPath];
 
       AppleMailItemsController *appleMail;
-      appleMail = [[[AppleMailItemsController alloc] initWithMailFolderPath:longPath
+      appleMail = [[[AppleMailItemsController alloc] initWithMailFolderPath:path
                                                                    rootName:appleRootName
                                                                   isMaildir:NO] autorelease];
       [itemsControllers_ addObject:appleMail];
@@ -584,9 +620,9 @@ enum {
         // "Entourage - %@"
         template = NSLocalizedString(@"EntouragePathTemplate", nil);
       }
-      NSString *macRootName = [NSString stringWithFormat:template, shortPath];
+      NSString *macRootName = [NSString stringWithFormat:template, displayPath];
       MBoxItemsController *mbox;
-      mbox = [[[MBoxItemsController alloc] initWithMailFolderPath:longPath
+      mbox = [[[MBoxItemsController alloc] initWithMailFolderPath:path
                                                          rootName:macRootName] autorelease];
       [itemsControllers_ addObject:mbox];
       break;
@@ -594,10 +630,11 @@ enum {
 
     case kMaildirTag: {
       template = NSLocalizedString(@"MaildirPathTemplate", nil); // "Maildir - %@"
-      NSString *appleRootName = [NSString stringWithFormat:template, shortPath];
+      NSString *appleRootName = [NSString stringWithFormat:template,
+                                 displayPath];
 
       AppleMailItemsController *maildirController;
-      maildirController = [[[AppleMailItemsController alloc] initWithMailFolderPath:longPath
+      maildirController = [[[AppleMailItemsController alloc] initWithMailFolderPath:path
                                                                            rootName:appleRootName
                                                                           isMaildir:YES] autorelease];
       [itemsControllers_ addObject:maildirController];

@@ -124,6 +124,8 @@
     if (!isMaildir_
         && ![partialPath hasPrefix:@"IMAP-"]
         && ![partialPath hasPrefix:@"POP-"]
+        && ![partialPath hasPrefix:@"Exchange IMAP-"]
+        && ![partialPath hasPrefix:@"EWS-"]
         && ![partialPath hasPrefix:@"Mailboxes"]) {
 
       [enumerator skipDescendents];

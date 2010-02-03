@@ -34,6 +34,11 @@
   return YES;
 }
 
+- (void)applicationWillTerminate:(NSNotification *)note {
+  EmUpWindowController* windowController = [EmUpWindowController sharedEmUpWindowController];
+  [windowController deleteImportedEntourageArchive];
+}
+
 - (IBAction)importFromEntourage:(id)sender {
   EmUpWindowController* windowController = [EmUpWindowController sharedEmUpWindowController];
   [windowController importRGEArchiveFromEntourage:sender];
