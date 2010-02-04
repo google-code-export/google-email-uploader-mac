@@ -37,4 +37,6 @@
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
 
+- (IBAction)showHelp:(id)sender;
+
 @end
