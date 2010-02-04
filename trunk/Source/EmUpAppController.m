@@ -39,6 +39,12 @@
   [windowController deleteImportedEntourageArchive];
 }
 
+- (IBAction)showHelp:(id)sender {
+  NSString *urlStr = @"http://code.google.com/p/google-email-uploader-mac/";
+  NSURL *url = [NSURL URLWithString:urlStr];
+  [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
 - (IBAction)importFromEntourage:(id)sender {
   EmUpWindowController* windowController = [EmUpWindowController sharedEmUpWindowController];
   [windowController importRGEArchiveFromEntourage:sender];
