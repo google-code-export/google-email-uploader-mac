@@ -27,6 +27,9 @@
 - (GDataEntryMailItem *)mailItemEntryForMaildirPath:(NSString *)path
                                         mailboxName:(NSString *)mailboxName
                                             message:(NSMutableString *)emlxString;
+- (void)insertExternalPartFilesForMessagePath:(NSString *)path
+                                  messageText:(NSMutableString *)emlxString
+                                      headers:(NSString *)headers;  
 - (void)setLastUploadedItem:(OutlineViewItemApple *)item;
 @end
 
@@ -441,7 +444,18 @@
   newStr = [EmUpUtilities messageTextWithAlteredHeadersForMessageText:emlxString
                                                             endOfLine:@"\n"];
   [emlxString setString:newStr];
-
+  
+  NSString *headers = [EmUpUtilities headersForMessageText:emlxString
+                                                 endOfLine:@"\n"];
+  if (headers == nil) {
+    NSLog(@"could not find headers in message file: %@", path);
+  } else {
+    // add emlxpart files where the enclosures are missing from the emlx file
+    [self insertExternalPartFilesForMessagePath:path
+                                    messageText:emlxString
+                                        headers:headers];  
+  }
+  
   GDataEntryMailItem *entry = [GDataEntryMailItem mailItemWithRFC822String:emlxString];
 
   [entry setProperty:mailboxName
@@ -455,12 +469,6 @@
 
   [entry setProperty:[NSValue valueWithRange:completeMsgRange]
               forKey:kEmUpMessageRangeKey];
-
-  NSString *headers = [EmUpUtilities headersForMessageText:emlxString
-                                                 endOfLine:@"\n"];
-  if (headers == nil) {
-    NSLog(@"could not find headers in message file: %@", path);
-  }
 
   NSString *messageID = [EmUpUtilities stringForHeader:@"Message-ID"
                                            fromHeaders:headers
@@ -595,6 +603,133 @@
 
   // done
   return entry;
+}
+
+// this method scans multipart Mail.app emlx messages looking for parts
+// lacking bodies but with non-zero X-Apple-Content-Length headers,
+// and tries to read in a separate emlxpart file and insert
+// it into emlxString as the missing part's body
+//
+// open question: does this apply only to message files ending in .partial.emlx
+// or to all emlx files?
+- (void)insertExternalPartFilesForMessagePath:(NSString *)path
+                                  messageText:(NSMutableString *)emlxString
+                                      headers:(NSString *)headers {
+
+  // we care about files with content type multipart/mixed
+  NSString *contentType = [EmUpUtilities stringForHeader:@"Content-Type"
+                                             fromHeaders:headers
+                                               endOfLine:@"\n"];
+  if ([contentType hasPrefix:@"multipart/mixed;"]) {
+
+    // scan to find the boundary separator of the emlx file's body parts
+    NSString *boundary = nil;
+    NSScanner *headerScanner = [NSScanner scannerWithString:contentType];
+    if ([headerScanner scanUpToString:@"boundary=" intoString:nil]
+        && [headerScanner scanString:@"boundary=" intoString:nil]
+        && [headerScanner scanUpToString:@"\n" intoString:&boundary]) {
+
+      // there is a boundary; search for a section which has no header
+      //
+      // boundaries start with -- and end with \n (or --\n at the end of file)
+      NSString *normalBoundary = [NSString stringWithFormat:@"--%@", boundary];
+
+      NSCharacterSet *wsSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+
+      NSScanner *bodyScanner = [NSScanner scannerWithString:emlxString];
+      [bodyScanner setScanLocation:[headers length]];
+
+      unsigned int partCounter = 0;
+
+      while (1) {
+        // find the start of the next part
+        partCounter++;
+
+        if ([bodyScanner scanString:normalBoundary intoString:nil]) {
+
+          // the last boundary is followed by "--" rather than a newline
+          if ([bodyScanner scanString:@"--" intoString:nil]) {
+            // we're done with this message
+            break;
+          }
+
+          // scan up to the next boundary to suck in all of this part
+          NSString *partStr = nil;
+          unsigned int partLocation = [bodyScanner scanLocation];
+
+          if ([bodyScanner scanUpToString:normalBoundary intoString:&partStr]) {
+            // make a "message" from this part's headers and body, and
+            // determine if Apple's header says the content has a length but
+            // the body is empty
+            NSString *partHeaders;
+            NSString *appleContentLen;
+
+            partHeaders = [EmUpUtilities headersForMessageText:partStr
+                                                     endOfLine:@"\n"];
+            appleContentLen = [EmUpUtilities stringForHeader:@"X-Apple-Content-Length"
+                                                 fromHeaders:partHeaders
+                                                   endOfLine:@"\n"];
+            if ([appleContentLen intValue] > 0) {
+
+              // determine if the body is empty
+              unsigned int partHeaderLen = [partHeaders length];
+              NSString *partBody = [partStr substringFromIndex:partHeaderLen];
+
+              partBody = [partBody stringByTrimmingCharactersInSet:wsSet];
+              if ([partBody length] == 0) {
+
+                // this body is empty; determine if there's a emlxpart file
+                // for this emlx file's missing part, like
+                //
+                //   emlx name:     9131.partial.emlx
+                //   emlxpart name: 9131.4.emlxpart
+
+                // get the first part of the emlxfile's name
+                NSString *fileName = [path lastPathComponent];
+                NSArray *fileNameParts = [fileName componentsSeparatedByString:@"."];
+                if ([fileNameParts count] > 1) {
+                  // form the part file name
+                  NSString *baseName = [fileNameParts objectAtIndex:0];
+                  NSString *const template = @"%@.%u.emlxpart";
+                  NSString *partFileName = [NSString stringWithFormat:template,
+                                            baseName, partCounter];
+                  NSString *dirPath = [path stringByDeletingLastPathComponent];
+                  NSString *partFilePath = [dirPath stringByAppendingPathComponent:partFileName];
+
+                  // read in the part's enclosure file, if it's present
+                  NSError *error = nil;
+                  NSString *fileContents = [[[NSString alloc] initWithContentsOfFile:partFilePath
+                                                                            encoding:NSUTF8StringEncoding
+                                                                               error:&error] autorelease];
+                  unsigned int partFileLen = [fileContents length];
+                  if (partFileLen > 0) {
+                    // insert the emlxpart as the body of the part's message
+                    // (following the part's header and extra newline)
+                    [emlxString insertString:fileContents
+                                     atIndex:(partLocation + partHeaderLen + 1)];
+
+                    // replace the scanner with one representing the overall
+                    // message with the additional enclosure inserted
+                    unsigned int oldLoc = [bodyScanner scanLocation];
+                    unsigned int newLoc = oldLoc + partFileLen;
+
+                    bodyScanner = [NSScanner scannerWithString:emlxString];
+                    [bodyScanner setScanLocation:newLoc];
+                  }
+                }
+              }
+            }
+          } else {
+            // could not find the part end boundary; bail
+            break;
+          }
+        } else {
+          // could not find the part start boundary; bail
+          break;
+        }
+      }
+    }
+  }
 }
 
 - (NSCharacterSet *)whitespaceAndNumbersSet {
