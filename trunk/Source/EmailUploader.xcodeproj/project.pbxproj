@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F18F370111B6B1700A12BBA /* ReleaseNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F18F36F111B6B1700A12BBA /* ReleaseNotes.txt */; };
 		4F1C63C50FABAA9E009B6712 /* MailUploadDoneSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C63C40FABAA9E009B6712 /* MailUploadDoneSound.mp3 */; };
 		4F2133080EDCC3E600C9DC0E /* OutlineViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2133070EDCC3E600C9DC0E /* OutlineViewItem.m */; };
 		4F2133230EDCC56700C9DC0E /* AppleMailItemsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2133220EDCC56700C9DC0E /* AppleMailItemsController.m */; };
@@ -95,6 +96,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4F18F36F111B6B1700A12BBA /* ReleaseNotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseNotes.txt; sourceTree = "<group>"; };
 		4F1C63C40FABAA9E009B6712 /* MailUploadDoneSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MailUploadDoneSound.mp3; sourceTree = "<group>"; };
 		4F2133060EDCC3E600C9DC0E /* OutlineViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineViewItem.h; sourceTree = "<group>"; };
 		4F2133070EDCC3E600C9DC0E /* OutlineViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlineViewItem.m; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				4F18F36F111B6B1700A12BBA /* ReleaseNotes.txt */,
 			);
 			name = CalendarSample;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				4F396E5E10053EB900DC1324 /* MainMenu.xib in Resources */,
 				4F396E6210053EDC00DC1324 /* EmUpWindow.xib in Resources */,
 				4F220A3D1006B3B20095751A /* truckmail.icns in Resources */,
+				4F18F370111B6B1700A12BBA /* ReleaseNotes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

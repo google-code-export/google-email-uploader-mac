@@ -135,8 +135,10 @@ static EmUpWindowController* gEmUpWindowController = nil;
   NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
   [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 
-  [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+  // we'll use a custom date format to avoid slashes in the tag, as slashes may
+  // be interpreted by IMAP clients as a folder hierarchy
   [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+  [dateFormatter setDateFormat:@"dd-MMM-yyyy"];
   NSString *dateStr = [dateFormatter stringFromDate:[NSDate date]];
 
   NSString *template = NSLocalizedString(@"UploadDateTemplate", nil); // "Uploaded %@"
