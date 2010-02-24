@@ -19,7 +19,7 @@ Additions
 Bug fixes
 
 - Changed default label's date format to avoid slashes which may be interpreted
-  by IMAP clients as a folder hierarchy
+  by IMAP clients as a folder hierarchy (thanks endorphinity)
 
 
 Release 1.1
