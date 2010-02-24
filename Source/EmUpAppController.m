@@ -17,8 +17,6 @@
 //  EmUpAppController.m
 //
 
-#include <Carbon/Carbon.h>
-
 #import "GDataHTTPFetcher.h"
 
 #import "EmUpAppController.h"
@@ -99,16 +97,18 @@
 // we'll check the version in our plist against the plist on the open
 // source site
 - (void)checkVersion {
-  NSString *const kLastCheckDateKey = @"lastVersionCheck";
+  NSString *const kLastCheckDateKey = @"LastVersionCheck";
+  NSString *const kForceUpdateKey = @"ForceUpdate";
+  NSString *const kSkipUpdateCheckKey = @"SkipUpdateCheck";
 
-  // determine if we've checked in the last 24 hours (or if the option key
-  // is down, which forces us to offer the update)
-  UInt32 currentModifiers = GetCurrentKeyModifiers();
-  BOOL shouldForceUpdate = ((currentModifiers & optionKey) != 0)
-    && ((currentModifiers & controlKey) != 0);
-
+  // determine if we've checked in the last 24 hours (or if the the preferences
+  // to force or skip an update are set)
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  BOOL shouldSkipUpdate = [defaults boolForKey:kSkipUpdateCheckKey];
+  if (shouldSkipUpdate) return;
+
   NSDate *lastCheckDate = [defaults objectForKey:kLastCheckDateKey];
+  BOOL shouldForceUpdate = [defaults boolForKey:kForceUpdateKey];
   if (lastCheckDate && !shouldForceUpdate) {
     // if the time since the last check is under a day, bail
     NSTimeInterval interval = - [lastCheckDate timeIntervalSinceNow];
