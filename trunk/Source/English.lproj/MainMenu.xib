@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="111"/>
+			<integer value="106"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -510,6 +510,24 @@
 									<reference key="NSOnImage" ref="807714090"/>
 									<reference key="NSMixedImage" ref="164488794"/>
 								</object>
+								<object class="NSMenuItem" id="663046820">
+									<reference key="NSMenu" ref="865734583"/>
+									<string key="NSTitle">Release Notes</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="807714090"/>
+									<reference key="NSMixedImage" ref="164488794"/>
+								</object>
+								<object class="NSMenuItem" id="1028466610">
+									<reference key="NSMenu" ref="865734583"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="807714090"/>
+									<reference key="NSMixedImage" ref="164488794"/>
+								</object>
 								<object class="NSMenuItem" id="968880479">
 									<reference key="NSMenu" ref="865734583"/>
 									<string key="NSTitle">Enable Network Logging to Desktop</string>
@@ -819,6 +837,14 @@
 					</object>
 					<int key="connectionID">262</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showReleaseNotes:</string>
+						<reference key="source" ref="627321379"/>
+						<reference key="destination" ref="663046820"/>
+					</object>
+					<int key="connectionID">265</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1058,6 +1084,8 @@
 							<reference ref="968880479"/>
 							<reference ref="1016207958"/>
 							<reference ref="346057962"/>
+							<reference ref="1028466610"/>
+							<reference ref="663046820"/>
 						</object>
 						<reference key="parent" ref="817604557"/>
 					</object>
@@ -1221,6 +1249,16 @@
 						<reference key="object" ref="287248884"/>
 						<reference key="parent" ref="847096813"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">263</int>
+						<reference key="object" ref="663046820"/>
+						<reference key="parent" ref="865734583"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">264</int>
+						<reference key="object" ref="1028466610"/>
+						<reference key="parent" ref="865734583"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1319,6 +1357,9 @@
 					<string>258.ImportedFromIB2</string>
 					<string>259.IBPluginDependency</string>
 					<string>259.ImportedFromIB2</string>
+					<string>263.IBPluginDependency</string>
+					<string>263.ImportedFromIB2</string>
+					<string>264.IBPluginDependency</string>
 					<string>29.IBEditorWindowLastContentRect</string>
 					<string>29.IBPluginDependency</string>
 					<string>29.ImportedFromIB2</string>
@@ -1352,7 +1393,7 @@
 					<boolean value="YES" id="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
-					<string>{{297, 1042}, {319, 83}}</string>
+					<string>{{297, 1012}, {319, 113}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1438,6 +1479,9 @@
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<reference ref="5"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{0, 1125}, {358, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
@@ -1484,7 +1528,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">262</int>
+			<int key="maxID">265</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1501,10 +1545,12 @@
 							<string>loggingCheckboxClicked:</string>
 							<string>reloadMailboxes:</string>
 							<string>showHelp:</string>
+							<string>showReleaseNotes:</string>
 							<string>simulateUploadsClicked:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

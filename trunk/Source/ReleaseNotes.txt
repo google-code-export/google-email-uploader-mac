@@ -8,10 +8,11 @@ Changes since 1.1
 
 Additions
 
-- Adds support for Apple Mail message enclosers in emlxpart files
+- Adds support for Apple Mail message enclosures in emlxpart files
 
-- Changes default label to a date format without slashes to avoid creating
-  folder hierarchies in IMAP clients
+- Checks for newer version on launch
+
+- Added a Release Notes item in the Help menu
 
 Bug fixes
 
