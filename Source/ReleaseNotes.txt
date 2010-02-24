@@ -4,6 +4,8 @@ Project site:      http://code.google.com/p/google-email-uploader-mac/
 Discussion group:  https://groups.google.com/group/google-email-uploader-mac
 
 
+Release 1.1.1
+24-February-2010
 Changes since 1.1
 
 Additions
