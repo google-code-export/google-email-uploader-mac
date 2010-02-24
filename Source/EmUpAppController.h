@@ -35,8 +35,8 @@
 
 - (IBAction)simulateUploadsClicked:(id)sender;
 
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
-
 - (IBAction)showHelp:(id)sender;
+
+- (IBAction)showReleaseNotes:(id)sender;
 
 @end
