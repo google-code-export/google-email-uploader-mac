@@ -50,6 +50,10 @@ _EXTERN const unsigned int kFastUploadMaxTickets   _INITIALIZE_AS(10);
 // we can upload up to 500 messages in fast mode
 _EXTERN const unsigned int kFastModeMaxMessages _INITIALIZE_AS(500);
 
+// we won't intentionally create more tickets when 10 MB in messages
+// are uploading at once
+_EXTERN const unsigned int kMaxTotalUploadDataSize _INITIALIZE_AS(1024 * 1024 * 10);
+
 //
 // notifications
 //

@@ -1016,7 +1016,14 @@ enum {
     // upload the entry now
     [self uploadEntry:entryToUpload];
     
-    if (isSlowUploadMode_ || ([uploadTickets_ count] >= maxTickets)) {
+    // calculate the size of messages being uploaded
+    NSNumber *totalUploadSizeNum = [uploadTickets_ valueForKeyPath:@"postedObject.uploadData.@sum.length"];
+    unsigned long long totalUploadSize = [totalUploadSizeNum unsignedLongLongValue];
+    BOOL hasMaxedUploadSize = (totalUploadSize > kMaxTotalUploadDataSize);
+
+    if (isSlowUploadMode_
+        || ([uploadTickets_ count] >= maxTickets)
+        || hasMaxedUploadSize) {
       break;
     }
   }
