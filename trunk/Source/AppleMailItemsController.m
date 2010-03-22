@@ -333,16 +333,16 @@
         // index is always zero
 
         NSMutableString *emlxString;
-        emlxString = [[NSMutableString alloc] initWithContentsOfFile:path
-                                                            encoding:NSUTF8StringEncoding
-                                                               error:&error];
+        emlxString = [NSMutableString stringWithContentsOfFile:path
+                                                      encoding:NSUTF8StringEncoding
+                                                         error:&error];
         if ([error code] == NSFileReadInapplicableStringEncodingError
             && [[error domain] isEqual:NSCocoaErrorDomain]) {
 
           // try another encoding. I'm not sure why it's sometimes Latin-1
-          emlxString = [[NSMutableString alloc] initWithContentsOfFile:path
-                                                              encoding:NSISOLatin1StringEncoding
-                                                                 error:&error];
+          emlxString = [NSMutableString stringWithContentsOfFile:path
+                                                        encoding:NSISOLatin1StringEncoding
+                                                           error:&error];
         }
 
         if (!emlxString) {
