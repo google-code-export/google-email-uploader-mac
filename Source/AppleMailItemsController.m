@@ -702,7 +702,8 @@
                                                                             encoding:NSUTF8StringEncoding
                                                                                error:&error] autorelease];
                   unsigned int partFileLen = [fileContents length];
-                  if (partFileLen > 0) {
+                  if (partFileLen > 0
+                    && ([emlxString length] + partFileLen) < kMaxMesssageSize) {
                     // insert the emlxpart as the body of the part's message
                     // (following the part's header and extra newline)
                     [emlxString insertString:fileContents
