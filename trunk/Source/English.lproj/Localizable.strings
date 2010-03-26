@@ -99,3 +99,4 @@
 "UpdateAvailableMsg" = "Click “Update Now” to visit the project site.\n\n(Currently running: %@; Latest version: %@)";
 "UpdateButton" = "Update Now";
 "DontUpdateButton" = "Don't Update";
+"ReleaseNotesButton" = "Release Notes";

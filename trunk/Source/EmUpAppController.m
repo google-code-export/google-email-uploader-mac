@@ -165,8 +165,9 @@
       NSString *msg = NSLocalizedString(@"UpdateAvailableMsg", nil);
       NSString *updateBtn = NSLocalizedString(@"UpdateButton", nil); // "Update Now"
       NSString *dontUpdateBtn = NSLocalizedString(@"DontUpdateButton", nil); // "Don't Update"
+      NSString *releaseNotesBtn = NSLocalizedString(@"ReleaseNotesButton", nil); // "Release Notes"
 
-      NSBeginAlertSheet(title, updateBtn, dontUpdateBtn, nil,
+      NSBeginAlertSheet(title, updateBtn, dontUpdateBtn, releaseNotesBtn,
                         [windowController window], self,
                         @selector(updateSheetDidEnd:returnCode:contextInfo:),
                         nil, nil, msg, thisVersion, latestVersion);
@@ -178,9 +179,16 @@
 
 - (void)updateSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
 
-  if (returnCode == NSOKButton) {
-    // open the project page
-    NSString *urlStr = @"https://code.google.com/p/google-email-uploader-mac/";
+  NSString *urlStr = nil;
+  if (returnCode == NSAlertDefaultReturn) {
+    // downloads page
+    urlStr = @"https://code.google.com/p/google-email-uploader-mac/downloads/list";
+  } else if (returnCode == NSAlertOtherReturn) {
+    // release notes file in the source tree
+    urlStr = @"https://google-email-uploader-mac.googlecode.com/svn/trunk/Source/ReleaseNotes.txt";
+  }
+
+  if (urlStr) {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlStr]];
   }
 }
