@@ -3,6 +3,22 @@ Google Email Uploader for Mac Release Notes
 Project site:      http://code.google.com/p/google-email-uploader-mac/
 Discussion group:  https://groups.google.com/group/google-email-uploader-mac
 
+Release 1.1.2
+30-March-2010
+
+Additions
+
+- Update dialog offers to show release notes
+
+Bug Fixes
+
+- Fixes a memory leak when uploading Apple Mail messages
+
+- Avoids inserting Apple Mail enclosures when they'd make the message exceed the
+  31 MB upload limit on message size
+
+- Avoids uploading more than 10 MB worth of messages at once
+
 
 Release 1.1.1
 24-February-2010
