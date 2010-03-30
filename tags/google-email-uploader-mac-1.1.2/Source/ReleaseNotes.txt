@@ -1,0 +1,63 @@
+Google Email Uploader for Mac Release Notes
+
+Project site:      http://code.google.com/p/google-email-uploader-mac/
+Discussion group:  https://groups.google.com/group/google-email-uploader-mac
+
+Release 1.1.2
+30-March-2010
+
+Additions
+
+- Update dialog offers to show release notes
+
+Bug Fixes
+
+- Fixes a memory leak when uploading Apple Mail messages
+
+- Avoids inserting Apple Mail enclosures when they'd make the message exceed the
+  31 MB upload limit on message size
+
+- Avoids uploading more than 10 MB worth of messages at once
+
+
+Release 1.1.1
+24-February-2010
+Changes since 1.1
+
+Additions
+
+- Adds support for Apple Mail message enclosures in emlxpart files
+
+- Checks for newer version on launch
+
+- Added a Release Notes item in the Help menu
+
+Bug fixes
+
+- Changed default label's date format to avoid slashes which may be interpreted
+  by IMAP clients as a folder hierarchy (thanks endorphinity)
+
+
+Release 1.1
+3-February-2010
+Changes since 1.0
+
+Additions
+
+- Adds support for uploading mbox files from inside Entourage rge archives
+
+- Adds support for using AppleScript to make Entourage export a temporary rge archive
+
+- Displays server-supplied authentication error messages
+
+- Searches for mail in Mail.app folders beginning with EWS- and Exchange IMAP-
+
+Bug fixes
+
+- Top help menu item now opens project page in browser.
+
+
+Release 1.0
+26-January-2010
+
+Initial release.
