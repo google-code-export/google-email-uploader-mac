@@ -96,6 +96,10 @@
 
 // we'll check the version in our plist against the plist on the open
 // source site
+//
+// for testing, use
+//   defaults write com.google.EmailUploader ForceUpdate "1"
+//
 - (void)checkVersion {
   NSString *const kLastCheckDateKey = @"LastVersionCheck";
   NSString *const kForceUpdateKey = @"ForceUpdate";
@@ -185,7 +189,7 @@
     urlStr = @"https://code.google.com/p/google-email-uploader-mac/downloads/list";
   } else if (returnCode == NSAlertOtherReturn) {
     // release notes file in the source tree
-    urlStr = @"https://google-email-uploader-mac.googlecode.com/svn/trunk/Source/ReleaseNotes.txt";
+    urlStr = @"http://code.google.com/p/google-email-uploader-mac/source/browse/trunk/Source/ReleaseNotes.txt";
   }
 
   if (urlStr) {
