@@ -139,6 +139,63 @@
   [fetcher setUserData:[NSNumber numberWithBool:shouldForceUpdate]];
 }
 
+- (NSString *)appVersionForCurrentSystemVersionWithMap:(NSDictionary *)versionMap {
+  // using a dictionary mapping system version ranges to app versions, like
+  //  -10.4.11     : 1.1.2
+  //  10.5-10.5.8  : 1.1.3
+  //  10.6-        : 1.1.4
+  // find the latest app version for the current system
+  //
+  // note: the system ranges should have no holes or overlapping system
+  //       versions, and should not be order-dependent
+
+  SInt32 systemMajor = 0, systemMinor = 0, systemRelease = 0;
+  (void) Gestalt(gestaltSystemVersionMajor, &systemMajor);
+  (void) Gestalt(gestaltSystemVersionMinor, &systemMinor);
+  (void) Gestalt(gestaltSystemVersionBugFix, &systemRelease);
+
+  NSString *systemVersion = [NSString stringWithFormat:@"%d.%d.%d",
+                             (int)systemMajor, (int)systemMinor, (int)systemRelease];
+  NSString *versionRange;
+  GDATA_FOREACH_KEY(versionRange, versionMap) {
+
+    NSString *lowSystemVersion = nil;
+    NSString *dash = nil;
+    NSString *highSystemVersion = nil;
+    NSComparisonResult comp1, comp2;
+
+    // parse "low", "low-", "low-high", or "-high"
+    NSScanner *scanner = [NSScanner scannerWithString:versionRange];
+    [scanner scanUpToString:@"-" intoString:&lowSystemVersion];
+    [scanner scanString:@"-" intoString:&dash];
+    [scanner scanUpToString:@"\r" intoString:&highSystemVersion];
+
+    BOOL doesMatchLow = YES;
+    BOOL doesMatchHigh = YES;
+
+    if (lowSystemVersion) {
+      comp1 = [GDataUtilities compareVersion:lowSystemVersion
+                                   toVersion:systemVersion];
+      doesMatchLow = (comp1 == NSOrderedSame
+                      || (dash != nil && comp1 == NSOrderedAscending));
+    }
+
+    if (highSystemVersion) {
+      comp2 = [GDataUtilities compareVersion:highSystemVersion
+                                   toVersion:systemVersion];
+      doesMatchHigh = (comp2 == NSOrderedSame
+                       || (dash != nil && comp2 == NSOrderedDescending));
+    }
+
+    if (doesMatchLow && doesMatchHigh) {
+      NSString *result = [versionMap objectForKey:versionRange];
+      return result;
+    }
+  }
+
+  return nil;
+}
+
 - (void)plistFetcher:(GDataHTTPFetcher *)fetcher finishedWithData:(NSData *)data {
   // convert the returns data to a plist dictionary
   NSString *errorStr = nil;
@@ -150,8 +207,21 @@
                                            errorDescription:&errorStr];
 
   if ([plist isKindOfClass:[NSDictionary class]]) {
-    // compare the plist's short version string with the one in this bundle
-    NSString *latestVersion = [plist objectForKey:@"CFBundleShortVersionString"];
+
+    // get the map of system versions to app versions, and step through the
+    // system version ranges to find the latest app version for this system
+    NSString *latestVersion;
+    NSDictionary *versionMap = [plist objectForKey:@"SystemToVersionMap"];
+    if (versionMap) {
+      // new, with the map
+      latestVersion = [self appVersionForCurrentSystemVersionWithMap:versionMap];
+    } else {
+      // old, without the map
+      latestVersion = [plist objectForKey:@"CFBundleShortVersionString"];
+    }
+
+    // compare the short version string in this bundle to the one from the
+    // map
     NSString *thisVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 
     NSComparisonResult result = [GDataUtilities compareVersion:thisVersion
