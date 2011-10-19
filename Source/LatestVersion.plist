@@ -4,5 +4,12 @@
 <dict>
 	<key>CFBundleShortVersionString</key>
 	<string>1.1.2</string>
+	<key>SystemToVersionMap</key>
+	<dict>
+		<key>-10.4.11</key>
+		<string>1.1.2</string>
+		<key>10.5-</key>
+		<string>1.2.0</string>
+	</dict>
 </dict>
 </plist>
