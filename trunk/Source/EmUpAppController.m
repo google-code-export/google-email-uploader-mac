@@ -17,7 +17,7 @@
 //  EmUpAppController.m
 //
 
-#import "GDataHTTPFetcher.h"
+#import "GTMHTTPFetcherLogging.h"
 
 #import "EmUpAppController.h"
 #import "EmUpWindowController.h"
@@ -82,7 +82,7 @@
 - (IBAction)loggingCheckboxClicked:(id)sender {
   // toggle the menu item's checkmark
   [loggingMenuItem_ setState:![loggingMenuItem_ state]];
-  [GDataHTTPFetcher setIsLoggingEnabled:[loggingMenuItem_ state]];
+  [GTMHTTPFetcher setLoggingEnabled:[loggingMenuItem_ state]];
 }
 
 - (IBAction)simulateUploadsClicked:(id)sender {
@@ -128,13 +128,10 @@
   // URL of our plist file in the sources online
   NSString *urlStr = @"http://google-email-uploader-mac.googlecode.com/svn/trunk/Source/LatestVersion.plist";
 
-  NSURL *plistURL = [NSURL URLWithString:urlStr];
-  NSURLRequest *request = [NSURLRequest requestWithURL:plistURL];
-  GDataHTTPFetcher *fetcher = [GDataHTTPFetcher httpFetcherWithRequest:request];
-
+  GTMHTTPFetcher *fetcher = [GTMHTTPFetcher fetcherWithURLString:urlStr];
+  [fetcher setComment:@"plist fetch"];
   [fetcher beginFetchWithDelegate:self
-                didFinishSelector:@selector(plistFetcher:finishedWithData:)
-                  didFailSelector:@selector(plistFetcher:failedWithError:)];
+                didFinishSelector:@selector(plistFetcher:finishedWithData:error:)];
 
   [fetcher setUserData:[NSNumber numberWithBool:shouldForceUpdate]];
 }
@@ -156,8 +153,7 @@
 
   NSString *systemVersion = [NSString stringWithFormat:@"%d.%d.%d",
                              (int)systemMajor, (int)systemMinor, (int)systemRelease];
-  NSString *versionRange;
-  GDATA_FOREACH_KEY(versionRange, versionMap) {
+  for (NSString *versionRange in versionMap) {
 
     NSString *lowSystemVersion = nil;
     NSString *dash = nil;
@@ -196,7 +192,15 @@
   return nil;
 }
 
-- (void)plistFetcher:(GDataHTTPFetcher *)fetcher finishedWithData:(NSData *)data {
+- (void)plistFetcher:(GTMHTTPFetcher *)fetcher
+    finishedWithData:(NSData *)data
+               error:(NSError *)error {
+  if (error) {
+    // nothing to do but report this on the console
+    NSLog(@"unable to fetch plist at %@, %@", [[fetcher mutableRequest] URL], error);
+    return;
+  }
+
   // convert the returns data to a plist dictionary
   NSString *errorStr = nil;
   NSDictionary *plist;
@@ -265,11 +269,6 @@
   if (urlStr) {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlStr]];
   }
-}
-
-- (void)plistFetcher:(GDataHTTPFetcher *)fetcher failedWithError:(NSError *)error {
-  // nothing to do but report this on the console
-  NSLog(@"unable to fetch plist at %@, %@", [[fetcher request] URL], error);
 }
 
 @end

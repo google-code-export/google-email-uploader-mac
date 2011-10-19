@@ -97,7 +97,8 @@
   // build a dictionary for all mailboxes
   NSFileManager *fileMgr = [NSFileManager defaultManager];
 
-  // mailFolderPath_ is typically @"~/Library/Mail"
+  // mailFolderPath_ is typically @"~/Library/Mail" for 10.5 & 10.6,
+  // @"~/Library/Mail/V2" for 10.7
   NSString *appleMailPath = [mailFolderPath_ stringByStandardizingPath];
 
   BOOL isDir = NO;

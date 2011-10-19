@@ -13,6 +13,14 @@
 		4F2133230EDCC56700C9DC0E /* AppleMailItemsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2133220EDCC56700C9DC0E /* AppleMailItemsController.m */; };
 		4F220A3D1006B3B20095751A /* truckmail.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4F220A3C1006B3B20095751A /* truckmail.icns */; };
 		4F29B8C90ED76F7800657E15 /* GDataEntryMailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29B8C80ED76F7800657E15 /* GDataEntryMailItem.m */; };
+		4F2FFD2C1448FC5C005DF95B /* GTMGatherInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2FFD091448FC5C005DF95B /* GTMGatherInputStream.m */; };
+		4F2FFD2D1448FC5C005DF95B /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2FFD0B1448FC5C005DF95B /* GTMHTTPFetcher.m */; };
+		4F2FFD2E1448FC5C005DF95B /* GTMHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2FFD101448FC5C005DF95B /* GTMHTTPFetcherLogging.m */; };
+		4F2FFD2F1448FC5C005DF95B /* GTMHTTPFetcherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2FFD121448FC5C005DF95B /* GTMHTTPFetcherService.m */; };
+		4F2FFD301448FC5C005DF95B /* GTMHTTPFetchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2FFD141448FC5C005DF95B /* GTMHTTPFetchHistory.m */; };
+		4F2FFD311448FC5C005DF95B /* GTMHTTPUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2FFD161448FC5C005DF95B /* GTMHTTPUploadFetcher.m */; };
+		4F2FFD321448FC5C005DF95B /* GTMMIMEDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2FFD181448FC5C005DF95B /* GTMMIMEDocument.m */; };
+		4F2FFD331448FC5C005DF95B /* GTMReadMonitorInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2FFD1A1448FC5C005DF95B /* GTMReadMonitorInputStream.m */; };
 		4F396DC81002C39500DC1324 /* GDataFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D301002C39500DC1324 /* GDataFramework.m */; };
 		4F396DC91002C39500DC1324 /* GDataUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D321002C39500DC1324 /* GDataUtilities.m */; };
 		4F396DCA1002C39500DC1324 /* GDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D361002C39500DC1324 /* GDataObject.m */; };
@@ -55,11 +63,6 @@
 		4F396DEF1002C39500DC1324 /* GDataBatchID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D831002C39500DC1324 /* GDataBatchID.m */; };
 		4F396DF01002C39500DC1324 /* GDataBatchStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D851002C39500DC1324 /* GDataBatchStatus.m */; };
 		4F396DF11002C39500DC1324 /* GDataBatchInterrupted.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D871002C39500DC1324 /* GDataBatchInterrupted.m */; };
-		4F396DF21002C39500DC1324 /* GDataHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D8A1002C39500DC1324 /* GDataHTTPFetcher.m */; };
-		4F396DF31002C39500DC1324 /* GDataHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D8C1002C39500DC1324 /* GDataHTTPFetcherLogging.m */; };
-		4F396DF41002C39500DC1324 /* GDataProgressMonitorInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D8E1002C39500DC1324 /* GDataProgressMonitorInputStream.m */; };
-		4F396DF51002C39500DC1324 /* GDataGatherInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D901002C39500DC1324 /* GDataGatherInputStream.m */; };
-		4F396DF61002C39500DC1324 /* GDataMIMEDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D921002C39500DC1324 /* GDataMIMEDocument.m */; };
 		4F396DF71002C39500DC1324 /* GDataServerError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396D941002C39500DC1324 /* GDataServerError.m */; };
 		4F396E021002C39500DC1324 /* GDataGeo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F396DAD1002C39500DC1324 /* GDataGeo.m */; };
 		4F396E5E10053EB900DC1324 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F396E5C10053EB900DC1324 /* MainMenu.xib */; };
@@ -105,6 +108,22 @@
 		4F220A3C1006B3B20095751A /* truckmail.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = truckmail.icns; sourceTree = "<group>"; };
 		4F29B8C80ED76F7800657E15 /* GDataEntryMailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataEntryMailItem.m; sourceTree = "<group>"; };
 		4F29B8CA0ED76F8000657E15 /* GDataEntryMailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataEntryMailItem.h; sourceTree = "<group>"; };
+		4F2FFD081448FC5C005DF95B /* GTMGatherInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGatherInputStream.h; sourceTree = "<group>"; };
+		4F2FFD091448FC5C005DF95B /* GTMGatherInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMGatherInputStream.m; sourceTree = "<group>"; };
+		4F2FFD0A1448FC5C005DF95B /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcher.h; sourceTree = "<group>"; };
+		4F2FFD0B1448FC5C005DF95B /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcher.m; sourceTree = "<group>"; };
+		4F2FFD0F1448FC5C005DF95B /* GTMHTTPFetcherLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherLogging.h; sourceTree = "<group>"; };
+		4F2FFD101448FC5C005DF95B /* GTMHTTPFetcherLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcherLogging.m; sourceTree = "<group>"; };
+		4F2FFD111448FC5C005DF95B /* GTMHTTPFetcherService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcherService.h; sourceTree = "<group>"; };
+		4F2FFD121448FC5C005DF95B /* GTMHTTPFetcherService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcherService.m; sourceTree = "<group>"; };
+		4F2FFD131448FC5C005DF95B /* GTMHTTPFetchHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetchHistory.h; sourceTree = "<group>"; };
+		4F2FFD141448FC5C005DF95B /* GTMHTTPFetchHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetchHistory.m; sourceTree = "<group>"; };
+		4F2FFD151448FC5C005DF95B /* GTMHTTPUploadFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPUploadFetcher.h; sourceTree = "<group>"; };
+		4F2FFD161448FC5C005DF95B /* GTMHTTPUploadFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPUploadFetcher.m; sourceTree = "<group>"; };
+		4F2FFD171448FC5C005DF95B /* GTMMIMEDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMMIMEDocument.h; sourceTree = "<group>"; };
+		4F2FFD181448FC5C005DF95B /* GTMMIMEDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMMIMEDocument.m; sourceTree = "<group>"; };
+		4F2FFD191448FC5C005DF95B /* GTMReadMonitorInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMReadMonitorInputStream.h; sourceTree = "<group>"; };
+		4F2FFD1A1448FC5C005DF95B /* GTMReadMonitorInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMReadMonitorInputStream.m; sourceTree = "<group>"; };
 		4F396D2D1002C39500DC1324 /* GData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GData.h; path = externals/GData/Source/GData.h; sourceTree = "<group>"; };
 		4F396D2E1002C39500DC1324 /* GDataDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataDefines.h; path = externals/GData/Source/GDataDefines.h; sourceTree = "<group>"; };
 		4F396D2F1002C39500DC1324 /* GDataFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataFramework.h; path = externals/GData/Source/GDataFramework.h; sourceTree = "<group>"; };
@@ -194,16 +213,6 @@
 		4F396D851002C39500DC1324 /* GDataBatchStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataBatchStatus.m; path = externals/GData/Source/Elements/GDataBatchStatus.m; sourceTree = "<group>"; };
 		4F396D861002C39500DC1324 /* GDataBatchInterrupted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataBatchInterrupted.h; path = externals/GData/Source/Elements/GDataBatchInterrupted.h; sourceTree = "<group>"; };
 		4F396D871002C39500DC1324 /* GDataBatchInterrupted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataBatchInterrupted.m; path = externals/GData/Source/Elements/GDataBatchInterrupted.m; sourceTree = "<group>"; };
-		4F396D891002C39500DC1324 /* GDataHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataHTTPFetcher.h; path = externals/GData/Source/Networking/GDataHTTPFetcher.h; sourceTree = "<group>"; };
-		4F396D8A1002C39500DC1324 /* GDataHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataHTTPFetcher.m; path = externals/GData/Source/Networking/GDataHTTPFetcher.m; sourceTree = "<group>"; };
-		4F396D8B1002C39500DC1324 /* GDataHTTPFetcherLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataHTTPFetcherLogging.h; path = externals/GData/Source/Networking/GDataHTTPFetcherLogging.h; sourceTree = "<group>"; };
-		4F396D8C1002C39500DC1324 /* GDataHTTPFetcherLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataHTTPFetcherLogging.m; path = externals/GData/Source/Networking/GDataHTTPFetcherLogging.m; sourceTree = "<group>"; };
-		4F396D8D1002C39500DC1324 /* GDataProgressMonitorInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataProgressMonitorInputStream.h; path = externals/GData/Source/Networking/GDataProgressMonitorInputStream.h; sourceTree = "<group>"; };
-		4F396D8E1002C39500DC1324 /* GDataProgressMonitorInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataProgressMonitorInputStream.m; path = externals/GData/Source/Networking/GDataProgressMonitorInputStream.m; sourceTree = "<group>"; };
-		4F396D8F1002C39500DC1324 /* GDataGatherInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataGatherInputStream.h; path = externals/GData/Source/Networking/GDataGatherInputStream.h; sourceTree = "<group>"; };
-		4F396D901002C39500DC1324 /* GDataGatherInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataGatherInputStream.m; path = externals/GData/Source/Networking/GDataGatherInputStream.m; sourceTree = "<group>"; };
-		4F396D911002C39500DC1324 /* GDataMIMEDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataMIMEDocument.h; path = externals/GData/Source/Networking/GDataMIMEDocument.h; sourceTree = "<group>"; };
-		4F396D921002C39500DC1324 /* GDataMIMEDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataMIMEDocument.m; path = externals/GData/Source/Networking/GDataMIMEDocument.m; sourceTree = "<group>"; };
 		4F396D931002C39500DC1324 /* GDataServerError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataServerError.h; path = externals/GData/Source/Networking/GDataServerError.h; sourceTree = "<group>"; };
 		4F396D941002C39500DC1324 /* GDataServerError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDataServerError.m; path = externals/GData/Source/Networking/GDataServerError.m; sourceTree = "<group>"; };
 		4F396DAC1002C39500DC1324 /* GDataGeo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDataGeo.h; path = externals/GData/Source/Geo/GDataGeo.h; sourceTree = "<group>"; };
@@ -338,9 +347,34 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4F2FFD071448FC5C005DF95B /* HTTPFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				4F2FFD081448FC5C005DF95B /* GTMGatherInputStream.h */,
+				4F2FFD091448FC5C005DF95B /* GTMGatherInputStream.m */,
+				4F2FFD0A1448FC5C005DF95B /* GTMHTTPFetcher.h */,
+				4F2FFD0B1448FC5C005DF95B /* GTMHTTPFetcher.m */,
+				4F2FFD0F1448FC5C005DF95B /* GTMHTTPFetcherLogging.h */,
+				4F2FFD101448FC5C005DF95B /* GTMHTTPFetcherLogging.m */,
+				4F2FFD111448FC5C005DF95B /* GTMHTTPFetcherService.h */,
+				4F2FFD121448FC5C005DF95B /* GTMHTTPFetcherService.m */,
+				4F2FFD131448FC5C005DF95B /* GTMHTTPFetchHistory.h */,
+				4F2FFD141448FC5C005DF95B /* GTMHTTPFetchHistory.m */,
+				4F2FFD151448FC5C005DF95B /* GTMHTTPUploadFetcher.h */,
+				4F2FFD161448FC5C005DF95B /* GTMHTTPUploadFetcher.m */,
+				4F2FFD171448FC5C005DF95B /* GTMMIMEDocument.h */,
+				4F2FFD181448FC5C005DF95B /* GTMMIMEDocument.m */,
+				4F2FFD191448FC5C005DF95B /* GTMReadMonitorInputStream.h */,
+				4F2FFD1A1448FC5C005DF95B /* GTMReadMonitorInputStream.m */,
+			);
+			name = HTTPFetcher;
+			path = externals/GData/Source/HTTPFetcher;
+			sourceTree = "<group>";
+		};
 		4F396D2C1002C39500DC1324 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4F2FFD071448FC5C005DF95B /* HTTPFetcher */,
 				4F396DAB1002C39500DC1324 /* Geo */,
 				4F396D881002C39500DC1324 /* Networking */,
 				4F396D411002C39500DC1324 /* Elements */,
@@ -457,16 +491,6 @@
 			children = (
 				4FC560EE10B33B0700B1DCCE /* GDataAuthenticationFetcher.m */,
 				4FC560EF10B33B0700B1DCCE /* GDataAuthenticationFetcher.h */,
-				4F396D891002C39500DC1324 /* GDataHTTPFetcher.h */,
-				4F396D8A1002C39500DC1324 /* GDataHTTPFetcher.m */,
-				4F396D8B1002C39500DC1324 /* GDataHTTPFetcherLogging.h */,
-				4F396D8C1002C39500DC1324 /* GDataHTTPFetcherLogging.m */,
-				4F396D8D1002C39500DC1324 /* GDataProgressMonitorInputStream.h */,
-				4F396D8E1002C39500DC1324 /* GDataProgressMonitorInputStream.m */,
-				4F396D8F1002C39500DC1324 /* GDataGatherInputStream.h */,
-				4F396D901002C39500DC1324 /* GDataGatherInputStream.m */,
-				4F396D911002C39500DC1324 /* GDataMIMEDocument.h */,
-				4F396D921002C39500DC1324 /* GDataMIMEDocument.m */,
 				4F396D931002C39500DC1324 /* GDataServerError.h */,
 				4F396D941002C39500DC1324 /* GDataServerError.m */,
 			);
@@ -519,7 +543,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EmailUploader" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CalendarSample */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -602,14 +633,17 @@
 				4F396DEF1002C39500DC1324 /* GDataBatchID.m in Sources */,
 				4F396DF01002C39500DC1324 /* GDataBatchStatus.m in Sources */,
 				4F396DF11002C39500DC1324 /* GDataBatchInterrupted.m in Sources */,
-				4F396DF21002C39500DC1324 /* GDataHTTPFetcher.m in Sources */,
-				4F396DF31002C39500DC1324 /* GDataHTTPFetcherLogging.m in Sources */,
-				4F396DF41002C39500DC1324 /* GDataProgressMonitorInputStream.m in Sources */,
-				4F396DF51002C39500DC1324 /* GDataGatherInputStream.m in Sources */,
-				4F396DF61002C39500DC1324 /* GDataMIMEDocument.m in Sources */,
 				4F396DF71002C39500DC1324 /* GDataServerError.m in Sources */,
 				4F396E021002C39500DC1324 /* GDataGeo.m in Sources */,
 				4FC560F010B33B0700B1DCCE /* GDataAuthenticationFetcher.m in Sources */,
+				4F2FFD2C1448FC5C005DF95B /* GTMGatherInputStream.m in Sources */,
+				4F2FFD2D1448FC5C005DF95B /* GTMHTTPFetcher.m in Sources */,
+				4F2FFD2E1448FC5C005DF95B /* GTMHTTPFetcherLogging.m in Sources */,
+				4F2FFD2F1448FC5C005DF95B /* GTMHTTPFetcherService.m in Sources */,
+				4F2FFD301448FC5C005DF95B /* GTMHTTPFetchHistory.m in Sources */,
+				4F2FFD311448FC5C005DF95B /* GTMHTTPUploadFetcher.m in Sources */,
+				4F2FFD321448FC5C005DF95B /* GTMMIMEDocument.m in Sources */,
+				4F2FFD331448FC5C005DF95B /* GTMReadMonitorInputStream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,7 +732,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DGDATA_REQUIRE_SERVICE_INCLUDES=1";
 				PREBINDING = NO;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.5;
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Werror",
@@ -715,7 +749,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DGDATA_REQUIRE_SERVICE_INCLUDES=1";
 				PREBINDING = NO;
-				SDKROOT = macosx10.4;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx10.5;
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Werror",

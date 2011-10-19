@@ -258,8 +258,7 @@ static EmUpWindowController* gEmUpWindowController = nil;
 
   // if there are no outline item controllers, tell the user to
   // pick a mail folder from the File menu
-  template = NSLocalizedString(@"SelectMailboxes", nil); // "Select mailboxes to upload"
-  NSString *outlineTitle = @"Select mailboxes to upload";
+  NSString *outlineTitle = NSLocalizedString(@"SelectMailboxes", nil); // "Select mailboxes to upload"
   if ([itemsControllers_ count] == 0) {
     outlineTitle = @"To select mailboxes to upload, choose \"Add Folder\" from the File menu";
   }
@@ -343,9 +342,7 @@ static EmUpWindowController* gEmUpWindowController = nil;
 - (unsigned int)countSelectedMessages {
   unsigned int count = 0;
 
-  id<MailItemController> itemController;
-
-  GDATA_FOREACH(itemController, itemsControllers_) {
+  for (id<MailItemController> itemController in itemsControllers_) {
     count += [itemController countSelectedMessages];
   }
   return count;
@@ -392,7 +389,17 @@ static EmUpWindowController* gEmUpWindowController = nil;
   [self beginningLoadingMailboxes];
 
   // create an item controller for Mail.app
-  NSString *appleMailPath = [@"~/Library/Mail" stringByStandardizingPath];
+  //
+  // Mail is stored in a V2 directory on Mac OS X 10.7 Lion
+  NSString *appleMailPath = [@"~/Library/Mail/V2" stringByStandardizingPath];
+  BOOL isDirectory = NO;
+  if (![fileMgr fileExistsAtPath:appleMailPath
+                     isDirectory:&isDirectory]
+      || !isDirectory) {
+    // Look for Mail.app's data on pre-Lion systems
+    appleMailPath = [@"~/Library/Mail" stringByStandardizingPath];
+  }
+
   NSString *rootNameStr;
   if ([fileMgr fileExistsAtPath:appleMailPath]) {
 
@@ -425,8 +432,7 @@ static EmUpWindowController* gEmUpWindowController = nil;
   NSString *tbirdProfilesPath = [@"~/Library/Thunderbird/Profiles" stringByStandardizingPath];
   NSArray *tbirdProfiles = [fileMgr directoryContentsAtPath:tbirdProfilesPath];
 
-  NSString *profileName;
-  GDATA_FOREACH(profileName, tbirdProfiles) {
+  for (NSString *profileName in tbirdProfiles) {
     if (![profileName hasPrefix:@"."]) {
       // thunderbird profiles are eight gibberish characters and a dot before
       // the profile name
@@ -1052,8 +1058,7 @@ enum {
   // preserve message properties, if checked by the user
   if ([preserveMailPropertiesCheckbox_ state] == NSOnState) {
     NSArray *props = [newEntry propertyForKey:kEmUpMailboxPropertiesKey];
-    NSString *property;
-    GDATA_FOREACH(property, props) {
+    for (NSString *property in props) {
       [newEntry addMailItemPropertyWithString:property];
     }
   }
@@ -1381,8 +1386,7 @@ enum {
 
   backoffCounter_ = 0;
 
-  id<MailItemController> itemController;
-  GDATA_FOREACH(itemController, itemsControllers_) {
+  for (id<MailItemController> itemController in itemsControllers_) {
     [itemController resetUpload];
   }
 

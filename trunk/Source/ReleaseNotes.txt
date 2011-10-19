@@ -3,6 +3,12 @@ Google Email Uploader for Mac Release Notes
 Project site:      http://code.google.com/p/google-email-uploader-mac/
 Discussion group:  https://groups.google.com/group/google-email-uploader-mac
 
+Release 1.2
+21-October-2011
+
+- Updated for compatibility with Mac OS X 10.7; losing compatibility with 10.4.
+
+
 Release 1.1.2
 30-March-2010
 

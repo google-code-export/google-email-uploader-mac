@@ -642,8 +642,7 @@ static const char* memsearch(const char* needle, unsigned long long needleLen,
           // add message properties
           NSArray *props = [self mailItemPropertiesForHeaders:headers
                                                     endOfLine:endOfLine];
-          NSString *property;
-          GDATA_FOREACH(property, props) {
+          for (NSString *property in props) {
             GDataMailItemProperty *prop = [GDataMailItemProperty valueWithString:property];
             [newEntry addMailItemProperty:prop];
           }
